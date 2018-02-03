@@ -5,7 +5,8 @@ import HomeComponent from '../components/home/homeComponent.js'
 import ProlistComponent from '../components/prolist/prolistComponent.js'
 
 const routes = (
-    <Route path="/" component={HomeComponent}>
+    <Route>
+        <Route path="/" component={HomeComponent}/>
         <Route path="prolist" component={ProlistComponent}/>
     </Route>
 )
