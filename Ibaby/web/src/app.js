@@ -9,6 +9,7 @@ import routes from './router'
 
 
 import 'antd-mobile/dist/antd-mobile.css';
+
 import './assets/css/base.scss'
 import './assets/font/iconfont.css'
 
