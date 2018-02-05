@@ -1,6 +1,7 @@
 ﻿/*重置样式表*/
 /*==========样式重置===========*/
-
+html,body{height:100%;}
+#app{height:100%;}
 body,h1,h2,h3,h4,p,a,input,img,ul,li,ol,dl,dt,dd{
 	padding:0;
 	margin:0;}
@@ -14,7 +15,7 @@ input{
 header,footer,section,main,nav{
 	display:block;}
 body{
-	font-size:0.213333rem;
+	font-size:0.426667rem;
 	font-family:"微软雅黑";
 }
 a{
