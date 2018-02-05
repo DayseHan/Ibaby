@@ -10,6 +10,7 @@ export default function homeReducer(state = {}, action){
         case ajaxConstants.AJAX_REQUESTED:
             newState.status = 1;
             newState.banner_result = action.result.data.results;
+            // console.log(newState.banner_result)
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || tabsConstants.TABS_RQUESTERROR):
             newState.status = -1;

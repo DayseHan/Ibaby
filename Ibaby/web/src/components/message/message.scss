@@ -1,0 +1,28 @@
+.messageheader{
+    height:1.2rem;background: #fff;border-bottom:0.013333rem solid #ccc;text-align:center;line-height:1.2rem;position:relative;
+    h1{font-size:0.533333rem;font-weight:normal;}
+    .icon-shangyiye1{position:absolute;left:0.133333rem;top:0;}
+}
+.messagenav{
+    display:flex;overflow: visible;width:100%;height:2.293333rem;padding: 0.066667rem 0;justify-content:space-around;align-items:center;background: #fff;margin-bottom:0.2rem;
+    a{
+        flex: 1;display: block;text-align: center;color:#000;
+        i{
+            display: block;font-size:0.8rem;color:#FFA3B1;
+        }
+    }
+}
+.messagecont{
+    background: #fff;
+    div{
+        width:100%;height:1.52rem;border-bottom:0.013333rem solid #ccc;position: relative;padding-top:0.133333rem;
+        p{padding:0.2rem 1rem 0 1.653333rem;}
+        p:nth-child(2){font-size:0.4rem;}
+        p:nth-child(3){font-size:0.293333rem;color:#ccc;}
+        i{display:inline-block;position: absolute;font-size:1rem;right:0.266667rem;top:0.266667rem;color:#ccc;}
+        .icon-xin{left:0.266667rem;color:#f60;}
+        .icon-wallet_icon{left:0.266667rem;color:skyblue;}
+        .icon-daipingjia{left:0.266667rem;color:#FFA3B1;}
+        .icon-xiayiye1{font-size:0.4rem;top:0.6rem;}
+    }
+}
