@@ -165,9 +165,12 @@ class UserComponent extends Component{
                     </div>
                 </div>
                 <div className="user2" style={{display:this.state._user2}}>
-                
-                    <BackComponent text={this.state.text}></BackComponent>
-                    <span onClick={this.show_toggle1.bind(this,"block","none")}></span>
+                    <div>
+                        <BackComponent text={this.state.text}></BackComponent>
+                        <span onClick={this.show_toggle1.bind(this,"block","none")}>
+                        </span>
+                    </div>
+                    
                     <ul>
                         <li><i className="iconfont icon-moban"></i>个人资料<i className="iconfont icon-xiayiye1"></i></li>
                         <li><i className="iconfont icon-baby"></i>孕育状态<i className="iconfont icon-xiayiye1"></i></li>
