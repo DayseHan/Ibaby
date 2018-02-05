@@ -9,12 +9,12 @@ class HeaderComponent extends Component{
         return (
             <div className="header">
                 <div className="header-container">
-                    <Link to="/" className="message">
+                    <Link to="message" className="message">
                         <i className="iconfont icon-pinglun1"></i>
                         <p>消息</p>
                     </Link>
                     <div>
-                        <Link to="/" className="search">
+                        <Link to="searchpage" className="search">
                             <i className="iconfont icon-search"></i>
                         </Link>
                         <Link to="/" className="saoyisao">
