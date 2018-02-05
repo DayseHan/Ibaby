@@ -5,7 +5,7 @@ import * as detailsConstants from './detailsConstarts.js'
 export function getGood(){
     return {
         url: '/get_details',
-        data: {id: 1}
+        data: {cateId: 100}
     }
 }
 

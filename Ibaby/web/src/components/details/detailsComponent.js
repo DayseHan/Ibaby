@@ -6,20 +6,22 @@ import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 class detailsComponent extends Component{
     componentWillMount(){
-        this.props.getGood()
-        
+        this.props.getGood().then(res =>{console.log(res)
+            this.state.cateImgs = res.data.results[0].cateImgs.split(',')
+        })
     }
     addCart(proItem){
         console.log(proItem.goodsName)
         this.props.addCart(proItem.goodsName);
+        this.addtoCart();
     }
     addtoCart(){
-        console.log(this.refs.details_sizeColor,this.animate(this.refs.details_sizeColor,{height:500 + 'px'}))
-        this.animate(this.refs.details_sizeColor,{height:972});
-        this.refs.overlay.style.display = 'block';
+        this.animate(this.refs.details_sizeColor,{bottom:0},function(){
+             this.refs.overlay.style.display = 'block';
+        }.bind(this));  
     }
     closethecart(){
-        this.animate(this.refs.details_sizeColor,{height:0});
+        this.animate(this.refs.details_sizeColor,{bottom:-947});
         this.refs.overlay.style.display = 'none';
     }
     countDown(){
@@ -129,11 +131,23 @@ class detailsComponent extends Component{
             })(attr)
         }   
     }
+    Add(){
+        if(this.state.count < 10){
+            this.setState({ count:this.state.count+1 });
+        }
+    }
+    Minus(){
+        if(this.state.count > 1){
+            this.setState({ count:this.state.count-1 });
+        }
+    }
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
         slideIndex: 0,
-    }
+        cateImgs: [],
+        count: 1
+    }   
     componentDidMount() {
         // simulate img loading
         this.countDown(),
@@ -157,31 +171,32 @@ class detailsComponent extends Component{
                         <i className="iconfont icon-msnui-more"></i>
                     </span>
                 </header>
-                <main className="main">
+                <main className="main">    
                      <Carousel
                       autoplay={false}
                       infinite
-                      selectedIndex={1}
-                      beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                      afterChange={index => console.log('slide to', index)}>
-                      {this.state.data.map(val => (
-                        <a
-                          key={val}
-                          href="http://www.alipay.com"
-                          style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                        >
-                          <img
-                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                            alt=""
-                            style={{ width: '100%', verticalAlign: 'top' }}
-                            onLoad={() => {
-                              // fire window resize event to change height
-                              window.dispatchEvent(new Event('resize'));
-                              this.setState({ imgHeight: 'auto' });
-                            }}
-                          />
-                        </a>
-                      ))}
+                      selectedIndex={0}
+                    >
+                      {
+                            this.state.cateImgs.map((item, idx) => {
+                            return(
+                            <a
+                              key={idx}
+                              href="http://www.alipay.com"
+                              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                            >
+                              <img
+                                src={item}
+                                alt=""
+                                style={{ width: '100%', verticalAlign: 'top' }}
+                                onLoad={() => {
+                                  // fire window resize event to change height
+                                  window.dispatchEvent(new Event('resize'));
+                                  this.setState({ imgHeight: 'auto' });
+                                }}
+                              />
+                            </a>)})
+                      }
                     </Carousel>
                     <div className="maindetails">
                         <p className="maindetails_t"><span>￥141.1</span><span>￥359</span><span>包邮</span></p>
@@ -205,28 +220,65 @@ class detailsComponent extends Component{
                     <div className="maindetails_size">
                         <span className="button" onClick={this.addtoCart.bind(this)}>请选择&nbsp;尺码&nbsp;颜色<i className="iconfont icon-xiayiye1"></i></span>       
                     </div>
-                    <div className="details_sizeColor" ref="details_sizeColor">
-                        <img/>
+                    <div className="maindetails_comment"><p>贝妈口碑<span>（111）</span></p><span>好评率<i>96%</i></span>
                     </div>
-                    <div className="overlay" ref="overlay" onClick={this.closethecart.bind(this)}></div>      
-                    {
-                        this.props.ajaxResult.map( item => {
-                            console.log(this.props.ajaxResult)
-                            return (
-                                <ul key={item.goodsId}>
-                                    <li>{item.goodsName}</li>
-                                    <li><input type="button" value="加入购物车" onClick={this.addCart.bind(this, item)}/></li>
-                                </ul>
-                            )
-                        })
-                    } 
+                    <div className="maindetails_comment_t"><p>晒图<span>（14）</span></p><p>尺寸不合身<span>（27）</span></p><p>质量很好<span>（27）</span></p><p>实惠<span>（111）</span></p><p>衣服不错<span>（111）</span></p><p>保暖性好<span>（111）</span></p><p>正品<span>（111）</span></p>
+                    </div>
+                    <ul className="maindetails_comment_main">
+                        <li>
+                            <h3>
+                                <span>
+                                    <img src="./src/assets/images/user1.jpg" alt="" />
+                                </span>
+                                <i>user</i>
+                            </h3>
+                            
+                            <p>简适的沙发让人一眼就看上，沙发腿的设计令人称赞，这样的沙发摆在眼前非常的好看，无论从正面、侧面、后面都很完美，很实用做起来很舒服，很有质感，就像一件完美的艺术品。</p>
+                        </li>
+                        <div>查看全部评论</div>
+                    </ul>
+                    <div className="maindetails_bottom">没有了~~~~</div>
+                    <div className="details_sizeColor" ref="details_sizeColor">
+                        <div className="details_sizeColor_top">
+                            <img src={this.state.cateImgs[0]}/>
+                            <div className="details_sizeColor_top_r">
+                                <div className="details_sizeColor_top_r_t">
+                                    <span>￥29</span><span onClick={this.closethecart.bind(this)}>&times;</span>
+                                </div>
+                                <span>请选择&nbsp;尺码&nbsp;颜色</span>
+                            </div>
+                        </div>
+                        <div className="details_sizeColor_center">
+                            <span className="details_sizeColor_common">颜色</span>
+                            <ul className="details_sizeColor_common_b">
+                                <li>蓝灰色调</li>
+                                <li>蓝灰色调</li>
+                                <li>蓝灰色调</li>
+                            </ul>
+                            <span className="details_sizeColor_common">尺码</span>
+                            <ul className="details_sizeColor_common_b">
+                                <li>蓝灰色调</li>
+                            </ul>
+                            <div className="details_sizeColor_qty">    
+                                <span>购买数量</span>
+                                <div>
+                                    <span onClick={this.Minus.bind(this)}>-</span>
+                                    <input type="text" value={this.state.count}/>
+                                    <span onClick={this.Add.bind(this)}>+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="details_sizeColor_button">确定</div>
+                    </div>
+                    <div className="overlay" ref="overlay" onClick={this.closethecart.bind(this)}>
+                    </div>
                 </main>
                 <footer className="foot">
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
                     <div><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
                     <div><span>立即购买</span></div>
-                    <div><span>加入购物车</span></div>
+                    <div onClick={this.addCart.bind(this)}><span>加入购物车</span></div>
                 </footer>
             </div>
         )
