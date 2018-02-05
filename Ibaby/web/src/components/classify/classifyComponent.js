@@ -100,7 +100,7 @@ class Classify extends Component{
                             Content of second tab
                         </div>
                     </Tabs>
-                </div>
+                </div> 
             </div>
         )
     }

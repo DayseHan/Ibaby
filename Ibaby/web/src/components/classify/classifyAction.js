@@ -5,3 +5,4 @@ export function getMenu(){
         url:'/menulist'
     }
 }
+ 
