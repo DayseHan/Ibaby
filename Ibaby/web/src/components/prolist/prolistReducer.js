@@ -10,7 +10,7 @@ export default function prolistReducer(state = {}, action){
         case ajaxConstants.AJAX_REQUESTED:
             newState.status = 1;
             newState.result = action.result.data.results;
-            console.log(newState.result)
+            // console.log(newState.result)
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || prolistConstants.ADDCART_RQUESTERROR):
             newState.status = -1;

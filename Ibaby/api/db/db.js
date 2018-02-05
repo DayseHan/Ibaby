@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 var db = mysql.createPool({
     connectionLimit: 10,
-    host: "localhost",
+    host: "10.3.136.12",
     user: 'root',
     password: '',
     database: 'ibaby',
@@ -25,16 +25,6 @@ module.exports = {
             if(error){
                 callback({state:false,error:error});
             }else if(results.length>0){
-                callback({state:true,data:{results,filters}});
-                console.log("select:查询成功!");
-            }
-        })
-    },
-    select2:function(sql,callback){
-        db.query(sql,function(error,results,filters){
-            if(error){
-                callback({state:false,error:error});
-            }else if(results.length>=0){
                 callback({state:true,data:{results,filters}});
                 console.log("select:查询成功!");
             }
