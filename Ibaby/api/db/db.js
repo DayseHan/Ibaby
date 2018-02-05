@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 var db = mysql.createPool({
     connectionLimit: 10,
-    host: "localhost",
+    host: "10.3.136.12",
     user: 'root',
     password: '',
     database: 'ibaby',
