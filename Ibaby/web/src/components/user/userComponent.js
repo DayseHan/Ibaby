@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from './userAction';
 import BackComponent from '../back/backComponent'
+import FooterComponent from '../footer/footerComponent'
 
 import './user.scss';
 
@@ -183,6 +184,10 @@ class UserComponent extends Component{
                         <li style={{display:this.state._quit}} onClick={this.show_toggle2.bind(this,"block","none")}><i></i>退出登录<i className="iconfont icon-xiayiye1"></i></li>
                     </ul>
                 </div>
+                <div style={{display:this.state._user1}}>
+                    <FooterComponent></FooterComponent>
+                </div>
+                
             </div>
         )
     }
