@@ -1,6 +1,7 @@
 ﻿/*重置样式表*/
 /*==========样式重置===========*/
-
+html,body{height:100%;}
+#app{height:100%;}
 body,h1,h2,h3,h4,p,a,input,img,ul,li,ol,dl,dt,dd{
 	padding:0;
 	margin:0;}
@@ -47,4 +48,3 @@ display: none;/*隐藏滚轮*/
 .icon-shouye:before { content: "\e600"; }
 
 .icon-camera:before { content: "\e501"; }
-

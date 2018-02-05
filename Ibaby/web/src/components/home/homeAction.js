@@ -1,8 +1,15 @@
 import * as ajaxConstants from '../../constants/ajaxConstants'
-import * as homeConstants from './homeConstants.js'
+import * as tabsConstants from './homeConstants.js'
 
-export function getGoods(){
+export function banner(){
     return {
-        url: '/get_product',
+        url: '/banner'
+    }
+}
+
+export function tabs() {
+    return {
+        types:[tabsConstants.TABS_RQUESTING, tabsConstants.TABS_RQUESTED, tabsConstants.TABS_RQUESTERROR],
+        url: '/tabs'
     }
 }
