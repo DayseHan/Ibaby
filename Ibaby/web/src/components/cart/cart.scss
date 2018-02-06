@@ -1,0 +1,188 @@
+
+.car{
+    font-size: 24px;
+    position:relative;
+    .minheight{
+        min-height:1180px;
+    }
+    .head{
+        .complete{
+            display:none;
+        }
+        width:100%;
+        position:fixed;
+        .am-navbar {
+            height:80px;
+            .am-navbar-title,.am-navbar-right{
+                font-size: 24px;
+                line-height:80px;
+            }
+        }
+    }
+    .footerbottom{
+        width:100%;
+        position:fixed;
+        bottom:0px;
+    }
+    .foot{
+        border-top:1px solid #ccc;
+        border-bottom:1px solid #ccc
+        width:100%;
+        position:fixed;
+        bottom:100px;
+        .am-navbar{
+            height:80px;
+            .am-navbar-left{
+                font-size: 24px;
+                line-height:80px;
+                .am-checkbox{
+                    margin-top: 26px;
+                }
+                .am-checkbox-wrapper{
+                    font-size: 24px;
+                    line-height:80px;
+                }
+            }
+            .am-navbar-right{
+                margin-right: 0;
+                .total,.closing{
+                    font-size: 24px;
+                }
+            }
+            .total{
+                color:red;
+                padding-right:20px;
+            }
+            .closing{
+                width:120px;
+                color:#fff;
+                line-height:80px;
+                text-align:center;
+                background:red;
+            }
+        }
+    }
+    .carlist{
+        padding-top:80px;
+        margin-bottom:50px;
+        .carhead{
+            height:50px;
+            overflow:hidden;
+            background:#fff;
+            margin-top:10px;
+            line-height:50px;
+            i{
+                float:left;
+                padding-left:20px;
+                font-size:32px;
+            }
+            .shop{
+                float:left;
+                width:200px;
+                padding-left:20px;
+                border-top:1px solid #e6e6e6;
+            }
+        }
+        li{
+            border-top:1px solid #e6e6e6;
+            border-bottom:1px solid #e6e6e6;
+            background:#fff;
+            overflow:hidden;
+            .toplist{
+                height:180px;
+            }
+        }
+        .lastextens{
+            height:30px;
+            line-height:30px;
+            border-top:1px solid #e6e6e6;
+            overflow:hidden;
+            padding-right:20px;
+            .extens{
+                float:right;
+                height:30px;
+                .exten ::before {
+                    content:"¥";
+                }
+            }
+        }
+        .am-checkbox-agree {
+            width:50px;
+            height:50px;
+            display:block;
+            float:left;
+            margin-top: 65px;
+        }
+        img{
+            width:180px;
+            height:180px;
+            float:left;
+        }
+        .content{
+            overflow:hidden;
+            .goodsName{       
+                padding-top:20px;
+                float:right;
+                width:480px;
+            }
+        }
+        .carcount{
+            display:none;
+            overflow:hidden;
+            .goodsName{
+                padding-left:50px;
+                float:left;
+                padding-top:30px;
+                width:300px;
+            }
+        }
+        .input{
+            padding-left:50px;
+            float:left;
+            padding-top:30px;
+            .reduct,.add{
+                float:left;
+                text-align:center;
+                line-height:50px;
+                width:50px;
+                height:50px;
+                background:#e6e6e6;
+            }
+            input{
+                margin:0 2px;
+                float:left;
+                text-align:center;
+                line-height:50px;
+                width:150px;
+                height:50px;
+                border:0;
+                background:#e6e6e6;
+            }
+        }
+        .introduce{
+            padding-top:20px;
+            padding-left:20px;
+            float:left;
+            width:420px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .compute{
+            padding-top:20px;
+            padding-left:20px;
+            overflow:hidden;
+            width:480px;
+            .price{
+                float:left;
+            }
+            .counts{
+                float:right;
+                padding-right:20px;
+                .count{
+                    float:right;
+                }
+            }
+        }
+    }
+}
