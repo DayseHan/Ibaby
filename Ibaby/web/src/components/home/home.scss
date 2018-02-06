@@ -23,11 +23,12 @@
                     img{
                         width:100%;height:4.92rem;
                     }
-                    p{font-size:0.32rem;padding:0.24rem;color:#000;}
-                    span{font-size:0.32rem;color:#FFA3B1}
+                    p{font-size:0.32rem;line-height:0.4rem;margin:0.24rem;color:#000;height:0.8rem;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+                    span{font-size:0.32rem;color:#FFA3B1;}
                     .count{float:right;color:#666;}
                 }
             }
        }
+       .nomore{color:#ccc;width:100%;height:2.666667rem;text-align:center;line-height:2.666667rem;}
     }
 }

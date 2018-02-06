@@ -26,7 +26,7 @@
         .searchinput{
             height:0.8rem;width:8.0rem;background: #eee;border-radius:0.4rem;margin:0 0.4rem;position:relative;
             i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
-            input{background:#eee;border:0 none;margin:0.133333rem 1.0rem;}
+            input{background:#eee;border:0 none;margin:0.133333rem 1.0rem;caret-color:red;}
         }
         .sousuo{height:0.8rem;line-height:0.8rem;color:#FF4965;}
     }

@@ -55,7 +55,6 @@ class CartComponent extends Component {
     render(){
         return (
             <div className="car">
-                <div className="minheight">
                 <div className="head">
                     <NavBar mode="light"
                     rightContent={[
@@ -114,7 +113,6 @@ class CartComponent extends Component {
                     ]}>
                     </NavBar>
                 </div>
-                </div>
                 <FooterComponent/>
             </div>
         )
@@ -125,6 +123,7 @@ let mapStateToProps = (state) => {
     console.log(state)
     return {
         cartList:state.cart.result || []
+
     }
 }
 
