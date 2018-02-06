@@ -94,7 +94,7 @@ class HomeComponent extends Component{
                                 {this.props.tabsResult.map((item, idx)=>{
                                     var path = {
                                         pathname:'/details',
-                                        query:{cateId:item.cateId},
+                                        query:{id:item.id},
                                     }
                                     return (
                                         <Link to={path} key={idx} className="tabItems">

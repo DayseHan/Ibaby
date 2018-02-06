@@ -21,7 +21,7 @@ class HeaderComponent extends Component{
                             <i className="iconfont icon-saoyisao"></i>
                         </Link>
                     </div>
-                    <Link to="/prolist" className="classfy">
+                    <Link to="/classify" className="classfy">
                         <i className="iconfont icon-fenlei"></i>
                         <p>分类</p>
                     </Link>
