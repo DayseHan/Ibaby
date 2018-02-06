@@ -11,7 +11,8 @@ import ClassifyComponent from '../components/classify/classifyComponent'
 import MessageComponent from '../components/message/messageComponent.js'
 import SearchpageComponent from '../components/searchpage/searchpageComponent.js'
 import bringComponent from '../components/bring_up/bringComponent.js'
-
+import cartComponent from '../components/cart/cartComponent.js'
+import settlementComponent from '../components/settlement/settlementComponent.js'
 
 const routes = (
     <Route>
@@ -25,6 +26,8 @@ const routes = (
         <Route path="message" component={MessageComponent} />
         <Route path="searchpage" component={SearchpageComponent}/>
         <Route path="bring" component={bringComponent}/>
+        <Route path="cart" component={cartComponent}/>
+        <Route path="settlement" component={settlementComponent}/>
     </Route>
 )
 

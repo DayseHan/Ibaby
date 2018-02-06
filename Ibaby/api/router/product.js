@@ -22,7 +22,6 @@ module.exports = {
                 _res.send(res);
             })
         });
-
         _app.post('/add_cart',function(_req,_res){
            var  uid = parseInt(Math.random()*3)+1;
            var arr =[uid,_req.body.proid]
@@ -75,7 +74,6 @@ module.exports = {
             // //     // })
             })
         })
-        
         _app.get('/getpay',function(_req,_res){
             let uid=_req.query.uid;
             var sql = `
