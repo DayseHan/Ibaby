@@ -1,0 +1,33 @@
+.searchpage{
+    height:100%;
+    .searchpageheader{
+        display:flex;justify-content:center;align-items:center;height:1.2rem;background: #fff;border-bottom:0.013333rem solid #ccc;position:relative;
+        .icon-shangyiye1{position:absolute;left:0.133333rem;top:0.266667rem;}
+        div{
+            width:5.0rem;height:0.666667rem;color:#FF4965;font-size:0.32rem;text-align:center;line-height:0.666667rem;
+            span{
+                display:inline-block;width:30%;border:0.013333rem solid #FF4965;
+            }
+            span:nth-child(1){
+                border-radius:0.2rem 0 0 0.2rem;
+            }
+            span:nth-child(2){
+                border-left:0 none;
+                border-right:0 none;
+            }
+            span:nth-child(3){
+                border-radius:0 0.2rem 0.2rem 0;
+            }
+        }
+    }
+    .searchcontent{
+        height:100%;background: #fff;padding:0.4rem 0;
+        div{float:left;}
+        .searchinput{
+            height:0.8rem;width:8.0rem;background: #eee;border-radius:0.4rem;margin:0 0.4rem;position:relative;
+            i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
+            input{background:#eee;border:0 none;margin:0.133333rem 1.0rem;}
+        }
+        .sousuo{height:0.8rem;line-height:0.8rem;color:#FF4965;}
+    }
+}
