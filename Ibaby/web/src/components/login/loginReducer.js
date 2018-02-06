@@ -7,7 +7,8 @@ export default function(state = {},action){
             break;
         case ajaxConstants.AJAX_REQUESTED:
             newState.status = 1;
-            newState.result = action.result.results;
+            // console.log(action.result);
+            newState.result = action.result.data.results;
             break;
         case ajaxConstants.AJAX_REQUESTERROR:
             newState.status = -1;
