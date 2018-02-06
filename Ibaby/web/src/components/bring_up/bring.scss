@@ -2,6 +2,45 @@
     main{flex:1;
         .am-tabs-default-bar-tab{height:1.06667rem;
             .am-badge{font-size:0.4rem;}
+
+        }
+        .am-tabs-default-bar-underline{border:0.013333rem solid #FF405D;}    
+        .am-tabs-pane-wrap{border:0.013333rem solid #ccc;
+            .mainbring_comment_main{background:#fff;
+                        li{overflow: hidden;border-bottom:0.013333rem solid #ccb;padding:0.266667rem  0px 0.186667rem;position:relative;padding:0.266667rem 0.2rem;display:flex;flex-direction:column;
+                            h3{height: 0.58rem;}
+                            span{display: inline-block;width: 0.58rem;height: 0.58rem;float: left;
+                                img{width: 0.58rem;height: 0.58rem;border:1px solid #ccb;border-radius:0.29rem;}}
+                            i{float: left;margin-left: 0.14rem;}
+                            h4{line-height:0.426667rem;font-size:0.32rem;margin-top:0.293333rem;}
+                            p{width:9.333333rem ;float: right;font-size:0.373333rem;text-align:left;padding-top:0.4rem;
+                                span{display:inline-block;font-size:0.32rem;padding:0.066667rem;border-radius:0.244rem/50%;width:0.8rem;height:0.4rem;text-align:center;background:#FFF5F6;border:0.013333rem solid #FF96A8;color:#FF96A8;line-height:0.24rem;margin-right:0.133333rem;}
+                            }
+                            .mainbring_comment_bottom{height:1.013333rem;line-height:1.013333rem;display:flex;justify-content:space-between;font-size:0.32rem;
+                                div{color:#FF96A8;
+                                    &:nth-child(2){
+                                        span{color:#9D9D9D;display:inline-block;width:1.066667rem;}
+                                    }
+                                }
+                            }
+                        }     
+                    }
+             .mainbring_comment_main_second{
+                            h4{width:9.333333rem ;float: right;font-size:0.373333rem;text-align:left
+                            }
+                        }
+            .mainbring_comment_four{
+                .mainbring_comment_bottom{
+                    div:nth-child(1){color:#ccc;
+                        i{margin:0 0.133333rem;}
+                    }
+                }
+            }
+            .mainbring_comment_third{ display:flex;flex-wrap:wrap;justify-content:space-around;align-items:center; flex-direction:column;height:8.0rem;
+                 .mainbring_comment_third_t{color:#848483;}
+                 .mainbring_comment_third_b{margin:0.4rem auto 0;width:4.28rem;border:0.013333rem solid #F8A8B6;text-align:center;line-height:1.066667rem;height:1.066667rem;border-radius:0.4rem/50%;color:#FF405D;
+                 } 
+             }
         }
     }
 }

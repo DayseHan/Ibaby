@@ -22,7 +22,7 @@ class detailsComponent extends Component{
         }.bind(this));  
     }
     closethecart(){
-        this.animate(this.refs.details_sizeColor,{bottom:-947});
+        this.animate(this.refs.details_sizeColor,{bottom:-971});
         this.refs.overlay.style.display = 'none';
     }
     countDown(){
