@@ -22,74 +22,75 @@ module.exports = {
                 _res.send(res);
             })
         });
-
-        _app.get('/get_cart',function(_req,_res){
-            db.select2(`SELECT * FROM cart where user_id=${_req.query._user_id}`,function(res){
-                _res.send(res);
-            })
-                
-        });
-
-         _app.get('/del_cart',function(_req,_res){
-            db.delete(`delete from cart where id in (${_req.query.id_arr})`,function(res){
-                _res.send(res);
-            })
-        });
-
-        _app.post('/opt_orders',function(_req,_res){
-            var arr = [_req.body._user_id,_req.body.price_all,_req.body.type,_req.body.title,_req.body.imgurl,_req.body.data,_req.body.username,_req.body.username];
-            
-            db.insert(`INSERT INTO orders(userid,total,type,title,image,id_arr,username,value) VALUES(?,?,?,?,?,?,?,?)`,arr,function(res){
-                _res.send(res);
-            })
-        });
-
         _app.post('/add_cart',function(_req,_res){
-            console.log(_req.body);
-            var arr = [_req.body._user_id,_req.body.color,_req.body.type,_req.body.goods_name,_req.body.price,_req.body.qty,_req.body.price_all,_req.body.imgurl,_req.body.goods_id];
-            
-            db.insert(`INSERT INTO cart(user_id,color,type,goods_name,price,qty,price_all,imgurl,goods_id) VALUES(?,?,?,?,?,?,?,?,?)`,arr,function(res){
+           var  uid = parseInt(Math.random()*3)+1;
+           var arr =[uid,_req.body.proid]
+           // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
+           console.log(uid,_req.body)
+           db.insert(`INSERT INTO cart(userid,proid) VALUES(?,?)`,arr,function(res){
                 _res.send(res);
-            })
-
+           })
         })
 
-   
-
-        _app.post('/add_comment',filter_comment,function(_req,_res){
-            var arr = [_req.body._user_name,_req.body.textarea,_req.body.value,_req.body.goods_id]
-            db.insert(`INSERT INTO comment(username,data,star,goodsId) VALUES(?,?,?,?)`,arr,function(res){
-                _res.send(res);
+        _app.get('/getcartlist',function(_req,_res){
+            let uid =_req.query.uid;
+            let sql =`
+                select
+                    c.*,
+                    u.phone,
+                    g.*
+                from
+                    cart c
+                    inner join user u on c.userid = u.user_id
+                    inner join goodslist g on c.proid =g.id
+                where 
+                    c.userid = ${uid}
+                `;
+            db.select(sql,function(res){
+                console.log(res)
+                _res.send(res)
             })
-        });
+        })
 
-        _app.get('/get_comment',function(_req,_res){
-            db.select2(`SELECT * FROM comment where goodsId=${_req.query.id}`,function(res){
-                _res.send(res);
+        _app.post('/genorder',function(_req,_res){
+            var cartids = _req.body.cartids;
+            var goodsids =_req.body.goodsids;
+
+            var uid =_req.body.uid;
+             let sql = `INSERT INTO orders(cartid,goodsId,userid) values('${cartids}','${goodsids}',${uid});`      
+            console.log(sql)
+            db.insert(sql,function(res){
+            //    console.log(res)
+            // //     // sql='';
+            // //     // let orderid = res.data.results.insertId
+            // //     // for(let goodsId of goodsids.split(',')){
+            // //     //     sql += `insert into orderproduct(productid,orderid) values(${goodsId},${orderid});`
+            // //     // }
+            // //     // db.insert(sql,function(inserResults){
+            // //     //     sql =`delete from cart where cart where indexid in (${cartids})`;
+            // //     //     db.delete(sql,function(delResult){
+            // //     //         _res.send(delResult)
+            // //     //     })
+            // //     // })
             })
-        });
-
-        _app.post('/add_collect',function(_req,_res){
-            var arr = [_req.body.goods_id,_req.body.id];
-            // console.log(`UPDATE user SET collect = ${arr[1]} WHERE id = ${arr[0]}`)
-            db.update(`UPDATE user SET collect = collect + ${arr[1]} WHERE id = ${arr[0]}`,function(res){
-                _res.send(res);
+        })
+        _app.get('/getpay',function(_req,_res){
+            let uid=_req.query.uid;
+            var sql = `
+            select
+               *
+            from 
+                orders 
+            where 
+                orders.userid = ${uid}
+            `
+            db.select(sql,function(res){
+                var len =res.data.results
+                for(i=0;i<len.length;i++){
+                    console.log(len[i].goodsId.split(','))
+                }
+                _res.send(res)
             })
-        });
-
-        _app.get('/opt_payment',function(_req,_res){
-
-            // console.log(`UPDATE orders SET type = 1 WHERE order_id = ${_req.body.goods_id}`)
-            db.update(`UPDATE orders SET type = 1 WHERE order_id = ${_req.query.order_id}`,function(res){
-                _res.send(res);
-            })
-        });
-
-        _app.get('/payment_list',function(_req,_res){
-            db.select2(`SELECT * FROM cart where id in (${_req.query.id_arr})`,function(res){
-                _res.send(res);
-            });
-        });
-
+        })
     }
 }

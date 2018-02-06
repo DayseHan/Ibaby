@@ -5,9 +5,12 @@ import * as actions from './detailsAction.js'
 import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 import {hashHistory} from 'react-router'
+
 class detailsComponent extends Component{
     componentWillMount(){
-        this.props.getGood().then(res =>{console.log(res)
+        const data = this.props.location.query;
+        console.log(data)
+        this.props.getGood(data).then(res =>{console.log(res)
             this.state.cateImgs = res.data.results[0].cateImgs.split(',')
         })
     }
@@ -22,7 +25,7 @@ class detailsComponent extends Component{
         }.bind(this));  
     }
     closethecart(){
-        this.animate(this.refs.details_sizeColor,{bottom:-947});
+        this.animate(this.refs.details_sizeColor,{bottom:-971});
         this.refs.overlay.style.display = 'none';
     }
     countDown(){

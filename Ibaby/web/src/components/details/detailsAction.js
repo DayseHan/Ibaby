@@ -2,10 +2,10 @@ import * as ajaxConstants from '../../constants/ajaxConstants'
 import * as detailsConstants from './detailsConstarts.js'
 
 
-export function getGood(){
+export function getGood(data){
     return {
         url: '/get_details',
-        data: {cateId: 100}
+        data: data
     }
 }
 
