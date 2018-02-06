@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import * as actions from './detailsAction.js'
 import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
+import {hashHistory} from 'react-router'
 class detailsComponent extends Component{
     componentWillMount(){
         this.props.getGood().then(res =>{console.log(res)
@@ -131,6 +132,9 @@ class detailsComponent extends Component{
             })(attr)
         }   
     }
+    goBack(){
+        hashHistory.go(-1);
+    }
     Add(){
         if(this.state.count < 10){
             this.setState({ count:this.state.count+1 });
@@ -161,7 +165,7 @@ class detailsComponent extends Component{
         return (
             <div className="detailsbigBox">
                 <header className="head">
-                    <i className="iconfont icon-shangyiye1"></i>
+                    <i className="iconfont icon-shangyiye1" onClick={this.goBack.bind(this)}></i>
                     <div className="headcenter">
                         <span>离特卖结束还剩</span>
                         <span ref="countDown">{this.state.nowdate}</span>
@@ -263,7 +267,7 @@ class detailsComponent extends Component{
                                 <span>购买数量</span>
                                 <div>
                                     <span onClick={this.Minus.bind(this)}>-</span>
-                                    <input type="text" value={this.state.count}/>
+                                    <span>{this.state.count}</span>
                                     <span onClick={this.Add.bind(this)}>+</span>
                                 </div>
                             </div>
