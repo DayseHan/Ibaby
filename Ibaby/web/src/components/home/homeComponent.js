@@ -1,20 +1,130 @@
+import HeaderComponent from '../header/headerComponent.js'
+import FooterComponent from '../footer/footerComponent.js'
+
 import React, {Component} from 'react'
-import { Button } from 'antd-mobile';
+import {connect} from 'react-redux'
+import {Link} from 'react-router'
+import { Carousel, Tabs} from 'antd-mobile'
 
+import * as actions from './homeAction.js'
 
-export default class HomeComponent extends Component{
+import './home.scss'
+
+class HomeComponent extends Component{
+    state = {
+        slideIndex: 0,
+    }
+    
+    componentWillMount() {
+        this.props.banner().then(res=>{
+            // console.log(this.props.ajaxResult);
+        })
+
+        this.props.tabs().then(res=>{
+            // console.log(this.props.tabsResult)
+        })
+    }
+
+    componentDidMount() {
+        //  
+        setTimeout(() => {
+            this.setState({
+                data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+            });
+        }, 100);
+    }
+
+    tabschange(item){
+        // console.log(item)
+        this.props.onchangetabs(item.title).then(res=>{
+
+        })
+    }
+
     render(){
+        const tabs = [
+            { title: '今日热卖'},
+            { title: '童鞋' },
+            { title: '孕婴' },
+            { title: '玩具' },
+            { title: '进口' },
+            { title: '女装' },
+            { title: '居家' },
+            { title: '美食' },
+        ];
+        
         return(
-            <div>
-                <div className="header"></div>
-                <div className="container">{this.props.children}</div>
-                <ul className="navgation">
-                    <li className="iconfont icon-dizhi">首页</li>
-                    <li>列表</li>
-                    <li>购物车</li>
-                </ul>
-                <Button>Start</Button>
+            <div id="home">
+                <HeaderComponent/>
+                <div className="container">
+                    <div className="banner">
+                        <Carousel
+                            autoplay={true}
+                            selectedIndex={0}
+                        >
+                        {this.props.ajaxResult.map((item, idx) => {
+                            var path = {
+                                pathname:'/details',
+                                query:{id:item.id},
+                            }
+                            return (
+                                <Link
+                                    to={path}
+                                    key={idx}
+                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                >
+                                    <img
+                                        src={item.imgurl}
+                                        alt=""
+                                        style={{ width: '100%', verticalAlign: 'top' }}
+                                        onLoad={() => {
+                                            // fire window resize event to change height
+                                            window.dispatchEvent(new Event('resize'));
+                                            this.setState({ imgHeight: 'auto' });
+                                        }}
+                                    />
+                                </Link>
+                            )
+                          })}
+                        </Carousel>
+                    </div>
+                    <div className="tabs">
+                        <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}} onChange={this.tabschange.bind(this)}>
+                            <div className="itemBox">
+                                {this.props.tabsResult.map((item, idx)=>{
+                                    var path = {
+                                        pathname:'/details',
+                                        query:{cateId:item.cateId},
+                                    }
+                                    return (
+                                        <Link to={path} key={idx} className="tabItems">
+                                            <div>
+                                                <img src={item.cateImg}/>
+                                                <p>{item.title}</p>
+                                                <p>
+                                                    <span>￥</span><span>{item.price}</span>
+                                                    <span className="count">{item.count}人已抢</span>
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+                        </Tabs>
+                    </div>
+                </div>
+                <FooterComponent/>
             </div>
         )
     }
 }
+
+let mapStateToProps = (state) => {
+    return {
+        ajaxStatus: state.home.status,
+        ajaxResult: state.home.banner_result || [],
+        tabsResult: state.home.tabs_result || [],
+    }
+}
+
+export default connect(mapStateToProps, actions)(HomeComponent);

@@ -12,13 +12,8 @@ module.exports = {
                     INNER JOIN 
                         catenav as b 
                     on 
-                        a.indexId = b.indexId`
-            db.select(sql,function(result){
-                responer.send(result);
-            })
-        })
-        _app.get('/brand',function(request,responer){
-            var sql = `SELECT * FROM brand;`;
+                        a.indexId = b.indexId;
+                    select * from brand`
             db.select(sql,function(result){
                 responer.send(result);
             })

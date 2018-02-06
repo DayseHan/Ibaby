@@ -1,0 +1,12 @@
+.listPage{
+    display: flex;width:100%;height:100%;position: absolute;left: 0;right: 0;
+    .list-header-top{
+        display: flex;width:100%;position: relative;height:1rem;top:0;left:0;right:0;background: #ffffff;
+    }
+    .list-header-search{
+        display: flex;width: 100%;margin: 0.15rem 0.1rem;background: rgba(221, 221, 221, 0.692);border-radius: 0.45rem;align-items: center;color: #817474;font-size: 0.4rem;
+    }
+    .list-header-swith{
+        display: flex;justify-content: center;flex-direction: column;width: 1.5rem;text-align: center;
+    }
+}

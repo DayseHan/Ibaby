@@ -4,7 +4,7 @@ import * as actions from './classifyAction'
 import { connect } from 'react-redux'
 import { Tabs, WhiteSpace } from 'antd-mobile';
 import './classify.scss'
-import PrevBack from '../prevBack/prevBack'
+import PrevBack from '../back/backComponent'
 
 
 const tabs = [
@@ -20,9 +20,10 @@ class Classify extends Component{
     state = {
         activeIndex:0
     }
-    componentWillMount(){
-        this.props.getMenu();
-        this.props.getBrand()
+    componentDidMount() {
+        this.props.getMenu().then((res) => {
+            // console.log(res);
+        });
     }
     componentWillReceiveProps(){
         this.rightLeftClass()
@@ -48,6 +49,7 @@ class Classify extends Component{
         // 左
         let leftUl = this.refs.menuLeftLi;
         let leftLiEle = leftUl.getElementsByTagName('li');
+        
         // 右
         let rightUl = this.refs.menuRight;
         let rightLiEle = rightUl.getElementsByTagName('dd');
@@ -68,28 +70,65 @@ class Classify extends Component{
             leftLiEle[scrollIndex].classList.add('menu-active');
         },false)
     }
-    render(){
-        // console.log(this.props.ajaxResult);
+    arrFilter(arrObj){
         let arr = [];
-        let listNav = this.props.ajaxResult[1];
-        // console.log(listNav);
-        listNav.forEach((item, i)=>{
+        arrObj.forEach((item,i)=>{
             let index = -1;
-            let alreact = arr.some((Item, j)=>{
-                if (item.cateIndex === Item.cateIndex) {
+            let alreact = arr.some((Item,j)=>{
+                if(item.cateIndex === Item.cateIndex){
                     index = j;
                     return true;
                 }
             });
-            if (!alreact) {
+            if(!alreact){
                 arr.push({
-                    cateIndex: item.cateIndex,
-                    goodsArr: [{ listId: item.cateId, listName: item.cateName, listImg:item.cateImg }]
-                });
-            } else {
-                arr[index].goodsArr.push({ listId: item.cateId, listName: item.cateName, listImg: item.cateImg })
+                    cateIndex:item.cateIndex,
+                    goodsArr:[{ listId: item.cateId, listName: item.cateName, listImg:item.cateImg }]
+                })
+            }else{
+                arr[index].goodsArr.push({ listId: item.cateId, listName: item.cateName, listImg:item.cateImg })                
             }
-        });
+        })
+        return arr;
+    }
+    brandFiler(arrObj){
+        let arr = [];
+        arrObj.forEach((item,i)=>{
+            let index = -1;
+            let alreact = arr.some((Item,j)=>{
+                if(item.words === Item.words){
+                    index = j;
+                    return true;
+                }
+            });
+            if(!alreact){
+                arr.push({
+                    words:item.words,
+                    goodsArr:[{ idxId: item.idxId, brandName: item.brand, brandImg:item.brandImg }]
+                })
+            }else{
+                arr[index].goodsArr.push({ idxId: item.idxId, brandName: item.brand, brandImg:item.brandImg })                
+            }
+        })
+        return arr;
+    }
+    wordSort(arrObj){
+        arrObj.sort((a,b)=>{
+            if(a.words < b.words) return -1;  
+            if(a.words > b.words) return 1;  
+        })
+        return arrObj;
+    }
+    render(){
+        let listNav = this.props.ajaxResult[1];
+        let arrRes = this.arrFilter(listNav);
+        // console.log(arrRes);
+        let brandNav = this.props.ajaxResult[2];
+        let brandRes = this.brandFiler(brandNav);
+        // 字母排序
+        let sortRes = this.wordSort(brandRes);
+        // console.log("hha",sortRes);
+        
         return (
             <div className="classifylist">
                 <div className="classify-header-top">
@@ -121,7 +160,7 @@ class Classify extends Component{
                             <div className="menu-main-right" ref="menuRight">
                                 <dl ref="menuRightDl">
                                     {
-                                        arr.map((item,index)=>{
+                                        arrRes.map((item,index)=>{
                                             const navRes = item.goodsArr.map((items,indexs)=>{
                                                 return (<li key={indexs}>
                                                         <Link to={"/list/"+items.listId}>
@@ -141,8 +180,29 @@ class Classify extends Component{
                                 </dl>
                             </div>
                         </div>
-                        <div className="brandList">
-                            Content of second tab
+                        <div className="menu-brand" style={componentHeight}>
+                            <dl>
+                                {
+                                    sortRes.map((item,index)=>{
+                                        const titName = item.goodsArr.map((value,idx)=>{
+                                            return (
+                                                <li key={idx}>
+                                                    <Link to={"/list/"+value.idxId}>
+                                                        <img src={value.brandImg}/>
+                                                        <p>{value.brandName}</p>
+                                                    </Link>
+                                                </li>
+                                            )
+                                        })
+                                        return (
+                                            <dd key={index}>
+                                                <p>{item.words}</p>
+                                                <ul>{titName}</ul>
+                                            </dd>
+                                        )
+                                    })
+                                }
+                            </dl>
                         </div>
                     </Tabs>
                 </div> 
@@ -152,11 +212,10 @@ class Classify extends Component{
 }
 
 let mapStateToProps = (state) => {
-    console.log(state);
+    console.log("res", state);
     return {
         ajaxStatus:state.menulist.status,
-        ajaxResult:state.menulist.menulist || [[],[]],
-        brandList: state.menulist.brandList || []
+        ajaxResult:state.menulist.menulist || [[],[],[]]
     }
 }
 

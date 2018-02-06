@@ -83,4 +83,31 @@
             }
         }
     }
+    .menu-brand{
+        display: flex;flex: 1;overflow: hidden;position: relative;height:auto;width:100%;
+        dl{
+            width: 100%;overflow-y:auto;
+            dd{
+                position: relative;width:100%;
+                &>p{
+                    font-size:0.375rem;font-style: normal;padding:0.0625rem 0.15625rem;border-bottom:0.03125rem solid #dddddd;background:#efefef;
+                }
+                ul{
+                    overflow: hidden;width:100%;background: #ffffff;
+                    li{
+                        display: flex;min-height:0.9375rem;border-bottom: 0.03125rem solid #dddddd;padding:0.15625rem 0;margin:0 0.3125rem;
+                        a{
+                            display:flex;align-items:center;
+                            img{
+                                width:1.875rem;height:1.875rem;
+                            }
+                            p{
+                                display: block;flex: 1;line-height:0.9375rem;font-size:0.33rem;padding-left: 0.3125rem;color: #bbb5b5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

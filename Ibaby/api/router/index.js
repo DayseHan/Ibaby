@@ -9,6 +9,7 @@ var home = require('./home');
 var product = require('./product');
 var user = require('./user');
 var car_wfk = require('./car_wfk');
+var details = require('./details');
 
 app.use(bodyparser.urlencoded({
 	extended: false
@@ -40,6 +41,7 @@ module.exports = {
         bring_up.register(app);
         list.register(app);
         product.register(app);
+        details.register(app);
         app.listen(_port,function(){
                 console.log("server:连接成功!");
         })
