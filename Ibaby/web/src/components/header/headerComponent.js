@@ -20,7 +20,11 @@ class HeaderComponent extends Component{
                             <i className="iconfont icon-saoyisao"></i>
                         </Link>
                     </div>
+<<<<<<< HEAD
                     <Link to="/classify" className="classfy">
+=======
+                    <Link to="/classify" className="classify">
+>>>>>>> d24d2326c80e26f72e5b3205b1deb20bbfb2257c
                         <i className="iconfont icon-fenlei"></i>
                         <p>分类</p>
                     </Link>

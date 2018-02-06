@@ -17,7 +17,9 @@ module.exports = {
                 category a
             INNER JOIN
                 catenav b
-                where a.homecate = '${idx}' and a.category=b.cateIndex`;
+            INNER JOIN
+                goodslist c
+                where a.homecate = '${idx}' and a.category=b.cateIndex and b.cateId=c.listsId`;
             db.select(sql, function(data){
                 res.send(data);
                 // console.log(data)
