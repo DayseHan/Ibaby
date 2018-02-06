@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Route, Link} from 'react-router'
-
 import './header.scss'
 
 //主页头部
