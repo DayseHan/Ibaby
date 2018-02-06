@@ -18,7 +18,7 @@ class HomeComponent extends Component{
 
     componentWillMount() {
         this.props.banner().then(res=>{
-            // console.log(this.props.ajaxResult);
+            // console.log(this.props.bannerResult);
         })
 
         this.props.tabs().then(res=>{
@@ -108,7 +108,7 @@ class HomeComponent extends Component{
                                 {this.props.tabsResult.map((item, idx)=>{
                                     var path = {
                                         pathname:'/details',
-                                        query:{cateId:item.cateId},
+                                        query:{id:item.id},
                                     }
                                     return (
                                         <Link to={path} key={idx} className="tabItems">

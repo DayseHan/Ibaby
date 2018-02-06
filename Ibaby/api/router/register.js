@@ -5,7 +5,7 @@ module.exports = {
 		app.get('/regphone',function(req,res){
 			var username = req.query.username;
 			console.log(username)
-			db.select(`select * from user where username = ${username}`,function(result){
+			db.select2(`select * from user where username = ${username}`,function(result){
 				// console.log(result)
 				res.send(result);
 			})

@@ -9,12 +9,12 @@ export default function detailsReducer(state = {}, action){
             break;
         case ajaxConstants.AJAX_REQUESTED:
             newState.status = 1;
-            newState.result = action.result.data.results;
-            console.log(newState.result)
+            newState.detailsresult = action.result.data.results[0];
+            console.log(newState.detailsresult)
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR):
             newState.status = -1;
-            newState.result = action.result.data;
+            newState.detailsresult = action.result.data;
             break;
         case detailsConstants.ADDCART_RQUESTED:
             newState.status = 1;
