@@ -3,6 +3,7 @@ import FooterComponent from '../footer/footerComponent.js'
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router'
 import { Carousel, Tabs} from 'antd-mobile'
 
 import * as actions from './homeAction.js'
@@ -51,6 +52,7 @@ class HomeComponent extends Component{
             { title: '居家' },
             { title: '美食' },
         ];
+        
         return(
             <div id="home">
                 <HeaderComponent/>
@@ -61,9 +63,13 @@ class HomeComponent extends Component{
                             selectedIndex={0}
                         >
                         {this.props.ajaxResult.map((item, idx) => {
+                            var path = {
+                                pathname:'/details',
+                                query:{id:item.id},
+                            }
                             return (
-                                <a
-                                    href="/details"
+                                <Link
+                                    to={path}
                                     key={idx}
                                     style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                                 >
@@ -77,7 +83,7 @@ class HomeComponent extends Component{
                                             this.setState({ imgHeight: 'auto' });
                                         }}
                                     />
-                                </a>
+                                </Link>
                             )
                           })}
                         </Carousel>
@@ -86,8 +92,12 @@ class HomeComponent extends Component{
                         <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}} onChange={this.tabschange.bind(this)}>
                             <div className="itemBox">
                                 {this.props.tabsResult.map((item, idx)=>{
+                                    var path = {
+                                        pathname:'/details',
+                                        query:{id:item.id},
+                                    }
                                     return (
-                                        <a href="/details" key={idx} className="tabItems">
+                                        <Link to={path} key={idx} className="tabItems">
                                             <div>
                                                 <img src={item.cateImg}/>
                                                 <p>{item.title}</p>
@@ -96,7 +106,7 @@ class HomeComponent extends Component{
                                                     <span className="count">{item.count}人已抢</span>
                                                 </p>
                                             </div>
-                                        </a>
+                                        </Link>
                                     )
                                 })}
                             </div>
