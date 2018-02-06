@@ -7,27 +7,72 @@ import './classify.scss'
 import PrevBack from '../prevBack/prevBack'
 
 
-
-
 const tabs = [
     { title: '分类' },
     { title: '品牌' }
 ];
 
+const componentHeight = {
+    "height": window.innerHeight - (window.innerWidth / 20 )
+}
+
 class Classify extends Component{
     state = {
         activeIndex:0
     }
-    componentDidMount(){
-        this.props.getMenu()
+    componentWillMount(){
+        this.props.getMenu();
+        this.props.getBrand()
     }
-    chooseMenu(index){
-        this.setState({ activeIndex : index})
+    componentWillReceiveProps(){
+        this.rightLeftClass()
+    }
+    chooseMenuScroll(index){
+        let scrollMove = (ele,target)=>{
+            let vector = Math.round((target - ele.scrollTop) / 10);
+            let scrollTimer = setInterval(()=>{
+                ele.scrollTop += vector;
+                if (((ele.scrollTop >= target) && vector > 0) || ((ele.scrollTop <= target) && vector < 0) || ((ele.scrollTop + ele.clientHeight + 1) >= ele.scrollHeight)) {
+                    ele.scrollTop = target + 1;
+                    clearInterval(scrollTimer);
+                }
+            },10);
+        }
+        let rightUlTemp = this.refs.menuRight;
+        // console.log(rightUl);
+        let rightTo = rightUlTemp.querySelectorAll('.menuRightTitle')[index].offsetTop;
+        scrollMove(rightUlTemp, rightTo);
+    }
+    rightLeftClass(){
+        // console.log(666);
+        // 左
+        let leftUl = this.refs.menuLeftLi;
+        let leftLiEle = leftUl.getElementsByTagName('li');
+        // 右
+        let rightUl = this.refs.menuRight;
+        let rightLiEle = rightUl.getElementsByTagName('dd');
+        // console.log(rightLiEle);
+        let scrollIndex = 0;
+        rightUl.addEventListener('scroll',()=>{
+            // console.log(666);
+            let thisScrollTop = rightUl.scrollTop;
+
+            for (var i = 0; i < rightLiEle.length;i++){
+                if(thisScrollTop >= rightLiEle[i].offsetTop) scrollIndex = i;
+                // console.log(rightLiEle[i])
+            }
+            // 去除所有高亮
+            for (var i = 0; i < leftLiEle.length;i++){
+                leftLiEle[i].classList.remove('menu-active');
+            }
+            leftLiEle[scrollIndex].classList.add('menu-active');
+        },false)
     }
     render(){
         // console.log(this.props.ajaxResult);
         let arr = [];
         let listNav = this.props.ajaxResult[1];
+        // console.log(listNav);
         listNav.forEach((item, i)=>{
             let index = -1;
             let alreact = arr.some((Item, j)=>{
@@ -59,13 +104,13 @@ class Classify extends Component{
                 </div>
                 <div className="classify-main">
                     <Tabs tabs={tabs} initalPage={'t2'}>
-                        <div className="menu-main">
-                            <div className="menu-main-left">
-                                <ul>
+                        <div className="menu-main" style={componentHeight}>
+                            <div className="menu-main-left" ref="menuLeft">
+                                <ul ref="menuLeftLi">
                                     { 
                                         this.props.ajaxResult[0].map((item,index)=>{
                                             return (
-                                                <li className={this.state.activeIndex==index ? "menu-active" : ''} key={index}  onClick={this.chooseMenu.bind(this,index)}>
+                                                <li className={this.state.activeIndex == index ? "menu-active" : ''} key={index} onClick={this.chooseMenuScroll.bind(this,index)}>
                                                     <span>{item.category}</span>
                                                 </li>
                                             )
@@ -73,8 +118,8 @@ class Classify extends Component{
                                     }
                                 </ul>
                             </div>
-                            <div className="menu-main-right">
-                                <dl>
+                            <div className="menu-main-right" ref="menuRight">
+                                <dl ref="menuRightDl">
                                     {
                                         arr.map((item,index)=>{
                                             const navRes = item.goodsArr.map((items,indexs)=>{
@@ -87,7 +132,7 @@ class Classify extends Component{
                                             })
                                             return (
                                                 <dd key={index}>
-                                                    <h4>{item.cateIndex}</h4>
+                                                    <h4 className="menuRightTitle">{item.cateIndex}</h4>
                                                     <ul>{navRes}</ul>
                                                 </dd>
                                             )
@@ -96,7 +141,7 @@ class Classify extends Component{
                                 </dl>
                             </div>
                         </div>
-                        <div style={{ display: 'flex',backgroundColor: '#fff' }}>
+                        <div className="brandList">
                             Content of second tab
                         </div>
                     </Tabs>
@@ -107,9 +152,11 @@ class Classify extends Component{
 }
 
 let mapStateToProps = (state) => {
+    console.log(state);
     return {
         ajaxStatus:state.menulist.status,
-        ajaxResult: state.menulist.menulist ? state.menulist.menulist : [[],[]]
+        ajaxResult:state.menulist.menulist || [[],[]],
+        brandList: state.menulist.brandList || []
     }
 }
 

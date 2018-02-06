@@ -5,4 +5,9 @@ export function getMenu(){
         url:'/menulist'
     }
 }
- 
+
+export function getBrand() {
+    return {
+        url: '/brand'
+    }
+}

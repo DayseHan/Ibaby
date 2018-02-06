@@ -17,5 +17,11 @@ module.exports = {
                 responer.send(result);
             })
         })
+        _app.get('/brand',function(request,responer){
+            var sql = `SELECT * FROM brand;`;
+            db.select(sql,function(result){
+                responer.send(result);
+            })
+        })
     }
 }

@@ -14,6 +14,11 @@ export default (state = {},action)=>{
         case (ajaxConstants.AJAX_REQUESTERROR || classifyConstants.CLASSIFY_RQUESTERROR):
             newState.status = -1;
             break;
+        case classifyConstants.CLASSIFY_RQUESTING:
+            newState.status = 1;
+            newState.brandList = action.result.data.results;//返回结果
+            console.log(action.result)
+            break;
     }
     return newState;
 } 
