@@ -16,7 +16,7 @@ class FooterComponent extends Component{
                         <i className="iconfont icon-56"></i>
                         <p>值得买</p>
                     </Link>
-                    <Link to="/prolist">
+                    <Link to="/bring">
                         <i className="iconfont icon-shumiao"></i>
                         <p>育儿</p>
                     </Link>
