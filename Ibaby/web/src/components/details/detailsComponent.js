@@ -4,10 +4,16 @@ import {connect} from 'react-redux'
 import * as actions from './detailsAction.js'
 import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
+import {hashHistory} from 'react-router'
+
 class detailsComponent extends Component{
     componentWillMount(){
-        this.props.getGood().then(res =>{console.log(res)
-            this.state.cateImgs = res.data.results[0].cateImgs.split(',')
+        var data = this.props.location.query;
+        console.log(data)
+        this.props.getGood(data).then(res =>{console.log(res)
+            this.state.groundImg = res.data.results[0].groundImg.split(',');
+            this.state.color = res.data.results[0].color.split(',');
+            this.state.size = res.data.results[0].size.split(',');
         })
     }
     addCart(proItem){
@@ -21,7 +27,7 @@ class detailsComponent extends Component{
         }.bind(this));  
     }
     closethecart(){
-        this.animate(this.refs.details_sizeColor,{bottom:-947});
+        this.animate(this.refs.details_sizeColor,{bottom:-971});
         this.refs.overlay.style.display = 'none';
     }
     countDown(){
@@ -131,6 +137,9 @@ class detailsComponent extends Component{
             })(attr)
         }   
     }
+    goBack(){
+        hashHistory.go(-1);
+    }
     Add(){
         if(this.state.count < 10){
             this.setState({ count:this.state.count+1 });
@@ -141,12 +150,36 @@ class detailsComponent extends Component{
             this.setState({ count:this.state.count-1 });
         }
     }
+    addColor(idx,item,event){
+        console.log(idx,event.target)
+        if(this.state.indexC != idx){
+             this.setState({indexC:idx})
+         }else if(this.state.indexC === idx && event.target.className =='changeColor'){
+            event.target.classList.remove('changeColor');
+         }else{
+            event.target.classList.add('changeColor');
+         }
+    }
+    addSize(idx,item,event){
+        console.log(idx,event.target)
+        if(this.state.indexS != idx){
+             this.setState({indexS:idx})
+         }else if(this.state.indexS === idx && event.target.className =='changeColor'){
+            event.target.classList.remove('changeColor');
+         }else{
+            event.target.classList.add('changeColor');
+         }
+    }
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
         slideIndex: 0,
-        cateImgs: [],
-        count: 1
+        groundImg: [],
+        color: [],
+        size: [],
+        count: 1,
+        indexS: 100,
+        indexC: 100
     }   
     componentDidMount() {
         // simulate img loading
@@ -161,7 +194,7 @@ class detailsComponent extends Component{
         return (
             <div className="detailsbigBox">
                 <header className="head">
-                    <i className="iconfont icon-shangyiye1"></i>
+                    <i className="iconfont icon-shangyiye1" onClick={this.goBack.bind(this)}></i>
                     <div className="headcenter">
                         <span>离特卖结束还剩</span>
                         <span ref="countDown">{this.state.nowdate}</span>
@@ -178,11 +211,11 @@ class detailsComponent extends Component{
                       selectedIndex={0}
                     >
                       {
-                            this.state.cateImgs.map((item, idx) => {
+                            this.state.groundImg.map((item, idx) => {
                             return(
                             <a
                               key={idx}
-                              href="http://www.alipay.com"
+                              href={item}
                               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                             >
                               <img
@@ -199,15 +232,14 @@ class detailsComponent extends Component{
                       }
                     </Carousel>
                     <div className="maindetails">
-                        <p className="maindetails_t"><span>￥141.1</span><span>￥359</span><span>包邮</span></p>
+                        <p className="maindetails_t"><span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span>￥{this.props.ajaxResult.oldPrice}</span><span>包邮</span></p>
                         <div className="maindetails_c">
                             <div>
-                                <p><span>品牌特卖</span>巴拉巴拉儿童轻薄羽绒服反季童装<br/>
-                                男童女童秋冬季中大童宝宝</p>
+                                <p><span>品牌特卖</span>{this.props.ajaxResult.name}</p>
                             </div>
                             <span><i className="iconfont icon-shoucang"></i><br/>收藏</span>
                         </div>
-                        <p className="maindetails_b">此商品不参加多件打折&nbsp;日本可卿面料，填充90朵绒</p>
+                        <p className="maindetails_b">{this.props.ajaxResult.title}</p>
                     </div>
                     <ul className="maindetails_sale">
                         <li><div><span>券</span>可领取优惠券<span>￥10</span><span>￥30</span></div><i className="iconfont icon-xiayiye1"></i>
@@ -240,30 +272,38 @@ class detailsComponent extends Component{
                     <div className="maindetails_bottom">没有了~~~~</div>
                     <div className="details_sizeColor" ref="details_sizeColor">
                         <div className="details_sizeColor_top">
-                            <img src={this.state.cateImgs[0]}/>
+                            <img src={this.state.groundImg[0]}/>
                             <div className="details_sizeColor_top_r">
                                 <div className="details_sizeColor_top_r_t">
-                                    <span>￥29</span><span onClick={this.closethecart.bind(this)}>&times;</span>
+                                    <span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
                                 </div>
                                 <span>请选择&nbsp;尺码&nbsp;颜色</span>
                             </div>
                         </div>
                         <div className="details_sizeColor_center">
                             <span className="details_sizeColor_common">颜色</span>
-                            <ul className="details_sizeColor_common_b">
-                                <li>蓝灰色调</li>
-                                <li>蓝灰色调</li>
-                                <li>蓝灰色调</li>
+                            <ul className="details_sizeColor_common_b" >
+                                {this.state.color.map((item, idx) => {
+                                    return(
+                                        <li key={idx} ref="activeColor" onClick={this.addColor.bind(this,idx,item)} className={this.state.indexC===idx?'changeColor' : ''}>{item}</li>
+                                    )
+                                    })
+                                }
                             </ul>
                             <span className="details_sizeColor_common">尺码</span>
-                            <ul className="details_sizeColor_common_b">
-                                <li>蓝灰色调</li>
+                            <ul className="details_sizeColor_common_b" >
+                                {this.state.size.map((item, idx) => {
+                                    return(
+                                        <li key={idx} ref="activeSize" onClick={this.addSize.bind(this,idx,item)} className={this.state.indexS===idx?'changeColor' : ''}>{item}</li>
+                                    )
+                                    })
+                                }
                             </ul>
                             <div className="details_sizeColor_qty">    
                                 <span>购买数量</span>
                                 <div>
                                     <span onClick={this.Minus.bind(this)}>-</span>
-                                    <input type="text" value={this.state.count}/>
+                                    <span>{this.state.count}</span>
                                     <span onClick={this.Add.bind(this)}>+</span>
                                 </div>
                             </div>
