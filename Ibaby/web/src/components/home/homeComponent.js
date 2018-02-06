@@ -3,7 +3,7 @@ import FooterComponent from '../footer/footerComponent.js'
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { Carousel, Tabs} from 'antd-mobile';
+import { Carousel, Tabs} from 'antd-mobile'
 
 import * as actions from './homeAction.js'
 
@@ -20,12 +20,12 @@ class HomeComponent extends Component{
         })
 
         this.props.tabs().then(res=>{
-            console.log(this.props.tabsResult)
+            // console.log(this.props.tabsResult)
         })
     }
 
     componentDidMount() {
-        // simulate img loading
+        //  
         setTimeout(() => {
             this.setState({
                 data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
@@ -33,9 +33,16 @@ class HomeComponent extends Component{
         }, 100);
     }
 
+    tabschange(item){
+        // console.log(item)
+        this.props.onchangetabs(item.title).then(res=>{
+
+        })
+    }
+
     render(){
         const tabs = [
-            { title: '今日特卖'},
+            { title: '今日热卖'},
             { title: '童鞋' },
             { title: '孕婴' },
             { title: '玩具' },
@@ -51,7 +58,6 @@ class HomeComponent extends Component{
                     <div className="banner">
                         <Carousel
                             autoplay={true}
-                            infinite
                             selectedIndex={0}
                         >
                         {this.props.ajaxResult.map((item, idx) => {
@@ -77,13 +83,13 @@ class HomeComponent extends Component{
                         </Carousel>
                     </div>
                     <div className="tabs">
-                        <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}}>
+                        <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}} onChange={this.tabschange.bind(this)}>
                             <div className="itemBox">
                                 {this.props.tabsResult.map((item, idx)=>{
                                     return (
                                         <a href="/details" key={idx} className="tabItems">
                                             <div>
-                                                <img/>
+                                                <img src={item.cateImg}/>
                                                 <p>{item.title}</p>
                                                 <p>
                                                     <span>￥</span><span>{item.price}</span>

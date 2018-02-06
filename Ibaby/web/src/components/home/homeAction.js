@@ -10,6 +10,15 @@ export function banner(){
 export function tabs() {
     return {
         types:[tabsConstants.TABS_RQUESTING, tabsConstants.TABS_RQUESTED, tabsConstants.TABS_RQUESTERROR],
-        url: '/tabs'
+        url: '/tabs',
+        data:{homecate:'今日热卖'}
+    }
+}
+
+export function onchangetabs(_data) {
+    return {
+        types:[tabsConstants.TABS_RQUESTING, tabsConstants.TABS_RQUESTED, tabsConstants.TABS_RQUESTERROR],
+        url: '/tabs',
+        data:{homecate:_data}
     }
 }

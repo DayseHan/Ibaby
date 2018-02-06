@@ -1,5 +1,3 @@
-import BackComponent from '../back/backComponent.js'
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, hashHistory} from 'react-router'

@@ -11,6 +11,7 @@ export default class BackComponent extends Component{
         return (
             <div className="back">
                 <i className="iconfont icon-shangyiye1" onClick={this._back.bind(this)}></i>
+                <p>{this.props.text}</p>
             </div>
         )
     }
