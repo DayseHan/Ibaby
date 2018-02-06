@@ -4,3 +4,9 @@ export function getpay(){
         data: {uid: 1}
     }
 }
+export function getdate(){
+    return {
+        url: 'getdate',
+        data: {uid: 1}
+    }
+}

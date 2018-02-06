@@ -74,6 +74,23 @@ module.exports = {
             // //     // })
             })
         })
+
+        _app.get('/getdate',function(){
+            let uid=_req.query.uid;
+            var sql = `
+            select
+               *
+            from 
+                orders 
+            where 
+                orders.userid = ${uid}
+            `
+            db.select(sql,function(res){
+                console.log(res)
+                _res.send(res)
+            })
+        })
+        
         _app.get('/getpay',function(_req,_res){
             let uid=_req.query.uid;
             var sql = `
@@ -86,10 +103,26 @@ module.exports = {
             `
             db.select(sql,function(res){
                 var len =res.data.results
+                sql=''
                 for(i=0;i<len.length;i++){
-                    console.log(len[i].goodsId.split(','))
+                    var lens =len[i].cartid.split(',')
+                    for(j=0;j<lens.length;j++){
+                        console.log(lens[j]);
+                         sql += `
+                        select
+                           *
+                        from 
+                            cart
+                        where 
+                            cart.indexid = ${lens[j]};   `   
+                    }
+                    
                 }
-                _res.send(res)
+                console.log(sql)
+                 db.select(sql,function(res){
+                    console.log(res)
+                    _res.send(res)
+                })
             })
         })
     }

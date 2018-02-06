@@ -5,12 +5,14 @@ import * as actions from './settlementAction.js'
 import { NavBar,Checkbox} from 'antd-mobile';
 const AgreeItem = Checkbox.AgreeItem;
 let settlement =[]
+let getdate=[]
  class settlementComponent extends Component{
     getBack(){
             
     }
     componentWillMount(){
         this.props.getpay();
+        this.props.getdate();
     }
     render(){
         return (
@@ -103,7 +105,8 @@ let settlement =[]
 let mapStateToProps = (state) => {
     console.log(state)
     return {
-        settlement:state.cart.result || []
+        settlement:state.cart.result || [],
+        getdate:state.cart.result || []
     }
 }
 
