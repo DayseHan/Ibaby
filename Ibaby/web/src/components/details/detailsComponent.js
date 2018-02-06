@@ -232,14 +232,14 @@ class detailsComponent extends Component{
                       }
                     </Carousel>
                     <div className="maindetails">
-                        <p className="maindetails_t"><span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span>￥{this.props.ajaxResult.oldPrice}</span><span>包邮</span></p>
+                        <p className="maindetails_t"><span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span>￥{this.props.ajaxDetailsResult.oldPrice}</span><span>包邮</span></p>
                         <div className="maindetails_c">
                             <div>
-                                <p><span>品牌特卖</span>{this.props.ajaxResult.name}</p>
+                                <p><span>品牌特卖</span>{this.props.ajaxDetailsResult.name}</p>
                             </div>
                             <span><i className="iconfont icon-shoucang"></i><br/>收藏</span>
                         </div>
-                        <p className="maindetails_b">{this.props.ajaxResult.title}</p>
+                        <p className="maindetails_b">{this.props.ajaxDetailsResult.title}</p>
                     </div>
                     <ul className="maindetails_sale">
                         <li><div><span>券</span>可领取优惠券<span>￥10</span><span>￥30</span></div><i className="iconfont icon-xiayiye1"></i>
@@ -275,7 +275,7 @@ class detailsComponent extends Component{
                             <img src={this.state.groundImg[0]}/>
                             <div className="details_sizeColor_top_r">
                                 <div className="details_sizeColor_top_r_t">
-                                    <span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
+                                    <span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
                                 </div>
                                 <span>请选择&nbsp;尺码&nbsp;颜色</span>
                             </div>
@@ -328,7 +328,7 @@ class detailsComponent extends Component{
 let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.details.status,
-        ajaxResult: state.details.result || []
+        ajaxDetailsResult: state.details.detailsresult || []
     }
 }
 

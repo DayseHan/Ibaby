@@ -18,7 +18,7 @@ class HomeComponent extends Component{
 
     componentWillMount() {
         this.props.banner().then(res=>{
-            // console.log(this.props.ajaxResult);
+            // console.log(this.props.bannerResult);
         })
 
         this.props.tabs().then(res=>{
@@ -76,7 +76,7 @@ class HomeComponent extends Component{
                             infinite
                             selectedIndex={0}
                         >
-                        {this.props.ajaxResult.map((item, idx) => {
+                        {this.props.bannerResult.map((item, idx) => {
                             var path = {
                                 pathname:'/details',
                                 query:{id:item.id},
@@ -137,7 +137,7 @@ class HomeComponent extends Component{
 let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.home.status,
-        ajaxResult: state.home.banner_result || [],
+        bannerResult: state.home.banner_result || [],
         tabsResult: state.home.tabs_result || [],
     }
 }
