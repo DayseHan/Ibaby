@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import { Carousel, Tabs} from 'antd-mobile'
+import cs from 'classnames'
 
 import * as actions from './homeAction.js'
 
@@ -14,7 +15,7 @@ class HomeComponent extends Component{
     state = {
         slideIndex: 0,
     }
-    
+
     componentWillMount() {
         this.props.banner().then(res=>{
             // console.log(this.props.ajaxResult);
@@ -23,6 +24,7 @@ class HomeComponent extends Component{
         this.props.tabs().then(res=>{
             // console.log(this.props.tabsResult)
         })
+
     }
 
     componentDidMount() {
@@ -32,6 +34,17 @@ class HomeComponent extends Component{
                 data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             });
         }, 100);
+
+        window.addEventListener('scroll', function () {
+            var obj = document.querySelector('.am-tabs-tab-bar-wrap')
+            console.log(666)
+            obj.classList.add('fixed')
+            console.log(obj.offsetTop - document.body.scrollTop);
+            if (obj.offsetTop - document.body.scrollTop <= 0) {
+                obj.style.position = 'fixed';
+                obj.style.top = '-20px';
+            }
+        })
     }
 
     tabschange(item){
@@ -60,6 +73,7 @@ class HomeComponent extends Component{
                     <div className="banner">
                         <Carousel
                             autoplay={true}
+                            infinite
                             selectedIndex={0}
                         >
                         {this.props.ajaxResult.map((item, idx) => {
@@ -99,11 +113,11 @@ class HomeComponent extends Component{
                                     return (
                                         <Link to={path} key={idx} className="tabItems">
                                             <div>
-                                                <img src={item.cateImg}/>
+                                                <img src={item.imgurl}/>
                                                 <p>{item.title}</p>
                                                 <p>
-                                                    <span>￥</span><span>{item.price}</span>
-                                                    <span className="count">{item.count}人已抢</span>
+                                                    <span>￥</span><span>{(item.oldPrice*item.zhekou).toFixed(2)}</span>
+                                                    <span className="count">{item.buyNum}人已抢</span>
                                                 </p>
                                             </div>
                                         </Link>
@@ -112,6 +126,7 @@ class HomeComponent extends Component{
                             </div>
                         </Tabs>
                     </div>
+                    <div className="nomore">~~爱贝多~~</div>
                 </div>
                 <FooterComponent/>
             </div>
