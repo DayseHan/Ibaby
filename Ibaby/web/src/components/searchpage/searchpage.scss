@@ -22,12 +22,13 @@
     }
     .searchcontent{
         height:100%;background: #fff;padding:0.4rem 0;
-        div{float:left;}
-        .searchinput{
-            height:0.8rem;width:8.0rem;background: #eee;border-radius:0.4rem;margin:0 0.4rem;position:relative;
-            i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
-            input{background:#eee;border:0 none;margin:0.133333rem 1.0rem;caret-color:red;}
+        div{float:left;width:100%;display:flex;justify-content:space-around;
+            .searchinput{
+                height:0.8rem;width:80%;background: #eee;border-radius:0.4rem;position:relative;
+                i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
+                input{background:#eee;border:0 none;margin-left:0.8rem;caret-color:red;display:block;width:70%;height:0.8rem;}
+            }
         }
-        .sousuo{height:0.8rem;line-height:0.8rem;color:#FF4965;}
+        .sousuo{height:0.8rem;line-height:0.8rem;color:#FF4965;width:10%;text-align:center;}
     }
 }

@@ -42,7 +42,7 @@ class HomeComponent extends Component{
             console.log(obj.offsetTop - document.body.scrollTop);
             if (obj.offsetTop - document.body.scrollTop <= 0) {
                 obj.style.position = 'fixed';
-                obj.style.top = '-20px';
+                obj.style.top = '-90px';
             }
         })
     }
@@ -76,7 +76,7 @@ class HomeComponent extends Component{
                             infinite
                             selectedIndex={0}
                         >
-                        {this.props.ajaxResult.map((item, idx) => {
+                        {this.props.bannerResult.map((item, idx) => {
                             var path = {
                                 pathname:'/details',
                                 query:{id:item.id},
@@ -137,7 +137,7 @@ class HomeComponent extends Component{
 let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.home.status,
-        ajaxResult: state.home.banner_result || [],
+        bannerResult: state.home.banner_result || [],
         tabsResult: state.home.tabs_result || [],
     }
 }
