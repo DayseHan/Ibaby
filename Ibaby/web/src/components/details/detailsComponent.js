@@ -4,12 +4,14 @@ import {connect} from 'react-redux'
 import * as actions from './detailsAction.js'
 import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
-import {hashHistory} from 'react-router'
-
+import {Route,Link,hashHistory} from 'react-router'
+import { Popover, NavBar, Icon } from 'antd-mobile';
+const Item = Popover.Item;
 class detailsComponent extends Component{
     componentWillMount(){
         var data = this.props.location.query;
-        console.log(data)
+        this.state.username = JSON.parse(localStorage.getItem('username'))
+        console.log(data,this.state.username)
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
             this.state.color = res.data.results[0].color.split(',');
@@ -17,15 +19,21 @@ class detailsComponent extends Component{
         })
     }
     addCart(proItem){
-        console.log(proItem.goodsName)
-        this.props.addCart(proItem.goodsName);
-        this.addtoCart();
+        console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
+        if(this.state.username == ''){
+            this.$router.replace('/login')
+        }else{
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.username);
+        }
     }
     addtoCart(){
-        this.animate(this.refs.details_sizeColor,{bottom:0},function(){
-             this.refs.overlay.style.display = 'block';
-        }.bind(this));  
+        this.animate(this.refs.details_sizeColor,{bottom:0});  
+        this.refs.overlay.style.display = 'block';
+        this.animate(this.refs.overlay,{opacity:0.4}); 
     }
+    jumptoCart(){
+         this.hashHistory.path('/cart')
+     }
     closethecart(){
         this.animate(this.refs.details_sizeColor,{bottom:-971});
         this.refs.overlay.style.display = 'none';
@@ -153,23 +161,39 @@ class detailsComponent extends Component{
     addColor(idx,item,event){
         console.log(idx,event.target)
         if(this.state.indexC != idx){
-             this.setState({indexC:idx})
+             this.setState({indexC:idx});
+             this.setState({buyColor:item});
          }else if(this.state.indexC === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
          }else{
             event.target.classList.add('changeColor');
+            this.setState({buyColor:item})
          }
     }
     addSize(idx,item,event){
         console.log(idx,event.target)
         if(this.state.indexS != idx){
-             this.setState({indexS:idx})
+             this.setState({indexS:idx});
+             this.setState({buySize:item});
          }else if(this.state.indexS === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
          }else{
             event.target.classList.add('changeColor');
+            this.setState({buySize:item});
          }
     }
+    onSelect = (opt) => {
+        // console.log(opt.props.value);
+        this.setState({
+          visible: false,
+          selected: opt.props.value,
+        });
+    };
+    handleVisibleChange = (visible) => {
+        this.setState({
+          visible,
+        });
+    };
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
@@ -177,9 +201,14 @@ class detailsComponent extends Component{
         groundImg: [],
         color: [],
         size: [],
+        buyColor:'',
+        buySize:'',
         count: 1,
         indexS: 100,
-        indexC: 100
+        indexC: 100,
+        username:'',
+        visible: false,
+        selected: ''
     }   
     componentDidMount() {
         // simulate img loading
@@ -201,7 +230,41 @@ class detailsComponent extends Component{
                     </div>
                     <span className="headleft">
                         <i className="iconfont icon-fenxiang"></i>
-                        <i className="iconfont icon-msnui-more"></i>
+                        <i>
+                            <NavBar
+                                mode="light"
+                                rightContent={
+                                  <Popover mask
+                                    overlayClassName="fortest"
+                                    overlayStyle={{ color: 'currentColor',background:'#222' }}
+                                    visible={this.state.visible}
+                                    overlay={[
+                                        (<Item key="4" value="scan" style={{ whiteSpace: 'nowrap',fontSize: 30,width:200,textAlign:'center',height:60}}><span className="iconfont icon-pinglun1 commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>消息</span></Item>),
+                                        (<Item key="5" value="1"  style={{ whiteSpace: 'nowrap',fontSize: 30 ,width:200,textAlign:'center',height:60}}><span className="iconfont icon-shouye commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>首页</span></Item>),
+                                        (<Item key="6" value="button ct" style={{ whiteSpace: 'nowrap',fontSize: 30,textAlign:'center',height:60 }}><span className="iconfont icon-xiaoxi commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>反馈</span>    
+                                      </Item>),
+                                        (<Item key="7" value="2"   style={{fontSize: 30,textAlign:'center',height:60 }}><span className="iconfont icon-zuji commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>足迹</span></Item>),
+                                    ]}
+                                    align={{
+                                      overflow: { adjustY: 0, adjustX: 0 },
+                                      offset: [-30, 0],
+                                    }}
+                                    onVisibleChange={this.handleVisibleChange}
+                                    onSelect={this.onSelect}
+                                  >   
+                                    <i className="iconfont icon-msnui-more" style={{
+                                      height: '100%',
+                                      padding: '10px 15px',
+                                      marginRight: '-15px',
+                                      display: 'flex',
+                                      color:'#222',
+                                      fontSize:45}}>
+                                    </i> 
+                                  </Popover>
+                                }
+                              >
+                          </NavBar>
+                        </i>
                     </span>
                 </header>
                 <main className="main">    
@@ -232,14 +295,14 @@ class detailsComponent extends Component{
                       }
                     </Carousel>
                     <div className="maindetails">
-                        <p className="maindetails_t"><span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span>￥{this.props.ajaxResult.oldPrice}</span><span>包邮</span></p>
+                        <p className="maindetails_t"><span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span>￥{this.props.ajaxDetailsResult.oldPrice}</span><span>包邮</span></p>
                         <div className="maindetails_c">
                             <div>
-                                <p><span>品牌特卖</span>{this.props.ajaxResult.name}</p>
+                                <p><span>品牌特卖</span>{this.props.ajaxDetailsResult.name}</p>
                             </div>
                             <span><i className="iconfont icon-shoucang"></i><br/>收藏</span>
                         </div>
-                        <p className="maindetails_b">{this.props.ajaxResult.title}</p>
+                        <p className="maindetails_b">{this.props.ajaxDetailsResult.title}</p>
                     </div>
                     <ul className="maindetails_sale">
                         <li><div><span>券</span>可领取优惠券<span>￥10</span><span>￥30</span></div><i className="iconfont icon-xiayiye1"></i>
@@ -275,7 +338,7 @@ class detailsComponent extends Component{
                             <img src={this.state.groundImg[0]}/>
                             <div className="details_sizeColor_top_r">
                                 <div className="details_sizeColor_top_r_t">
-                                    <span>￥{this.props.ajaxResult.oldPrice*this.props.ajaxResult.zhekou}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
+                                    <span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
                                 </div>
                                 <span>请选择&nbsp;尺码&nbsp;颜色</span>
                             </div>
@@ -308,7 +371,7 @@ class detailsComponent extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="details_sizeColor_button">确定</div>
+                        <div className="details_sizeColor_button" onClick={this.addCart.bind(this)}>确定</div>
                     </div>
                     <div className="overlay" ref="overlay" onClick={this.closethecart.bind(this)}>
                     </div>
@@ -316,9 +379,9 @@ class detailsComponent extends Component{
                 <footer className="foot">
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
-                    <div><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
-                    <div><span>立即购买</span></div>
-                    <div onClick={this.addCart.bind(this)}><span>加入购物车</span></div>
+                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
+                    <div onClick={this.addtoCart.bind(this)}><span>立即购买</span></div>
+                    <div onClick={this.addtoCart.bind(this)}><span>加入购物车</span></div>
                 </footer>
             </div>
         )
@@ -328,7 +391,7 @@ class detailsComponent extends Component{
 let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.details.status,
-        ajaxResult: state.details.result || []
+        ajaxDetailsResult: state.details.detailsresult || []
     }
 }
 

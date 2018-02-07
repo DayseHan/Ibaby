@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import * as actions from './userAction';
 import BackComponent from '../back/backComponent'
 import FooterComponent from '../footer/footerComponent'
+import {Route,Link} from 'react-router'
+
 
 import './user.scss';
 
@@ -13,6 +15,7 @@ class UserComponent extends Component{
         _quit:'none',
         _user1:'block',
         _user2:'none',
+        user:''
     }
 
     show_toggle2(l1,l2){
@@ -34,12 +37,13 @@ class UserComponent extends Component{
                 <div className="user1" style={{display:this.state._user1}}>
                     <div className="top">
                         <i className="iconfont icon-pinglun1"></i>
+                        <p>{this.state.user}</p>
                         <i className="iconfont icon-shezhi" onClick={this.show_toggle1.bind(this,"none","block")}></i>
                     </div>
                     <div className="main1">
                         <div className="btn" style={{display:this.state._login}}>
-                            <button>立即登录</button>
-                            <button>新人注册</button>
+                            <Link to="/login"><button>立即登录</button></Link>
+                            <Link to="/register"><button>新人注册</button></Link>
                         </div>
                          <div className="btn" style={{display:this.state._quit}}>
                             <img/>

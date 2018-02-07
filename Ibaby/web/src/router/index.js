@@ -11,18 +11,19 @@ import ClassifyComponent from '../components/classify/classifyComponent'
 import MessageComponent from '../components/message/messageComponent.js'
 import SearchpageComponent from '../components/searchpage/searchpageComponent.js'
 import bringComponent from '../components/bring_up/bringComponent.js'
-import cartComponent from '../components/cart/cartComponent.js'
 import settlementComponent from '../components/settlement/settlementComponent.js'
+import ListComponent from '../components/list/listComponent'
+import cartComponent from '../components/cart/cartComponent.js'
 
 const routes = (
     <Route>
         <Route path="/" component={HomeComponent}/>
-        <Route path="prolist" component={ProlistComponent}/>
         <Route path="details" component={detailsComponent}/>
         <Route path="login" component={LoginComponent}/>
         <Route path="register" component={RegisterComponent} />
         <Route path="user" component={UserComponent} /> 
         <Route path="classify" component={ClassifyComponent} /> 
+        <Route path='list/:id' component={ListComponent}/>
         <Route path="message" component={MessageComponent} />
         <Route path="searchpage" component={SearchpageComponent}/>
         <Route path="bring" component={bringComponent}/>
