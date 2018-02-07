@@ -4,7 +4,7 @@ import prolist from '../components/prolist/prolistReducer'
 import details from '../components/details/detailsReducer'
 import login from '../components/login/loginReducer'
 import register from '../components/register/registerReducer'
-import menulist from '../components/classify/classifyReducer'
+import {classify} from '../components/classify/classifyReducer'
 import home from '../components/home/homeReducer'
 
 
@@ -14,7 +14,7 @@ export default combineReducers({
     prolist,
     login,
     register,
-    menulist,
+    classify,
     details,
     home,
     cart,

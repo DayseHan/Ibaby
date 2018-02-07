@@ -18,12 +18,10 @@ const componentHeight = {
 
 class Classify extends Component{
     state = {
-        activeIndex:0
+        activeIndex: 0
     }
-    componentDidMount() {
-        this.props.getMenu().then((res) => {
-            // console.log(res);
-        });
+    componentWillMount() {
+        this.props.getMenu().then((res) => {});
     }
     componentWillReceiveProps(){
         this.rightLeftClass()
@@ -72,44 +70,44 @@ class Classify extends Component{
     }
     arrFilter(arrObj){
         let arr = [];
-        arrObj.forEach((item,i)=>{
+        for (let i = 0; i < arrObj.length;i++){
             let index = -1;
             let alreact = arr.some((Item,j)=>{
-                if(item.cateIndex === Item.cateIndex){
+                if (arrObj[i].cateIndex === Item.cateIndex){
                     index = j;
                     return true;
                 }
             });
             if(!alreact){
                 arr.push({
-                    cateIndex:item.cateIndex,
-                    goodsArr:[{ listId: item.cateId, listName: item.cateName, listImg:item.cateImg }]
+                    cateIndex: arrObj[i].cateIndex,
+                    goodsArr: [{ listId: arrObj[i].cateId, listName: arrObj[i].cateName, listImg: arrObj[i].cateImg }]
                 })
             }else{
-                arr[index].goodsArr.push({ listId: item.cateId, listName: item.cateName, listImg:item.cateImg })                
+                arr[index].goodsArr.push({ listId: arrObj[i].cateId, listName: arrObj[i].cateName, listImg: arrObj[i].cateImg })                
             }
-        })
+        }
         return arr;
     }
     brandFiler(arrObj){
         let arr = [];
-        arrObj.forEach((item,i)=>{
+        for (let i = 0; i < arrObj.length; i++) {
             let index = -1;
             let alreact = arr.some((Item,j)=>{
-                if(item.words === Item.words){
+                if (arrObj[i].words === Item.words){
                     index = j;
                     return true;
                 }
             });
             if(!alreact){
                 arr.push({
-                    words:item.words,
-                    goodsArr:[{ idxId: item.idxId, brandName: item.brand, brandImg:item.brandImg }]
+                    words:arrObj[i].words,
+                    goodsArr:[{ idxId: arrObj[i].idxId, brandName: arrObj[i].brand, brandImg:arrObj[i].brandImg }]
                 })
             }else{
-                arr[index].goodsArr.push({ idxId: item.idxId, brandName: item.brand, brandImg:item.brandImg })                
+                arr[index].goodsArr.push({ idxId: arrObj[i].idxId, brandName: arrObj[i].brand, brandImg:arrObj[i].brandImg })                
             }
-        })
+        }
         return arr;
     }
     wordSort(arrObj){
@@ -120,10 +118,11 @@ class Classify extends Component{
         return arrObj;
     }
     render(){
-        let listNav = this.props.ajaxResult[1];
+        // console.log("5454353",this.props.listResult);
+        let listNav = this.props.listResult[1];
         let arrRes = this.arrFilter(listNav);
         // console.log(arrRes);
-        let brandNav = this.props.ajaxResult[2];
+        let brandNav = this.props.listResult[2];
         let brandRes = this.brandFiler(brandNav);
         // 字母排序
         let sortRes = this.wordSort(brandRes);
@@ -147,7 +146,7 @@ class Classify extends Component{
                             <div className="menu-main-left" ref="menuLeft">
                                 <ul ref="menuLeftLi">
                                     { 
-                                        this.props.ajaxResult[0].map((item,index)=>{
+                                        this.props.listResult[0].map((item,index)=>{
                                             return (
                                                 <li className={this.state.activeIndex == index ? "menu-active" : ''} key={index} onClick={this.chooseMenuScroll.bind(this,index)}>
                                                     <span>{item.category}</span>
@@ -212,10 +211,10 @@ class Classify extends Component{
 }
 
 let mapStateToProps = (state) => {
-    console.log("res", state);
+    // console.log("res", state);
     return {
-        ajaxStatus:state.menulist.status,
-        ajaxResult:state.menulist.menulist || [[],[],[]]
+        listState: state.classify.status,
+        listResult: state.classify.menulist || [[],[],[]]
     }
 }
 
