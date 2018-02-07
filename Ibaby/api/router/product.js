@@ -42,7 +42,7 @@ module.exports = {
                 from
                     cart c
                     inner join user u on c.userid = u.user_id
-                    inner join goodslist g on c.proid =g.id
+                    inner join goodslist g on c.goodsid =g.id
                 where 
                     c.userid = ${uid}
                 `;
@@ -58,7 +58,7 @@ module.exports = {
 
             var uid =_req.body.uid;
              let sql = `INSERT INTO orders(cartid,goodsId,userid) values('${cartids}','${goodsids}',${uid});`      
-            console.log(sql)
+
             db.insert(sql,function(res){
             //    console.log(res)
             // //     // sql='';
@@ -75,7 +75,7 @@ module.exports = {
             })
         })
 
-        _app.get('/getdate',function(){
+        _app.get('/getdate',function(_req,_res){
             let uid=_req.query.uid;
             var sql = `
             select
@@ -90,9 +90,11 @@ module.exports = {
                 _res.send(res)
             })
         })
-        
+
         _app.get('/getpay',function(_req,_res){
             let uid=_req.query.uid;
+            let addtime =_req.query.addtime;
+            console.log(addtime)
             var sql = `
             select
                *
@@ -100,29 +102,32 @@ module.exports = {
                 orders 
             where 
                 orders.userid = ${uid}
+                and Date.parse(oders.add_time)=${addtime}
             `
             db.select(sql,function(res){
-                var len =res.data.results
-                sql=''
-                for(i=0;i<len.length;i++){
-                    var lens =len[i].cartid.split(',')
-                    for(j=0;j<lens.length;j++){
-                        console.log(lens[j]);
-                         sql += `
-                        select
-                           *
-                        from 
-                            cart
-                        where 
-                            cart.indexid = ${lens[j]};   `   
-                    }
+                console.log(res)
+                _res.send(res)
+                // var len =res.data.results
+                // sql=''
+                // for(i=0;i<len.length;i++){
+                //     var lens =len[i].cartid.split(',')
+                //     for(j=0;j<lens.length;j++){
+                //         console.log(lens[j]);
+                //          sql += `
+                //         select
+                //            *
+                //         from 
+                //             cart
+                //         where 
+                //             cart.indexid = ${lens[j]};   `   
+                //     }
                     
-                }
-                console.log(sql)
-                 db.select(sql,function(res){
-                    console.log(res)
-                    _res.send(res)
-                })
+                // }
+ 
+                //  db.select(sql,function(res){
+
+                //     _res.send(res)
+                // })
             })
         })
     }

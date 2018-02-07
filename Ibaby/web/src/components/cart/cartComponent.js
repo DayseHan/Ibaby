@@ -4,6 +4,7 @@ import './cart.scss'
 import { NavBar,Checkbox} from 'antd-mobile';
 import * as actions from './cartAction'
 import FooterComponent from '../footer/footerComponent.js'
+import {hashHistory} from 'react-router'
 
 let cartids = [];
 let goodsids = [];
@@ -33,20 +34,23 @@ class CartComponent extends Component {
     alls(){
 
     }
-    selectItem(indexid, goodsId, event){
+    goBack(){
+        hashHistory.go(-1);
+    }
+    selectItem(indexid, goodsid, event){
         if(event.target.checked){
             if(cartids.indexOf(indexid) < 0){
                 cartids.push(indexid)
             }
-            if(goodsids.indexOf(goodsId) < 0){
-                goodsids.push(goodsId)
+            if(goodsids.indexOf(goodsid) < 0){
+                goodsids.push(goodsid)
             }            
         } else {
             if(cartids.indexOf(indexid) > -1){
                 cartids.splice(cartids.indexOf(indexid), 1)
             }
-            if(goodsids.indexOf(goodsId) > - 1){
-                goodsids.splice(goodsids.indexOf(goodsId), 1)
+            if(goodsids.indexOf(goodsid) > - 1){
+                goodsids.splice(goodsids.indexOf(goodsid), 1)
             }                
         }
         console.log(cartids, goodsids);
@@ -57,9 +61,12 @@ class CartComponent extends Component {
             <div className="car">
                 <div className="head">
                     <NavBar mode="light"
+                     leftContent={[
+                        <i className="iconfont icon-shangyiye1"key="18" onClick={this.goBack.bind(this)}></i>
+                    ]}
                     rightContent={[
-                        <div className="edit" key="0"ref="edit"onClick={this.edit.bind(this)}>编辑</div>,
-                        <div className="complete" key="1"ref="complete" onClick={this.complete.bind(this)}>完成</div>
+                        <div className="edit" key="10"ref="edit"onClick={this.edit.bind(this)}>编辑</div>,
+                        <div className="complete" key="11"ref="complete" onClick={this.complete.bind(this)}>完成</div>
                     ]}
                     >购物车
                     </NavBar>
@@ -71,11 +78,11 @@ class CartComponent extends Component {
                         <div className="redact"></div>
                     </div>
                     {
-                        this.props.cartList.map((item) => {
+                        this.props.cartList.map((item,idx) => {
                             return (
-                                <li key={item.indexid}>
+                                <li key={idx}>
                                     <div className="toplist">
-                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsId)}>
+                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid)}>
                                         </AgreeItem>
                                         <img src={item.imgurl} />
                                         <div className="content"id="content">
@@ -103,13 +110,13 @@ class CartComponent extends Component {
                 <div className="foot">
                     <NavBar mode="light"
                     leftContent={[
-                        <AgreeItem data-seed="logId"key="2"  onClick={this.alls.bind(this)}>
+                        <AgreeItem data-seed="logId"key="16"  onClick={this.alls.bind(this)}>
                         全选
                         </AgreeItem>
                         ]}
                     rightContent={[
-                        <div className="total"key="3" >总计:¥<span className="totalprice" key="4"></span></div>,
-                        <div className=" closing" key="5" onClick={this.genOrder.bind(this)}>结算</div>   
+                        <div className="total"key="13" >总计:¥<span className="totalprice" ></span></div>,
+                        <div className=" closing" key="14" onClick={this.genOrder.bind(this)}>结算</div>   
                     ]}>
                     </NavBar>
                 </div>
