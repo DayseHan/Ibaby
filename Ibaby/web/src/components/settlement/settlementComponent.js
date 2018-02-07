@@ -4,13 +4,30 @@ import {connect} from 'react-redux'
 import * as actions from './settlementAction.js'
 import { NavBar,Checkbox} from 'antd-mobile';
 const AgreeItem = Checkbox.AgreeItem;
+import {hashHistory} from 'react-router'
 let settlement =[]
+let Order_result=[]
+let addtime=''
+
  class settlementComponent extends Component{
     getBack(){
-            
+        hashHistory.go(-1);   
     }
     componentWillMount(){
-        this.props.getpay();
+        this.props.getpay().then(res=>{
+            console.log(res)
+        });
+           this.props.getdate().then(res=>{
+            Order_result=res.data.results;
+            console.log(Order_result)
+        });
+    }
+    orders(add_time){
+       addtime=Date.parse(add_time);
+       console.log(addtime);
+       this.props.getpay(addtime).then(res=>{
+            console.log(res)
+        });
     }
     render(){
         return (
@@ -74,9 +91,11 @@ let settlement =[]
                         </div>
                         <div className="order">
                          {
-                        this.props.settlement.map((item) => {
+                            Order_result.map((item, idx) => {
                             return (
-                                <li key={item.orderid}>
+                                <li key={idx}>
+                                    <div className="orders"onClick={this.orders.bind(this,item.add_time)}>{Date.parse(item.add_time)}
+                                    </div>
 
                                 </li>
                                 )
@@ -103,7 +122,8 @@ let settlement =[]
 let mapStateToProps = (state) => {
     console.log(state)
     return {
-        settlement:state.cart.result || []
+        settlement:state.settlement.result || [],
+        Order_result:state.settlement.order_result || []
     }
 }
 
