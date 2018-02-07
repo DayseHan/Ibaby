@@ -6,7 +6,7 @@ import login from '../components/login/loginReducer'
 import register from '../components/register/registerReducer'
 import {classify} from '../components/classify/classifyReducer'
 import home from '../components/home/homeReducer'
-
+import { getlist } from "../components/list/listReducer";
 
 import cart from '../components/cart/cartReducer.js'
 import settlement from '../components/settlement/settlementReducer.js'
@@ -17,6 +17,7 @@ export default combineReducers({
     classify,
     details,
     home,
+    getlist,
     cart,
     settlement
 })
