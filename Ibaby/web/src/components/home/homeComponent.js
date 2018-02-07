@@ -74,7 +74,7 @@ class HomeComponent extends Component{
                 obj.style.position = 'fixed';
                 obj.style.zIndex = 9999;
                 obj.style.top = '90px';
-                obj.style.width = '750px'
+                // obj.style.width = '750px'
             }else if (_body.scrollTop < 375) {
                 obj.style.position = '';
             }
