@@ -20,7 +20,24 @@ module.exports = {
         })
         _app.get('/getlist',function(request,responer){
             var uid = request.query.gId;
-            var sql = `SELECT id,listsId,name,oldPrice,zhekou,imgurl,buyNum FROM goodslist WHERE listsId = ${uid}`;
+            var idx = request.query.idx;
+            console.log(parseInt(idx));
+            var sql = 'SELECT id,listsId,name,oldPrice,zhekou,imgurl,buyNum FROM goodslist WHERE listsId=' + uid;
+
+            switch (parseInt(idx)) {
+                case 0:
+                    sql = sql;
+                    break;
+                case 1:
+                    sql += ' order by cast(oldPrice as decimal)asc'
+                    break;
+                case 2:
+                    sql += ' order by cast(oldPrice as decimal)desc'
+                    break;
+                case 3:
+                    sql += ' order by cast(buyNum as decimal)desc'
+                    break;
+            }
             db.select(sql,function(results){
                 responer.send(results);
             })
