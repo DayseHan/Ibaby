@@ -9,7 +9,7 @@ export function classify(state = {},action){
         case classifyConstants.CLASSIFY_RQUESTED:
             newState.status = 1;
             newState.menulist = action.result.data.results;
-            break;
+            break; 
         case classifyConstants.CLASSIFY_RQUESTERROR:
             newState.status = -1;
             break;
