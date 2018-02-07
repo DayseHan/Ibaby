@@ -117,7 +117,8 @@ class HomeComponent extends Component{
                             infinite
                             selectedIndex={0}
                         >
-                        {this.props.bannerResult.map((item, idx) => {
+                        {
+                            this.props.bannerResult.map((item, idx) => {
                             var path = {
                                 pathname:'/details',
                                 query:{id:item.id},
@@ -140,7 +141,8 @@ class HomeComponent extends Component{
                                     />
                                 </Link>
                             )
-                          })}
+                          })
+                          }
                         </Carousel>
                     </div>
                     <div className="tabs">

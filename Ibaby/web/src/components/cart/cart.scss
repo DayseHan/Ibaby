@@ -1,9 +1,12 @@
 
 .car{
     font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     position:relative;
     .minheight{
-        min-height:1180px;
+    
     }
     .head{
         .complete{
@@ -12,35 +15,27 @@
         width:100%;
         position:fixed;
         .am-navbar {
-            height:80px;
+            height:1.066667rem;
             .am-navbar-title,.am-navbar-right{
                 font-size: 24px;
-                line-height:80px;
+                line-height:1.066667rem;
             }
         }
-    }
-    .footerbottom{
-        width:100%;
-        position:fixed;
-        bottom:0px;
     }
     .foot{
         border-top:1px solid #ccc;
         border-bottom:1px solid #ccc;
-        width:100%;
-        position:fixed;
-        bottom:100px;
         .am-navbar{
-            height:80px;
+            height:1.066667rem;
             .am-navbar-left{
                 font-size: 24px;
-                line-height:80px;
+                line-height:1.066667rem;
                 .am-checkbox{
-                    margin-top: 26px;
+                    margin-top: 0.346667rem;
                 }
                 .am-checkbox-wrapper{
                     font-size: 24px;
-                    line-height:80px;
+                    line-height:1.066667rem;
                 }
             }
             .am-navbar-right{
@@ -51,35 +46,37 @@
             }
             .total{
                 color:red;
-                padding-right:20px;
+                padding-right:0.266667rem;
             }
             .closing{
-                width:120px;
+                width:1.6rem;
                 color:#fff;
-                line-height:80px;
+                line-height:1.066667rem;
                 text-align:center;
                 background:red;
             }
         }
     }
     .carlist{
-        padding-top:80px;
-        margin-bottom:50px;
+        flex: 1;
+        overflow-x: hidden;
+        padding-top:1.066667rem;
+        margin-bottom:0.666667rem;
         .carhead{
-            height:50px;
+            height:0.666667rem;
             overflow:hidden;
             background:#fff;
             margin-top:10px;
-            line-height:50px;
+            line-height:0.666667rem;
             i{
                 float:left;
-                padding-left:20px;
+                padding-left:0.266667rem;
                 font-size:32px;
             }
             .shop{
                 float:left;
-                width:200px;
-                padding-left:20px;
+                width:2.666667rem;
+                padding-left:0.266667rem;
                 border-top:1px solid #e6e6e6;
             }
         }
@@ -89,96 +86,96 @@
             background:#fff;
             overflow:hidden;
             .toplist{
-                height:180px;
+                height:2.4rem;
             }
         }
         .lastextens{
-            height:30px;
-            line-height:30px;
+            height:0.4rem;
+            line-height:0.4rem;
             border-top:1px solid #e6e6e6;
             overflow:hidden;
-            padding-right:20px;
+            padding-right:0.266667rem;
             .extens{
                 float:right;
-                height:30px;
+                height:0.4rem;
                 .exten ::before {
                     content:"¥";
                 }
             }
         }
         .am-checkbox-agree {
-            width:50px;
-            height:50px;
+            width:0.666667rem;
+            height:0.666667rem;
             display:block;
             float:left;
-            margin-top: 65px;
+            margin-top:0.866667rem;
         }
         img{
-            width:180px;
-            height:180px;
+            width:2.4rem;
+            height:2.4rem;
             float:left;
         }
         .content{
             overflow:hidden;
             .goodsName{       
-                padding-top:20px;
+                padding-top:0.266667rem;
                 float:right;
-                width:480px;
+                width:6.4rem;
             }
         }
         .carcount{
             display:none;
             overflow:hidden;
             .goodsName{
-                padding-left:50px;
+                padding-left:0.666667rem;
                 float:left;
-                padding-top:30px;
-                width:300px;
+                padding-top:0.4rem;
+                width:4.0rem;
             }
         }
         .input{
-            padding-left:50px;
+            padding-left:0.666667rem;
             float:left;
-            padding-top:30px;
+            padding-top:0.4rem;
             .reduct,.add{
                 float:left;
                 text-align:center;
-                line-height:50px;
-                width:50px;
-                height:50px;
+                line-height:0.666667rem;
+                width:0.666667rem;
+                height:0.666667rem;
                 background:#e6e6e6;
             }
             input{
                 margin:0 2px;
                 float:left;
                 text-align:center;
-                line-height:50px;
-                width:150px;
-                height:50px;
+                line-height:0.666667rem;
+                width:2.0rem;
+                height:0.666667rem;
                 border:0;
                 background:#e6e6e6;
             }
         }
         .introduce{
-            padding-top:20px;
-            padding-left:20px;
+            padding-top:0.266667rem;
+            padding-left:0.266667rem;
             float:left;
-            width:420px;
+            width:5.6rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .compute{
-            padding-top:20px;
-            padding-left:20px;
+            padding-top:0.266667rem;
+            padding-left:0.266667rem;
             overflow:hidden;
-            width:480px;
+            width:6.4rem;
             .price{
                 float:left;
             }
             .counts{
                 float:right;
-                padding-right:20px;
+                padding-right:0.266667rem;
                 .count{
                     float:right;
                 }
