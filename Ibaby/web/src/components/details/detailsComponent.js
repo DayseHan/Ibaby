@@ -11,6 +11,7 @@ class detailsComponent extends Component{
     componentWillMount(){
         var data = this.props.location.query;
         this.state.username = JSON.parse(localStorage.getItem('username'))
+        this.state.userid = JSON.parse(localStorage.getItem('user_id'))
         console.log(data,this.state.username)
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
@@ -21,9 +22,9 @@ class detailsComponent extends Component{
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
         if(this.state.username == ''){
-            this.$router.replace('/login')
+            hashHistory.push('/login')
         }else{
-            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.username);
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username);
         }
     }
     addtoCart(){
@@ -32,7 +33,7 @@ class detailsComponent extends Component{
         this.animate(this.refs.overlay,{opacity:0.4}); 
     }
     jumptoCart(){
-         this.hashHistory.path('/cart')
+         hashHistory.push('/cart')
      }
     closethecart(){
         this.animate(this.refs.details_sizeColor,{bottom:-971});
@@ -207,6 +208,7 @@ class detailsComponent extends Component{
         indexS: 100,
         indexC: 100,
         username:'',
+        userid:'',
         visible: false,
         selected: ''
     }   
