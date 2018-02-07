@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from './userAction';
 import BackComponent from '../back/backComponent'
+import LoadingComponent from '../loading/loadingComponent'
 import FooterComponent from '../footer/footerComponent'
-import {Route,Link} from 'react-router'
+import {Route,Link,hashHistory} from 'react-router'
 
 
 import './user.scss';
@@ -15,13 +16,44 @@ class UserComponent extends Component{
         _quit:'none',
         _user1:'block',
         _user2:'none',
-        user:''
+        user:'',
+        phone:'',
+        user_id:'',
+        text:''
+    }
+    componentDidMount(){
+        var phone = JSON.parse(localStorage.getItem('username'));
+        var user_id = JSON.parse(localStorage.getItem('user_id'));
+        if(phone&&user_id){
+            this.setState({_login:'none',_quit:'block'});
+        }else{
+            this.setState({_login:'block',_quit:'none'});
+        }
+        this.setState({
+            phone:phone,
+            user_id:user_id
+        },()=>{
+            console.log("username："+this.state.phone,"user_id："+this.state.user_id)
+        })
+        
     }
 
     show_toggle2(l1,l2){
+        this.refs.loading.show();
         this.setState({
             _login:l1,
             _quit:l2,
+        },()=>{
+            if(l1 == "none"){
+                this.refs.loading.hide();
+                hashHistory.push("/login");
+            }else{
+                localStorage.clear();
+                setTimeout(()=>{
+                    this.refs.loading.hide();
+                }, 1050)
+            }
+
         })
     }
     show_toggle1(l1,l2){
@@ -34,10 +66,11 @@ class UserComponent extends Component{
     render(){
         return (
             <div className="user">
+                <LoadingComponent ref="loading" text={this.state.text}></LoadingComponent>
                 <div className="user1" style={{display:this.state._user1}}>
                     <div className="top">
                         <i className="iconfont icon-pinglun1"></i>
-                        <p>{this.state.user}</p>
+                        <p>{JSON.parse(localStorage.getItem('username'))}</p>
                         <i className="iconfont icon-shezhi" onClick={this.show_toggle1.bind(this,"none","block")}></i>
                     </div>
                     <div className="main1">
@@ -45,9 +78,10 @@ class UserComponent extends Component{
                             <Link to="/login"><button>立即登录</button></Link>
                             <Link to="/register"><button>新人注册</button></Link>
                         </div>
-                         <div className="btn" style={{display:this.state._quit}}>
-                            <img/>
+                         <div className="btn quit" style={{display:this.state._quit}}>
+                            <img src="./src/assets/images/user.jpg"/>
                             <span>宝宝年龄：备孕中</span>
+                            <p><span>V0会员</span> <span>个人主页</span></p>
                         </div>
                         <ul>
                             <li><i className="iconfont icon-baby"></i>早教宝</li>
@@ -202,7 +236,8 @@ class UserComponent extends Component{
 
 let mapStateToProps = (state) =>{
     return {
-        // test:state.login.result || []
+        ajaxStatus:state.register.status,
+        ajaxResult:state.register.result || []
     }
 }
 
