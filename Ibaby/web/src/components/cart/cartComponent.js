@@ -8,7 +8,9 @@ import {hashHistory} from 'react-router'
 
 let cartids = [];
 let goodsids = [];
-let value =1
+let counts =[];
+let value =1;
+
 const AgreeItem = Checkbox.AgreeItem;
 class CartComponent extends Component {
     componentWillMount(){
@@ -37,23 +39,24 @@ class CartComponent extends Component {
     goBack(){
         hashHistory.go(-1);
     }
-    selectItem(indexid, goodsid, event){
+    selectItem(indexid, goodsid, count, price, event){
         if(event.target.checked){
             if(cartids.indexOf(indexid) < 0){
                 cartids.push(indexid)
             }
             if(goodsids.indexOf(goodsid) < 0){
                 goodsids.push(goodsid)
-            }            
+            }
+            console.log(count*price)
         } else {
             if(cartids.indexOf(indexid) > -1){
                 cartids.splice(cartids.indexOf(indexid), 1)
             }
             if(goodsids.indexOf(goodsid) > - 1){
                 goodsids.splice(goodsids.indexOf(goodsid), 1)
-            }                
+            }               
         }
-        console.log(cartids, goodsids);
+        console.log(cartids, goodsids,counts);
     }
     
     render(){
@@ -82,7 +85,7 @@ class CartComponent extends Component {
                             return (
                                 <li key={idx}>
                                     <div className="toplist">
-                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid)}>
+                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.price)}>
                                         </AgreeItem>
                                         <img src={item.imgurl} />
                                         <div className="content"id="content">
@@ -130,7 +133,6 @@ let mapStateToProps = (state) => {
     console.log(state)
     return {
         cartList:state.cart.result || []
-
     }
 }
 

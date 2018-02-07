@@ -5,29 +5,20 @@ import * as actions from './settlementAction.js'
 import { NavBar,Checkbox} from 'antd-mobile';
 const AgreeItem = Checkbox.AgreeItem;
 import {hashHistory} from 'react-router'
-let settlement =[]
-let Order_result=[]
-let addtime=''
+
 
  class settlementComponent extends Component{
     getBack(){
         hashHistory.go(-1);   
     }
     componentWillMount(){
-        this.props.getpay().then(res=>{
-            console.log(res)
-        });
-           this.props.getdate().then(res=>{
-            Order_result=res.data.results;
-            console.log(Order_result)
-        });
+           this.props.getdate()
     }
-    orders(add_time){
-       addtime=Date.parse(add_time);
-       console.log(addtime);
-       this.props.getpay(addtime).then(res=>{
-            console.log(res)
-        });
+    orders(orderid){
+       console.log(orderid);
+       this.props.getpay(orderid).then((res) => {
+            this.props.getdate();
+        }) 
     }
     render(){
         return (
@@ -91,14 +82,22 @@ let addtime=''
                         </div>
                         <div className="order">
                          {
-                            Order_result.map((item, idx) => {
+                            this.props.settlement.map((item, idx) => {
                             return (
                                 <li key={idx}>
-                                    <div className="orders"onClick={this.orders.bind(this,item.add_time)}>{Date.parse(item.add_time)}
+                                    <div className="orders"onClick={this.orders.bind(this,item.orderid)}>{Date.parse(item.add_time)}
                                     </div>
-
                                 </li>
                                 )
+                            })
+                        }
+                         {
+                            this.props.Order.map((item, idx) => {
+                            return (
+                                <div key={idx}>
+                                    <div >{item.name}</div>
+                                </div>
+                            )
                             })
                         }
                         </div>
@@ -123,7 +122,7 @@ let mapStateToProps = (state) => {
     console.log(state)
     return {
         settlement:state.settlement.result || [],
-        Order_result:state.settlement.order_result || []
+        Order:state.settlement.order_result || []
     }
 }
 
