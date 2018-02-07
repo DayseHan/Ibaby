@@ -21,7 +21,7 @@ class UserComponent extends Component{
         user_id:'',
         text:''
     }
-    componentDidMount(){
+    componentWillMount(){
         var phone = JSON.parse(localStorage.getItem('username'));
         var user_id = JSON.parse(localStorage.getItem('user_id'));
         if(phone&&user_id){
@@ -85,7 +85,7 @@ class UserComponent extends Component{
                         </div>
                         <ul>
                             <li><i className="iconfont icon-baby"></i>早教宝</li>
-                            <li><i className="iconfont icon-shoucang"></i>收藏</li>
+                            <li><Link to="/login"><i className="iconfont icon-shoucang"></i>收藏</Link></li>
                             <li><i className="iconfont icon-zuji"></i>足迹</li>
                         </ul>
                     </div>
