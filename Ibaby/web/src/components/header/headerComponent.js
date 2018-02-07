@@ -16,7 +16,7 @@ class HeaderComponent extends Component{
                         <Link to="searchpage" className="search">
                             <i className="iconfont icon-search"></i>
                         </Link>
-                        <Link to="/" className="saoyisao">
+                        <Link to="searchpage" className="saoyisao">
                             <i className="iconfont icon-saoyisao"></i>
                         </Link>
                     </div>

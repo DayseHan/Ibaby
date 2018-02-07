@@ -1,10 +1,19 @@
-/* 
-* @Author: Marte
-* @Date:   2018-02-05 13:53:02
-* @Last Modified by:   Marte
-* @Last Modified time: 2018-02-05 13:53:03
-*/
+import * as ajaxConstants from '../../constants/ajaxConstants'
 
-$(document).ready(function(){
-    
-});
+export default function searchpageReducer(state = {}, action){
+    let newState = JSON.parse(JSON.stringify(state));
+    switch(action.type){
+        case ajaxConstants.AJAX_REQUESTING:
+            newState.status = 0;
+            break;
+        case ajaxConstants.AJAX_REQUESTED:
+            newState.status = 1;
+            newState.search_result = action.result.data.results;
+            // console.log(newState.search_result)
+            break;
+        case ajaxConstants.AJAX_REQUESTERROR:
+            newState.status = -1;
+            break;
+    }
+    return newState;
+}
