@@ -79,7 +79,29 @@ class HomeComponent extends Component{
             }else if (_body.scrollTop < 375) {
                 obj.style.position = '';
             }
+
+            var _top = document.querySelector('.scrolltop');
+            if (_body.scrollTop >= 1000) {
+                _top.style.display = 'block';
+            }else{
+                _top.style.display = 'none';
+            }
+
         })
+    }
+
+    scrollTop(){
+        var _body = document.querySelector('.container');
+        let timer = setInterval(()=>{
+            var scrollTop = _body.scrollTop;
+            // console.log(scrollTop)
+            var speed = Math.ceil(scrollTop/10);
+            scrollTop -= speed;
+            if(speed <=0 || scrollTop === 0){
+                clearInterval(timer);
+            }
+            _body.scrollTo(0,scrollTop);
+        },30)
     }
 
     tabschange(item){
@@ -104,6 +126,7 @@ class HomeComponent extends Component{
         return(
             <div id="home">
                 <HeaderComponent/>
+                <div className="scrolltop" onClick={this.scrollTop.bind(this)}><i className="iconfont icon-fanhuidingbu"></i></div>
                 <ReactPullLoad className="container"
                     downEnough={150}
                     ref="reactpullload"
