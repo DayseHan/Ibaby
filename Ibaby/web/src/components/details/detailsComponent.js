@@ -13,6 +13,11 @@ class detailsComponent extends Component{
         this.state.username = JSON.parse(localStorage.getItem('username'))
         this.state.userid = JSON.parse(localStorage.getItem('user_id'))
         console.log(data,this.state.username)
+        this.props.getCartcount(data).then(res =>{console.log(res)
+            this.state.groundImg = res.data.results[0].groundImg.split(',');
+            this.state.color = res.data.results[0].color.split(',');
+            this.state.size = res.data.results[0].size.split(',');
+        })
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
             this.state.color = res.data.results[0].color.split(',');
