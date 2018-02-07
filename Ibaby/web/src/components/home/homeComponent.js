@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import { Carousel, Tabs} from 'antd-mobile'
-import cs from 'classnames'
+import ReactPullLoad,{ STATS } from 'react-pullload'
 
 import * as actions from './homeAction.js'
 
@@ -14,6 +14,36 @@ import './home.scss'
 class HomeComponent extends Component{
     state = {
         slideIndex: 0,
+    }
+
+    constructor(){
+        super();
+        this.state ={
+            action: STATS.init,
+        }
+    }
+
+    handleAction = (action) => {
+        // console.info(action, this.state.action,action === this.state.action);
+        if(action !== STATS.loading){
+            return false;
+        }
+
+        //DO NOT modify below code
+        this.setState({
+            action: action
+        })
+    }
+
+    getScrollTop = ()=>{
+        if(this.refs.reactpullload){
+            // console.info(this.refs.reactpullload.getScrollTop());
+        }
+    }
+    setScrollTop = ()=>{
+        if(this.refs.reactpullload){
+            // console.info(this.refs.reactpullload.setScrollTop(100));
+        }
     }
 
     componentWillMount() {
@@ -35,14 +65,19 @@ class HomeComponent extends Component{
             });
         }, 100);
 
-        window.addEventListener('scroll', function () {
-            var obj = document.querySelector('.am-tabs-tab-bar-wrap')
-            console.log(666)
-            obj.classList.add('fixed')
-            console.log(obj.offsetTop - document.body.scrollTop);
-            if (obj.offsetTop - document.body.scrollTop <= 0) {
+        var _body = document.querySelector('.container');
+        // console.log(aa.scrollTop);
+        _body.addEventListener('scroll', function () {
+            var obj = document.querySelector('.am-tabs-tab-bar-wrap');
+            // console.log(_body.scrollTop)
+            // obj.classList.add('fixed');
+            if (_body.scrollTop >= 375) {
                 obj.style.position = 'fixed';
-                obj.style.top = '-90px';
+                obj.style.zIndex = 9999;
+                obj.style.top = '90px';
+                obj.style.width = '750px'
+            }else if (_body.scrollTop < 375) {
+                obj.style.position = '';
             }
         })
     }
@@ -69,7 +104,13 @@ class HomeComponent extends Component{
         return(
             <div id="home">
                 <HeaderComponent/>
-                <div className="container">
+                <ReactPullLoad className="container"
+                    downEnough={150}
+                    ref="reactpullload"
+                    isBlockContainer={true}
+                    action={this.state.action}
+                    handleAction={this.handleAction}
+                >
                     <div className="banner">
                         <Carousel
                             autoplay={true}
@@ -127,7 +168,7 @@ class HomeComponent extends Component{
                         </Tabs>
                     </div>
                     <div className="nomore">~~爱贝多~~</div>
-                </div>
+                </ReactPullLoad>
                 <FooterComponent/>
             </div>
         )
