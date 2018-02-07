@@ -42,7 +42,7 @@ class HomeComponent extends Component{
             console.log(obj.offsetTop - document.body.scrollTop);
             if (obj.offsetTop - document.body.scrollTop <= 0) {
                 obj.style.position = 'fixed';
-                obj.style.top = '-20px';
+                obj.style.top = '-90px';
             }
         })
     }
