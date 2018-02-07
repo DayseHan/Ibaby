@@ -1,17 +1,16 @@
-import * as ajaxConstants from '../../constants/ajaxConstants'
 import * as classifyConstants from './classifyConstants'
 
-export default function classifyReducer(state = {},action){
+export function classify(state = {},action){
     let newState = JSON.parse(JSON.stringify(state));
     switch (action.type) {
-        case (ajaxConstants.AJAX_REQUESTING || classifyConstants.CLASSIFY_RQUESTING):
+        case classifyConstants.CLASSIFY_RQUESTING:
             newState.status = 0;
             break;
-        case ajaxConstants.AJAX_REQUESTED:
+        case classifyConstants.CLASSIFY_RQUESTED:
             newState.status = 1;
-            newState.menulist = action.result.data.results;//返回结果
+            newState.menulist = action.result.data.results;
             break;
-        case (ajaxConstants.AJAX_REQUESTERROR || classifyConstants.CLASSIFY_RQUESTERROR):
+        case classifyConstants.CLASSIFY_RQUESTERROR:
             newState.status = -1;
             break;
     }
