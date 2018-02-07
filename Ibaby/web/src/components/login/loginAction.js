@@ -8,6 +8,17 @@ export function check_phone(phone){
     }
 }
 
+export function login(phone,pwd){
+    return {
+        url:'login',
+        method:'post',
+        data:{
+            phone:phone,
+            pwd:pwd
+        }
+    }
+}
+
 export function getCode(phone,code){
     return {
         url:'https://api.miaodiyun.com/20150822/industrySMS/sendSMS',

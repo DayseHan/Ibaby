@@ -10,6 +10,7 @@ import { List, Checkbox, Flex, Toast} from 'antd-mobile';
 const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
 const phone_reg=/^[1][3,4,5,7,8][0-9]{9}$/;
+const pwd=/^[0-9a-zA-Z]{6,16}$/;
 
 
 class RegisterComponent extends Component{
@@ -39,10 +40,12 @@ class RegisterComponent extends Component{
             this.props.check_phone(this.refs.phone.value).then(res=>{
                 console.log('check_phone')
                 console.log(res.data.results.length);
-                // this.refs.loading._hide();
+                // this.refs.loading.hide();
                 if(res.data.results.length>0){
                     this.refs.phone.value='';
                     this.offline('该手机已注册，可直接登录！')
+                }else{
+                    this.getCode();
                 }
             });
         }
@@ -50,14 +53,20 @@ class RegisterComponent extends Component{
     }
 
     reg(){
+        if(!pwd.test(this.refs.pwd.value)){
+            this.offline('密码格式不对，必须是6-16位数字或字母')
+            return;
+        }
         if(this.state._code == this.refs.yzm.value){
             this.props.reg(this.refs.phone.value,this.refs.pwd.value).then(res=>{
                 console.log(res);
                 if(res.state){
+                    this.setState({user_id:res.data.results.insertId});
                     localStorage.setItem('username', JSON.stringify(this.state.phone));
                     localStorage.setItem('user_id', JSON.stringify(this.state.user_id));
-                    this.successToast('恭喜你！注册成功。')
+                    
                     setTimeout(function(){
+                        this.successToast('恭喜你！注册成功。')
                         hashHistory.push({pathname: '/user'})      
                     }, 2200)
                 }
@@ -66,13 +75,13 @@ class RegisterComponent extends Component{
             this.offline('验证码有误，请重试！');
         }
     }
-    _getCode(){
+    getCode(){
         // console.log(this.refs.phone.value,parseInt(Math.random()*9000 + 1000));
-        this.refs.loading._show();
+        this.refs.loading.show();
         var code = parseInt(Math.random()*9000 + 1000);
         // console.log(this.state._code,code);
         setTimeout(()=>{
-            this.refs.loading._hide();
+            this.refs.loading.hide();
             this.setState({_code: code});
             console.log(this.state._code,code);
 
@@ -86,18 +95,18 @@ class RegisterComponent extends Component{
             });
 
             this.successToast('验证码已发至您的手机请注意查收！')
-        },1500)
+        },1200)
 
     }
-    getCode(){
-        this.refs.loading._show();
+    getCode2(){
+        this.refs.loading.show();
         var code = parseInt(Math.random()*9000 + 1000);
         setTimeout(()=>{
             this.setState({_code: code});
             this.refs.yzm_btn.innerText = code;
-            this.refs.loading._hide();
+            this.refs.loading.hide();
             this.successToast('发送成功！')
-        },1500)
+        },1200)
     }
     
 
@@ -118,14 +127,14 @@ class RegisterComponent extends Component{
                     <div className="main">
                         <span className="ipt">
                             <i className="iconfont icon-shoujihao"></i>
-                            <input type="text" className="phone" placeholder="请输入11位手机号码" onBlur={this.check_phone.bind(this)} ref="phone"/>
+                            <input type="text" className="phone" placeholder="请输入11位手机号码" ref="phone"/>
                         </span>
 
 
                         <span className="ipt">
                             <i className="iconfont icon-dunpai1"></i>
                             <input type="text" className="yzm" placeholder="请输入验证码"  ref="yzm"/>
-                            <span className="yym_btn" onClick={this.getCode.bind(this)} ref="yzm_btn">获取验证码</span>
+                            <span className="yym_btn" onClick={this.check_phone.bind(this)} ref="yzm_btn">获取验证码</span>
                         </span>
 
                          <span className="ipt">
