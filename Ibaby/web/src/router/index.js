@@ -18,7 +18,7 @@ import cartComponent from '../components/cart/cartComponent.js'
 const routes = (
     <Route>
         <Route path="/" component={HomeComponent}/>
-        <Route path="details" component={detailsComponent}/>
+        <Route path="details(/:id)" component={detailsComponent}/>
         <Route path="login" component={LoginComponent}/>
         <Route path="register" component={RegisterComponent} />
         <Route path="user" component={UserComponent} /> 

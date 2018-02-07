@@ -6,30 +6,59 @@ import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 import {Route,Link,hashHistory} from 'react-router'
 import { Popover, NavBar, Icon } from 'antd-mobile';
+import { Toast,ActivityIndicator, Button } from 'antd-mobile';
+import LoadingComponent from '../loading/loadingComponent.js'
 const Item = Popover.Item;
 class detailsComponent extends Component{
     componentWillMount(){
         var data = this.props.location.query;
         this.state.username = JSON.parse(localStorage.getItem('username'))
         this.state.userid = JSON.parse(localStorage.getItem('user_id'))
-        console.log(data,this.state.username)
-        this.props.getCartcount(data).then(res =>{console.log(res)
-            this.state.groundImg = res.data.results[0].groundImg.split(',');
-            this.state.color = res.data.results[0].color.split(',');
-            this.state.size = res.data.results[0].size.split(',');
+        console.log(data,this.state.userid)
+        this.props.getCartcount(this.state.userid).then(res =>{console.log(res)
+            let cartCount = 0;
+            var cartcountresult = res.data.results
+            for(let i=0;i<cartcountresult.length;i++){
+                cartCount += cartcountresult[i].count*1
+            }
+            this.setState({cartCount:cartCount})
         })
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
             this.state.color = res.data.results[0].color.split(',');
             this.state.size = res.data.results[0].size.split(',');
         })
+        clearTimeout(this.closeTimer);
     }
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
         if(this.state.username == ''){
             hashHistory.push('/login')
+        }else if(this.state.buyColor=='' || this.state.buySize==''){
+            this.showToast();
         }else{
-            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username);
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username).then(res =>{this.setState({buyColor:'',buySize:'',count:1,selectColor:'颜色',selectSize:'尺寸',indexC:100,indexS:100})}).then(res =>{this.props.getCartcount(this.state.userid).then(res1 =>{console.log(res1)
+                        let cartCount = 0;
+                        var cartcountresult = res1.data.results
+                        for(let i=0;i<cartcountresult.length;i++){
+                            cartCount += cartcountresult[i].count*1
+                        }
+                        this.setState({cartCount:cartCount})
+                         })
+                    });
+            this.closethecart();
+            this.successToast();
+            var details_sizeColor_common_b1 = document.querySelector('.details_sizeColor_common_b1');
+            var details_sizeColor_common_b2 = document.querySelector('.details_sizeColor_common_b2');
+            var activeColors = details_sizeColor_common_b1.querySelectorAll('li');
+            var activeSizes = details_sizeColor_common_b2.querySelectorAll('li');
+            console.log(activeColors)
+            for(let j=0;j<activeColors.length;j++){
+                activeColors[j].classList.remove('changeColor');
+            }
+            for(let j=0;j<activeSizes.length;j++){
+                activeSizes[j].classList.remove('changeColor');
+            }         
         }
     }
     addtoCart(){
@@ -166,26 +195,36 @@ class detailsComponent extends Component{
     }
     addColor(idx,item,event){
         console.log(idx,event.target)
-        if(this.state.indexC != idx){
+        if(this.state.indexC != idx || event.target.className ==''){
              this.setState({indexC:idx});
              this.setState({buyColor:item});
+             this.setState({selectColor:''});
          }else if(this.state.indexC === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
+            this.setState({indexC:''});
+            this.setState({buyColor:''});
+            this.setState({selectColor:'颜色'});
          }else{
             event.target.classList.add('changeColor');
-            this.setState({buyColor:item})
+            this.setState({buyColor:item});
+            this.setState({selectColor:''});
          }
     }
-    addSize(idx,item,event){
+    addSize(idx,item,event){   
         console.log(idx,event.target)
-        if(this.state.indexS != idx){
+        if(this.state.indexS != idx || event.target.className ==''){
              this.setState({indexS:idx});
              this.setState({buySize:item});
+             this.setState({selectSize:''});
          }else if(this.state.indexS === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
+            this.setState({indexS:''});
+            this.setState({buySize:''});
+            this.setState({selectSize:'尺寸'});
          }else{
             event.target.classList.add('changeColor');
             this.setState({buySize:item});
+            this.setState({selectSize:''});
          }
     }
     onSelect = (opt) => {
@@ -200,6 +239,12 @@ class detailsComponent extends Component{
           visible,
         });
     };
+    successToast() {
+      Toast.success('添加购物车成功☺', 1);
+    }
+    showToast() {
+      Toast.info('请添加商品信息☺', 1);
+    }
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
@@ -209,14 +254,18 @@ class detailsComponent extends Component{
         size: [],
         buyColor:'',
         buySize:'',
+        selectSize:'尺码',
+        selectColor:'颜色',
         count: 1,
         indexS: 100,
         indexC: 100,
         username:'',
         userid:'',
         visible: false,
-        selected: ''
-    }   
+        selected: '',
+        cartCount: 0,
+        text: 0
+    } 
     componentDidMount() {
         // simulate img loading
         this.countDown(),
@@ -225,7 +274,14 @@ class detailsComponent extends Component{
             data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
           });
         }, 100);
-    }
+        // Toast.loading('Loading...', 30, () => {
+        //   console.log('Load complete !!!');
+        // });
+
+        setTimeout(() => {
+              Toast.hide();
+            }, 3000);
+        }
     render(){
         return (
             <div className="detailsbigBox">
@@ -347,24 +403,24 @@ class detailsComponent extends Component{
                                 <div className="details_sizeColor_top_r_t">
                                     <span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
                                 </div>
-                                <span>请选择&nbsp;尺码&nbsp;颜色</span>
+                                <span>请选择&nbsp;{this.state.selectSize}&nbsp;{this.state.selectColor}</span>
                             </div>
                         </div>
                         <div className="details_sizeColor_center">
                             <span className="details_sizeColor_common">颜色</span>
-                            <ul className="details_sizeColor_common_b" >
+                            <ul className="details_sizeColor_common_b details_sizeColor_common_b1">
                                 {this.state.color.map((item, idx) => {
                                     return(
-                                        <li key={idx} ref="activeColor" onClick={this.addColor.bind(this,idx,item)} className={this.state.indexC===idx?'changeColor' : ''}>{item}</li>
+                                        <li key={idx} ref="activeColor" id={idx} onClick={this.addColor.bind(this,idx,item)} className={this.state.indexC===idx?'changeColor' : ''}>{item}</li>
                                     )
                                     })
                                 }
                             </ul>
                             <span className="details_sizeColor_common">尺码</span>
-                            <ul className="details_sizeColor_common_b" >
+                            <ul className="details_sizeColor_common_b details_sizeColor_common_b2">
                                 {this.state.size.map((item, idx) => {
                                     return(
-                                        <li key={idx} ref="activeSize" onClick={this.addSize.bind(this,idx,item)} className={this.state.indexS===idx?'changeColor' : ''}>{item}</li>
+                                        <li key={idx} ref="activeSize" id={idx} onClick={this.addSize.bind(this,idx,item)} className={this.state.indexS===idx?'changeColor' : ''}>{item}</li>
                                     )
                                     })
                                 }
@@ -386,7 +442,7 @@ class detailsComponent extends Component{
                 <footer className="foot">
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
-                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
+                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">{this.state.cartCount}</i><span>购物车</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>立即购买</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>加入购物车</span></div>
                 </footer>
@@ -398,7 +454,8 @@ class detailsComponent extends Component{
 let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.details.status,
-        ajaxDetailsResult: state.details.detailsresult || []
+        ajaxDetailsResult: state.details.detailsresult || [],
+        ajaxgetcartcountresult : state.details.getcartcountresult || []
     }
 }
 

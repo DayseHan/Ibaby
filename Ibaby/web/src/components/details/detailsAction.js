@@ -22,6 +22,6 @@ export function getCartcount(data){
     return {
         types: [detailsConstants.GETCARTCOUNT_RQUESTING, detailsConstants.GETCARTCOUNT_RQUESTED, detailsConstants.GETCARTCOUNT_RQUESTERROR],
         url: '/getcartlist',
-        data: data
+        data: {uid:data}
     }
 }

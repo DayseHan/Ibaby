@@ -19,6 +19,10 @@ export default function detailsReducer(state = {}, action){
         case detailsConstants.ADDCART_RQUESTED:
             newState.status = 1;
             break;
+        case detailsConstants.GETCARTCOUNT_RQUESTED:
+            newState.status = 1;
+            newState.getcartcountresult = action.result.data.results;
+            console.log(newState.getcartcountresult)
     }
     return newState;
 }

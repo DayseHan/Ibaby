@@ -10,7 +10,6 @@ import ReactPullLoad,{ STATS } from 'react-pullload'
 import * as actions from './homeAction.js'
 
 import './home.scss'
-
 class HomeComponent extends Component{
     state = {
         slideIndex: 0,
