@@ -25,7 +25,7 @@ module.exports = {
         _app.post('/add_cart',function(_req,_res){
            var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid]
            // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
-           db.insert(`INSERT INTO cart(userid,count,color,size,goodsid) VALUES(?,?,?,?,?)`,arr,function(res){
+           db.insert(`INSERT INTO cart(username,count,color,size,goodsid) VALUES(?,?,?,?,?)`,arr,function(res){
                 _res.send(res);
            })
         })

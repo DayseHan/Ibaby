@@ -4,12 +4,14 @@ import {connect} from 'react-redux'
 import * as actions from './detailsAction.js'
 import './details.scss'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
-import {hashHistory} from 'react-router'
-
+import {Route,Link,hashHistory} from 'react-router'
+import { Popover, NavBar, Icon } from 'antd-mobile';
+const Item = Popover.Item;
 class detailsComponent extends Component{
     componentWillMount(){
         var data = this.props.location.query;
-        console.log(data)
+        this.state.username = JSON.parse(localStorage.getItem('username'))
+        console.log(data,this.state.username)
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
             this.state.color = res.data.results[0].color.split(',');
@@ -17,14 +19,21 @@ class detailsComponent extends Component{
         })
     }
     addCart(proItem){
-        console.log(this.state.buyColor,this.state.buySize,this.state.count)
-        this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query);
+        console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
+        if(this.state.username == ''){
+            this.$router.replace('/login')
+        }else{
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.username);
+        }
     }
     addtoCart(){
-        this.animate(this.refs.details_sizeColor,{bottom:0},function(){
-             this.refs.overlay.style.display = 'block';
-        }.bind(this));  
+        this.animate(this.refs.details_sizeColor,{bottom:0});  
+        this.refs.overlay.style.display = 'block';
+        this.animate(this.refs.overlay,{opacity:0.4}); 
     }
+    jumptoCart(){
+         this.hashHistory.path('/cart')
+     }
     closethecart(){
         this.animate(this.refs.details_sizeColor,{bottom:-971});
         this.refs.overlay.style.display = 'none';
@@ -173,6 +182,18 @@ class detailsComponent extends Component{
             this.setState({buySize:item});
          }
     }
+    onSelect = (opt) => {
+        // console.log(opt.props.value);
+        this.setState({
+          visible: false,
+          selected: opt.props.value,
+        });
+    };
+    handleVisibleChange = (visible) => {
+        this.setState({
+          visible,
+        });
+    };
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
@@ -184,7 +205,10 @@ class detailsComponent extends Component{
         buySize:'',
         count: 1,
         indexS: 100,
-        indexC: 100
+        indexC: 100,
+        username:'',
+        visible: false,
+        selected: ''
     }   
     componentDidMount() {
         // simulate img loading
@@ -206,7 +230,41 @@ class detailsComponent extends Component{
                     </div>
                     <span className="headleft">
                         <i className="iconfont icon-fenxiang"></i>
-                        <i className="iconfont icon-msnui-more"></i>
+                        <i>
+                            <NavBar
+                                mode="light"
+                                rightContent={
+                                  <Popover mask
+                                    overlayClassName="fortest"
+                                    overlayStyle={{ color: 'currentColor',background:'#222' }}
+                                    visible={this.state.visible}
+                                    overlay={[
+                                        (<Item key="4" value="scan" style={{ whiteSpace: 'nowrap',fontSize: 30,width:200,textAlign:'center',height:60}}><span className="iconfont icon-pinglun1 commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>消息</span></Item>),
+                                        (<Item key="5" value="1"  style={{ whiteSpace: 'nowrap',fontSize: 30 ,width:200,textAlign:'center',height:60}}><span className="iconfont icon-shouye commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>首页</span></Item>),
+                                        (<Item key="6" value="button ct" style={{ whiteSpace: 'nowrap',fontSize: 30,textAlign:'center',height:60 }}><span className="iconfont icon-xiaoxi commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>反馈</span>    
+                                      </Item>),
+                                        (<Item key="7" value="2"   style={{fontSize: 30,textAlign:'center',height:60 }}><span className="iconfont icon-zuji commonicon" style={{fontSize:30,display:'block',height:60,lineHeight:'60px',background:'#222',width:200,color:'#fff'}}>足迹</span></Item>),
+                                    ]}
+                                    align={{
+                                      overflow: { adjustY: 0, adjustX: 0 },
+                                      offset: [-30, 0],
+                                    }}
+                                    onVisibleChange={this.handleVisibleChange}
+                                    onSelect={this.onSelect}
+                                  >   
+                                    <i className="iconfont icon-msnui-more" style={{
+                                      height: '100%',
+                                      padding: '10px 15px',
+                                      marginRight: '-15px',
+                                      display: 'flex',
+                                      color:'#222',
+                                      fontSize:45}}>
+                                    </i> 
+                                  </Popover>
+                                }
+                              >
+                          </NavBar>
+                        </i>
                     </span>
                 </header>
                 <main className="main">    
@@ -321,7 +379,7 @@ class detailsComponent extends Component{
                 <footer className="foot">
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
-                    <div><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
+                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>立即购买</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>加入购物车</span></div>
                 </footer>
