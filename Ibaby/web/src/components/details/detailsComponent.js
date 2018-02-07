@@ -17,9 +17,8 @@ class detailsComponent extends Component{
         })
     }
     addCart(proItem){
-        console.log(proItem.goodsName)
-        this.props.addCart(proItem.goodsName);
-        this.addtoCart();
+        console.log(this.state.buyColor,this.state.buySize,this.state.count)
+        this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query);
     }
     addtoCart(){
         this.animate(this.refs.details_sizeColor,{bottom:0},function(){
@@ -153,21 +152,25 @@ class detailsComponent extends Component{
     addColor(idx,item,event){
         console.log(idx,event.target)
         if(this.state.indexC != idx){
-             this.setState({indexC:idx})
+             this.setState({indexC:idx});
+             this.setState({buyColor:item});
          }else if(this.state.indexC === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
          }else{
             event.target.classList.add('changeColor');
+            this.setState({buyColor:item})
          }
     }
     addSize(idx,item,event){
         console.log(idx,event.target)
         if(this.state.indexS != idx){
-             this.setState({indexS:idx})
+             this.setState({indexS:idx});
+             this.setState({buySize:item});
          }else if(this.state.indexS === idx && event.target.className =='changeColor'){
             event.target.classList.remove('changeColor');
          }else{
             event.target.classList.add('changeColor');
+            this.setState({buySize:item});
          }
     }
     state = {
@@ -177,6 +180,8 @@ class detailsComponent extends Component{
         groundImg: [],
         color: [],
         size: [],
+        buyColor:'',
+        buySize:'',
         count: 1,
         indexS: 100,
         indexC: 100
@@ -308,7 +313,7 @@ class detailsComponent extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="details_sizeColor_button">确定</div>
+                        <div className="details_sizeColor_button" onClick={this.addCart.bind(this)}>确定</div>
                     </div>
                     <div className="overlay" ref="overlay" onClick={this.closethecart.bind(this)}>
                     </div>
@@ -317,8 +322,8 @@ class detailsComponent extends Component{
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
                     <div><i className="iconfont icon-gouwuche"></i><i className="cartnumber">0</i><span>购物车</span></div>
-                    <div><span>立即购买</span></div>
-                    <div onClick={this.addCart.bind(this)}><span>加入购物车</span></div>
+                    <div onClick={this.addtoCart.bind(this)}><span>立即购买</span></div>
+                    <div onClick={this.addtoCart.bind(this)}><span>加入购物车</span></div>
                 </footer>
             </div>
         )

@@ -23,11 +23,9 @@ module.exports = {
             })
         });
         _app.post('/add_cart',function(_req,_res){
-           var  uid = parseInt(Math.random()*3)+1;
-           var arr =[uid,_req.body.proid]
+           var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid]
            // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
-           console.log(uid,_req.body)
-           db.insert(`INSERT INTO cart(userid,proid) VALUES(?,?)`,arr,function(res){
+           db.insert(`INSERT INTO cart(userid,count,color,size,goodsid) VALUES(?,?,?,?,?)`,arr,function(res){
                 _res.send(res);
            })
         })

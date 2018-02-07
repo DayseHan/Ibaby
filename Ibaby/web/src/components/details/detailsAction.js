@@ -9,11 +9,11 @@ export function getGood(data){
     }
 }
 
-export function addCart(gid){
+export function addCart(color,size,count,goodsid){
     return {
         types: [detailsConstants.ADDCART_RQUESTING, detailsConstants.ADDCART_RQUESTED, detailsConstants.ADDCART_RQUESTERROR],
         url: '/add_cart',
         method: 'post',
-        data: {user_id: 123,goods_name: goodsId}
+        data: {user_id: 123,color: color,size:size,count:count,goodsid:goodsid.id}
     }
 }
