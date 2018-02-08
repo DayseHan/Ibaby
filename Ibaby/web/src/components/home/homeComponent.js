@@ -65,23 +65,23 @@ class HomeComponent extends Component{
             });
         }, 100);
 
-        var _body = document.querySelector('.container');
+        var _container = document.querySelector('.container');
         // console.log(aa.scrollTop);
-        _body.addEventListener('scroll', function () {
+        _container.addEventListener('scroll', function () {
             var obj = document.querySelector('.am-tabs-tab-bar-wrap');
-            // console.log(_body.scrollTop)
+            // console.log(_container.scrollTop)
             // obj.classList.add('fixed');
-            if (_body.scrollTop >= 375) {
+            if (_container.scrollTop >= 375) {
                 obj.style.position = 'fixed';
                 obj.style.zIndex = 9999;
                 obj.style.top = '90px';
                 // obj.style.width = '750px'
-            }else if (_body.scrollTop < 375) {
+            }else if (_container.scrollTop < 375) {
                 obj.style.position = '';
             }
 
             var _top = document.querySelector('.scrolltop');
-            if (_body.scrollTop >= 1000) {
+            if (_container.scrollTop >= 1000) {
                 _top.style.display = 'block';
             }else{
                 _top.style.display = 'none';
@@ -91,16 +91,16 @@ class HomeComponent extends Component{
     }
 
     scrollTop(){
-        var _body = document.querySelector('.container');
+        var _container = document.querySelector('.container');
         let timer = setInterval(()=>{
-            var scrollTop = _body.scrollTop;
+            var scrollTop = _container.scrollTop;
             // console.log(scrollTop)
             var speed = Math.ceil(scrollTop/10);
             scrollTop -= speed;
             if(speed <=0 || scrollTop === 0){
                 clearInterval(timer);
             }
-            _body.scrollTo(0,scrollTop);
+            _container.scrollTo(0,scrollTop);
         },30)
     }
 
