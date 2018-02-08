@@ -118,6 +118,11 @@ class CartComponent extends Component {
                                             <div className="goodsName"id="goodsName">{item.name}</div>
                                         </div>
                                     </div>
+                                    <div className="sun">
+                                        <div className="tolprice">{item.price*item.count}
+                                        </div>
+                                        <div className="coun">小计:</div>
+                                    </div>
                                 </li>
                             )
                         })

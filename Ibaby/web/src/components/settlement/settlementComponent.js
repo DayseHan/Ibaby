@@ -5,34 +5,68 @@ import * as actions from './settlementAction.js'
 import { NavBar,Checkbox} from 'antd-mobile';
 const AgreeItem = Checkbox.AgreeItem;
 import {hashHistory} from 'react-router'
+import { Modal, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
+const prompt = Modal.prompt;
+const alert = Modal.alert;
+var add =''
 
-
+const showAlert = () => {
+    if(!add){
+        const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+            { text: '去添加', onPress: () => hashHistory.push('/address') },
+          ]);
+          setTimeout(() => {
+            // 可以调用close方法以在外部close
+            console.log('auto close');
+            alertInstance.close();
+          }, 500000);
+    }else{
+        hashHistory.push('/payment');
+    }
+}
  class settlementComponent extends Component{
+    state={
+        total:0,
+        address:localStorage.getItem('address'),
+        showadd:'请添加你的收货地址'
+    }
+    go(){
+        hashHistory.push('/address');
+    }
     getBack(){
         hashHistory.go(-1);   
     }
     componentWillMount(){
            this.props.getdate()
+           console.log(this.props)
+           add=this.state.address
+           if(this.state.address){
+             this.setState({showadd:''})
+           }
     }
     orders(orderid){
        console.log(orderid);
        this.props.getpay(orderid).then((res) => {
-            this.props.getdate();
+            this.props.getdate().then(res=>{
+            });
         }) 
     }
     render(){
         return (
             <div className="Settlement">
-                <header>
+                <header >
                     <i className="iconfont icon-shangyiye1"onClick={this.getBack.bind(this)}>
                     </i>
                     <div className="closing">结算</div>
                 </header>
                 <div className='midheight'>
-                    <div className="Receiving">
-                        <div className="site">
-                            请添加你的收货地址
+                    <div className="Receiving"onClick={this.go.bind(this)}>
+                        <i className ="iconfont icon-dizhi"/>
+                        <div className="site"id="sites">
+                            {this.state.showadd}
                         </div>
+                        {this.state.address}
                         <i className="iconfont icon-xiayiye1"/> 
                     </div>  
                     <div className="pay">
@@ -111,15 +145,22 @@ import {hashHistory} from 'react-router'
                          {
                             this.props.Order.map((item, idx) => {
                             return (
-                                <li key={idx} className="Orders">
+                                <li key={idx} >
+                                    <div className="Orders">
                                     <div className="Img">
                                         <img src={item.imgurl}/>
                                     </div>
                                     <div className="content">
                                     <div className="name">{item.name}</div>
                                     <div className="title">{item.color}</div>
-                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.oldPrice}</div></div>
+                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.newPrice}</div></div>
                                     <div className="count"> <div className="Count">{item.count}</div><div className="qty">x</div></div>
+                                    </div>
+                                    </div>
+                                    <div className="sun">
+                                        <div className="tolprice">{item.newPrice*item.count}
+                                        </div>
+                                        <div className="coun">小计:</div>
                                     </div>
                                 </li>
                             )
@@ -129,12 +170,12 @@ import {hashHistory} from 'react-router'
                     </div>
                 </div> 
                 <div className="orderfooter">
-                    <div className="paypal">
+                    <Button className="paypal"onClick={showAlert}>
                         支付订单
-                    </div>
+                    </Button>
                     <div className="total">
                         <div className="altotal">总计:¥
-                            <div className="price"></div>
+                            {this.state.total}
                         </div>    
                         <div className='free'>(免运费)</div>
                     </div>
@@ -144,7 +185,6 @@ import {hashHistory} from 'react-router'
     }
 }
 let mapStateToProps = (state) => {
-    console.log(state)
     return {
         settlement:state.settlement.result || [],
         Order:state.settlement.order_result || []
