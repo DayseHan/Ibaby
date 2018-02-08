@@ -1,0 +1,3 @@
+export const CAR_RQUESTING = 'CAR_RQUESTING'
+export const CAR_RQUESTED = 'CAR_RQUESTED'
+export const CAR_RQUESTERROR = 'CAR_RQUESTERROR'
