@@ -10,7 +10,6 @@ export default function detailsReducer(state = {}, action){
         case ajaxConstants.AJAX_REQUESTED:
             newState.status = 1;
             newState.detailsresult = action.result.data.results[0];
-            console.log(newState.detailsresult)
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
             newState.status = -1;
@@ -28,12 +27,18 @@ export default function detailsReducer(state = {}, action){
                     cartCount += cartcountresult[i].count*1
                 }
                 newState.getcartcountresult = cartCount;
-                console.log(newState.getcartcountresult);
             }catch(error){}
             break; 
         case detailsConstants.ADDCOLLECT_RQUESTED:
             newState.status = 1;
             break;
+        case detailsConstants.GETCOLLECT_RQUESTED:
+            try{
+                newState.detailsGetcollectresult = action.result.data.results[0].collects.split(',');
+                console.log(newState.detailsGetcollectresult);
+                newState.status = 1;
+            }catch(error){}
+                break;        
         case detailsConstants.GETIMGURL_RQUESTED:
             newState.status = 1;
             newState.detailsImgurlresult = action.result.data.results[0].groundImg.split(',');

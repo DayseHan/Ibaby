@@ -35,6 +35,24 @@ class detailsComponent extends Component{
         this.props.getGoodColor(data)
         this.props.getGoodSize(data) 
         this.props.getGoodImgurl(data)
+        this.props.get_Collect(JSON.parse(localStorage.getItem('user_id'))).then(res=>{
+            let goodsCollectid = this.props.location.query.id;
+            let arrcollects = this.props.ajaxdetailsGetcollectResult;
+            console.log(arrcollects.indexOf(goodsCollectid),arrcollects,goodsCollectid);
+            let goodsCollect = arrcollects.indexOf(goodsCollectid);
+            if(res.state===false){
+                    this.setState({collect:'收藏'});
+                    this.refs.collect.classList.remove('collect');
+                }else{
+                    if(goodsCollect>=0){
+                        this.setState({collect:'取消收藏'});
+                        this.refs.collect.classList.add('collect');
+                    }else{
+                        this.setState({collect:'收藏'});
+                        this.refs.collect.classList.remove('collect');
+                    }
+                }
+        })
     }
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
@@ -251,14 +269,33 @@ class detailsComponent extends Component{
       Toast.info('请先登录☺', 1);
     }
     addCollect(){
-        if(this.refs.collect.className != 'collect' && this.state.collect == '收藏'){
-            this.setState({collect:'取消'});
-            this.refs.collect.classList.add('collect');
-            this.props.add_Collect(this.props.location.query,this.state.userid)
-        }else{
-            this.setState({collect:'收藏'})
-            this.refs.collect.classList.remove('collect')
-        }
+        this.props.get_Collect(JSON.parse(localStorage.getItem('user_id'))).then(res=>{
+            if(this.state.userid === null){
+                this.showToastlogin()
+                hashHistory.push('/login')
+            }else{
+                if(this.refs.collect.className != 'collect' && this.state.collect == '收藏'){
+                    this.setState({collect:'取消收藏'});
+                    this.refs.collect.classList.add('collect');
+                    this.props.add_Collect(this.props.location.query,this.state.userid)
+                }else{
+                    this.setState({collect:'收藏'});
+                    this.refs.collect.classList.remove('collect');
+                    let goodsCollectid = this.props.location.query.id;
+                    let arrcollects = this.props.ajaxdetailsGetcollectResult;
+                    // console.log(arrcollects.indexOf(goodsCollectid),arrcollects,goodsCollectid);
+                    let goodsCollect = arrcollects.indexOf(goodsCollectid);
+                    arrcollects.splice(goodsCollect,1)
+                    arrcollects.splice(-1,1)
+                    console.log(arrcollects)
+                    if(arrcollects.length===0){
+                        this.props.cancal_Collect(null,this.state.userid)
+                    }else{
+                        this.props.cancal_Collect(arrcollects.join(','),this.state.userid)
+                    }
+                }
+            }
+        })
     }
     state = {
         slideIndex: 0,
@@ -467,6 +504,7 @@ let mapStateToProps = (state) => {
         ajaxDetailsImgurlResult: state.details.detailsImgurlresult || [],
         ajaxDetailsColorResult: state.details.detailsColorresult || [],
         ajaxDetailsSizeResult: state.details.detailsSizeresult || [],
+        ajaxdetailsGetcollectResult : state.details.detailsGetcollectresult || []
     }
 }
 
