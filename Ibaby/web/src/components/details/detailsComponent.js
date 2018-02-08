@@ -15,22 +15,25 @@ class detailsComponent extends Component{
         this.state.username = JSON.parse(localStorage.getItem('username'))
         this.state.userid = JSON.parse(localStorage.getItem('user_id'))
         console.log(data,this.state.userid)
-        try{
-            this.props.getCartcount(this.state.userid).then(res =>{console.log(res)
-                let cartCount = 0;
-                var cartcountresult = res.data.results
-                for(let i=0;i<cartcountresult.length;i++){
-                    cartCount += cartcountresult[i].count*1
-                }
-                this.setState({cartCount:cartCount})
-            })
-        }catch(error){}
-        this.props.getGood(data).then(res =>{console.log(res)
-            this.state.groundImg = res.data.results[0].groundImg.split(',');
-            this.state.color = res.data.results[0].color.split(',');
-            this.state.size = res.data.results[0].size.split(',');
+        this.props.getCartcount(this.state.userid).then(res =>{console.log(res)
+            let cartCount = 0;
+            var cartcountresult = res.data.results
+            for(let i=0;i<cartcountresult.length;i++){
+                cartCount += cartcountresult[i].count*1
+            }
+            this.setState({cartCount:cartCount})
         })
+        this.props.getGood(data)
+        this.props.getGoodImgurl(data)
+        this.props.getGoodColor(data)
+        this.props.getGoodSize(data)
+        // this.props.getGood(data)
         clearTimeout(this.closeTimer);
+        // console.log(this.props.ajaxDetailsImgurlResult)
+        // this.state.groundImg = this.props.ajaxDetailsImgurlResult.split(',');
+        // this.state.color = this.props.ajaxDetailsColorResult.split(',');
+        // this.state.size = this.props.ajaxDetailsSizeResult.split(',');
+        
     }
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
@@ -253,6 +256,16 @@ class detailsComponent extends Component{
     showToastlogin() {
       Toast.info('请先登录☺', 1);
     }
+    addCollect(){
+        if(this.refs.collect.className != 'collect' && this.state.collect == '收藏'){
+            this.setState({collect:'取消'});
+            this.refs.collect.classList.add('collect');
+            this.props.addCollect(this.props.location.query,this.state.userid)
+        }else{
+            this.setState({collect:'收藏'})
+            this.refs.collect.classList.remove('collect')
+        }
+    }
     state = {
         data: ['1', '2', '3'],
         imgHeight: 176,
@@ -272,7 +285,7 @@ class detailsComponent extends Component{
         visible: false,
         selected: '',
         cartCount: 0,
-        text: 0
+        collect: '收藏'
     } 
     componentDidMount() {
         // simulate img loading
@@ -345,7 +358,7 @@ class detailsComponent extends Component{
                       selectedIndex={0}
                     >
                       {
-                            this.state.groundImg.map((item, idx) => {
+                            this.props.ajaxDetailsImgurlResult.map((item, idx) => {
                             return(
                             <a
                               key={idx}
@@ -371,7 +384,7 @@ class detailsComponent extends Component{
                             <div>
                                 <p><span>品牌特卖</span>{this.props.ajaxDetailsResult.name}</p>
                             </div>
-                            <span><i className="iconfont icon-shoucang"></i><br/>收藏</span>
+                            <span onClick={this.addCollect.bind(this)} ref="collect"><i className="iconfont icon-shoucang"></i><br/>{this.state.collect}</span>
                         </div>
                         <p className="maindetails_b">{this.props.ajaxDetailsResult.title}</p>
                     </div>
@@ -406,7 +419,7 @@ class detailsComponent extends Component{
                     <div className="maindetails_bottom">没有了~~~~</div>
                     <div className="details_sizeColor" ref="details_sizeColor">
                         <div className="details_sizeColor_top">
-                            <img src={this.state.groundImg[0]}/>
+                            <img src={this.props.ajaxDetailsResult.imgurl}/>
                             <div className="details_sizeColor_top_r">
                                 <div className="details_sizeColor_top_r_t">
                                     <span>￥{(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)}</span><span onClick={this.closethecart.bind(this)}>&times;</span>
@@ -417,7 +430,7 @@ class detailsComponent extends Component{
                         <div className="details_sizeColor_center">
                             <span className="details_sizeColor_common">颜色</span>
                             <ul className="details_sizeColor_common_b details_sizeColor_common_b1">
-                                {this.state.color.map((item, idx) => {
+                                {this.props.ajaxDetailsColorResult.map((item, idx) => {
                                     return(
                                         <li key={idx} ref="activeColor" id={idx} onClick={this.addColor.bind(this,idx,item)} className={this.state.indexC===idx?'changeColor' : ''}>{item}</li>
                                     )
@@ -426,7 +439,7 @@ class detailsComponent extends Component{
                             </ul>
                             <span className="details_sizeColor_common">尺码</span>
                             <ul className="details_sizeColor_common_b details_sizeColor_common_b2">
-                                {this.state.size.map((item, idx) => {
+                                {this.props.ajaxDetailsSizeResult.map((item, idx) => {
                                     return(
                                         <li key={idx} ref="activeSize" id={idx} onClick={this.addSize.bind(this,idx,item)} className={this.state.indexS===idx?'changeColor' : ''}>{item}</li>
                                     )
@@ -463,7 +476,10 @@ let mapStateToProps = (state) => {
     return {
         ajaxStatus: state.details.status,
         ajaxDetailsResult: state.details.detailsresult || [],
-        ajaxgetcartcountresult : state.details.getcartcountresult || []
+        ajaxgetcartcountresult : state.details.getcartcountresult || [],
+        ajaxDetailsImgurlResult: state.details.detailsImgurlresult || [],
+        ajaxDetailsColorResult: state.details.detailsColorresult || [],
+        ajaxDetailsSizeResult: state.details.detailsSizeresult || [],
     }
 }
 
