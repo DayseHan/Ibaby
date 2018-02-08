@@ -6,6 +6,27 @@ export default class LoadingComponent extends Component{
     state = {
         change:'none',
     }
+    componentWillReceiveProps(nextProps){
+        // console.log(nextProps);
+        if(this.props.change == 0){
+            this.setState({change: 'block'});
+        }else if(this.props.change == 1){
+            setTimeout(()=>{
+                this.setState({change: 'none'});
+            }, 1200)
+            
+        }
+        
+        // if(nextProps == 0){
+        //     this.setState({change: 'block'});
+        // }else if(nextProps == 1){
+        //     setTimeout(()=>{
+        //         this.setState({change: 'none'});
+        //     }, 1200)
+            
+        // }
+        
+    }
     show(){
         this.setState({change: 'block'});
     }
@@ -13,10 +34,6 @@ export default class LoadingComponent extends Component{
         this.setState({change: 'none'});
     }
     render(){
-        // console.log(888888888888888888,this.props.action);
-        // if(this.props.action == false){
-        //     return false;
-        // }
         return (
             <div className="loading" style={{display:this.state.change}}>
                 <Icon type="loading" />

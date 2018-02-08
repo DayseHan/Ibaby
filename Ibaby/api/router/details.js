@@ -14,7 +14,7 @@ module.exports = {
             var userid = _req.body.userid;
             var goodsid = _req.body.goodsid;
             // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
-            db.update(`update user set collects=concat(collects,',${goodsid}') where user_id = ${userid}`,function(res){
+            db.update(`update user set collects=concat(collects,'${goodsid},') where user_id = ${userid}`,function(res){
                 _res.send(res);
             })
         });

@@ -1,5 +1,6 @@
 import HeaderComponent from '../header/headerComponent.js'
 import FooterComponent from '../footer/footerComponent.js'
+import LoadingComponent from '../loading/loadingComponent.js'
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
@@ -124,6 +125,7 @@ class HomeComponent extends Component{
         
         return(
             <div id="home">
+                <LoadingComponent change={this.props.ajaxStatus}></LoadingComponent>
                 <HeaderComponent/>
                 <div className="scrolltop" onClick={this.scrollTop.bind(this)}><i className="iconfont icon-fanhuidingbu"></i></div>
                 <ReactPullLoad className="container"
