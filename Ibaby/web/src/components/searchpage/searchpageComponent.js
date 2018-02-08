@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link,hashHistory} from 'react-router'
-import http from '../../utils/httptool.js'
 
 import * as actions from './searchpageAction.js'
 
@@ -16,10 +15,12 @@ class searchpageComponent extends Component{
         console.log(event.target.value)
         if(event.target.value !==' ' && event.target.value !==''){
             this.props.searchproduct(event.target.value).then(res=>{
-                console.log(res.data)
+                // console.log(res.data)
+                document.querySelector('.searchlist').style.display = 'block';
             })
-        }else{
+        }else if(event.target.value.length<=0){
             // this.props.searchResult = [];
+            document.querySelector('.searchlist').style.display = 'none';
         }
     }
 

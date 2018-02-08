@@ -8,6 +8,7 @@ import {Route,Link,hashHistory} from 'react-router'
 import { Popover, NavBar, Icon } from 'antd-mobile';
 import { Toast,ActivityIndicator, Button } from 'antd-mobile';
 import LoadingComponent from '../loading/loadingComponent.js'
+import ScrollTopComponent from '../scrollTop/scrollTopComponent.js'
 const Item = Popover.Item;
 class detailsComponent extends Component{
     componentWillMount(){
@@ -337,7 +338,8 @@ class detailsComponent extends Component{
                         </i>
                     </span>
                 </header>
-                <main className="main"> 
+                <ScrollTopComponent/>
+                <main className="main container"> 
                      <Carousel
                       autoplay={false}
                       infinite
