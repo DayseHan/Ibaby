@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import {Route, Link} from 'react-router'
+import {Route, Link,hashHistory} from 'react-router'
 
 import './footer.scss'
 
 class FooterComponent extends Component{
-
     render(){
         return (
             <div className="footer-bottom">

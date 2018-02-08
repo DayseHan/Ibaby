@@ -21,9 +21,11 @@ var address=''
         });    
     }
     componentWillMount(){
+        var uid=localStorage.getItem('user_id')
         address=this.state.address
-        this.props.statechange(address)
+        this.props.statechange(address,uid)
         console.log(this.state.address)
+
     }
     render(){
         return(

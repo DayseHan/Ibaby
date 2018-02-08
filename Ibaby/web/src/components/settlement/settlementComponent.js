@@ -38,16 +38,19 @@ const showAlert = () => {
         hashHistory.go(-1);   
     }
     componentWillMount(){
-           this.props.getdate()
+        var uid=localStorage.getItem('user_id')
+           this.props.getdate(uid)
            console.log(this.props)
            add=this.state.address
            if(this.state.address){
              this.setState({showadd:''})
            }
+
     }
     orders(orderid){
+        var uid=localStorage.getItem('user_id')
        console.log(orderid);
-       this.props.getpay(orderid).then((res) => {
+       this.props.getpay(orderid,uid).then((res) => {
             this.props.getdate().then(res=>{
             });
         }) 

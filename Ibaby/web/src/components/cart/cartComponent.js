@@ -16,28 +16,30 @@ let value =1;
 const AgreeItem = Checkbox.AgreeItem;
 class CartComponent extends Component {
     componentWillMount(){
-        this.props.getCartList();
+        var uid=localStorage.getItem('user_id')
+        this.props.getCartList(uid);
+        console.log(localStorage.getItem('user_id'))
+        if(uid===null){
+            hashHistory.push('/login')
+        }
     }
     state={
         total:0,
         qty:0
     }
     genOrder(){
-        this.props.genOrder(cartids.join(','), goodsids.join(','),counts.join(',')).then((res) => {
-            this.props.getCartList();
+         var uid=localStorage.getItem('user_id')
+        this.props.genOrder(cartids.join(','), goodsids.join(','),counts.join(','),uid).then((res) => {
+            this.props.getCartList(uid);
         })
         hashHistory.push('/settlement')
     }
     edit(){
         this.refs.edit.style.display="none";
-        // document.getElementById('contents').style.display='none';
-        // document.getElementById('carcount').style.display='block';
         this.refs.complete.style.display="block"
     }
     complete(){
         this.refs.complete.style.display="none";
-        // document.getElementById('contents').style.display='block';
-        // document.getElementById('carcount').style.display='none';
         this.refs.edit.style.display="block"
     }
     alls(){

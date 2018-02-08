@@ -1,7 +1,7 @@
-export function statechange(address){
+export function statechange(address,uid){
     return {
         method:'post',
         url: 'statechange',
-        data: {uid: 14,address}
+        data: {uid,address}
     }
 }
