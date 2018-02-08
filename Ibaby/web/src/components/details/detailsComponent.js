@@ -13,21 +13,23 @@ class detailsComponent extends Component{
     componentWillMount(){
         var data = this.props.location.query;
         this.setState({username:JSON.parse(localStorage.getItem('username'))})
-        this.setState({userid:JSON.parse(localStorage.getItem('user_id'))})
-        this.props.getCartcount(this.state.userid).then( res => {
-            if(res.state===false){
-                this.setState({        
-                        ajaxgetcartcountresult:0
-                    }
-                )
-            }else{
-                this.setState({        
-                        ajaxgetcartcountresult:this.props.ajaxgetcartcountresult
-                    }
-                )
-            }
-        })
-        console.log(data,this.state.userid)    
+        this.setState({userid:JSON.parse(localStorage.getItem('user_id'))},()=>{
+            this.props.getCartcount(this.state.userid).then( res => {
+                if(res.state===false){
+                    this.setState({        
+                            ajaxgetcartcountresult:0
+                        }
+                    )
+                }else{
+                    this.setState({        
+                            ajaxgetcartcountresult:this.props.ajaxgetcartcountresult
+                        }
+                    )
+                }
+                console.log(res)
+            })
+            console.log(data,this.state.userid)  
+        })     
         this.props.getGood(data)
         this.props.getGoodColor(data)
         this.props.getGoodSize(data) 
