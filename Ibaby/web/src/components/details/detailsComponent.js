@@ -29,7 +29,8 @@ class detailsComponent extends Component{
                 console.log(res)
             })
             console.log(data,this.state.userid)  
-        })     
+        })
+        this.props.getComment(data)     
         this.props.getGood(data)
         this.props.getGoodColor(data)
         this.props.getGoodSize(data) 
@@ -427,16 +428,19 @@ class detailsComponent extends Component{
                     <div className="maindetails_comment_t"><p>晒图<span>（14）</span></p><p>尺寸不合身<span>（27）</span></p><p>质量很好<span>（27）</span></p><p>实惠<span>（111）</span></p><p>衣服不错<span>（111）</span></p><p>保暖性好<span>（111）</span></p><p>正品<span>（111）</span></p>
                     </div>
                     <ul className="maindetails_comment_main">
-                        <li>
-                            <h3>
-                                <span>
-                                    <img src="./src/assets/images/user1.jpg" alt="" />
-                                </span>
-                                <i>user</i>
-                            </h3>
-                            
-                            <p>简适的沙发让人一眼就看上，沙发腿的设计令人称赞，这样的沙发摆在眼前非常的好看，无论从正面、侧面、后面都很完美，很实用做起来很舒服，很有质感，就像一件完美的艺术品。</p>
-                        </li>
+                        {this.props.ajaxdetailsCommentResult.map((item,idx) =>{
+                            return(
+                                <li key={idx}>
+                                    <h3>
+                                        <span>
+                                            <img src={item.imgurl} alt="" />
+                                        </span>
+                                        <i>{item.userid}</i>
+                                    </h3>
+                                    <p>{item.comment}</p>
+                                </li>  
+                            ) 
+                        })}
                         <div>查看全部评论</div>
                     </ul>
                     <div className="maindetails_bottom">没有了~~~~</div>
@@ -502,7 +506,8 @@ let mapStateToProps = (state) => {
         ajaxDetailsImgurlResult: state.details.detailsImgurlresult || [],
         ajaxDetailsColorResult: state.details.detailsColorresult || [],
         ajaxDetailsSizeResult: state.details.detailsSizeresult || [],
-        ajaxdetailsGetcollectResult : state.details.detailsGetcollectresult || []
+        ajaxdetailsGetcollectResult : state.details.detailsGetcollectresult || [],
+        ajaxdetailsCommentResult : state.details.detailsCommentresult || [],
     }
 }
 

@@ -9,6 +9,14 @@ export function getGood(data){
     }
 }
 
+export function getComment(data){
+    return {
+        types: [detailsConstants.COMMENT_RQUESTING, detailsConstants.COMMENT_RQUESTED, detailsConstants.COMMENT_RQUESTERROR],
+        url: '/get_comment',
+        data: data
+    }
+}
+
 export function getGoodImgurl(data){
     return {
         types: [detailsConstants.GETIMGURL_RQUESTING, detailsConstants.GETIMGURL_RQUESTED, detailsConstants.GETIMGURL_RQUESTERROR],

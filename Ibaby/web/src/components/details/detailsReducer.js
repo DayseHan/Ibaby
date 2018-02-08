@@ -35,7 +35,6 @@ export default function detailsReducer(state = {}, action){
         case detailsConstants.GETCOLLECT_RQUESTED:
             try{
                 newState.detailsGetcollectresult = action.result.data.results[0].collects.split(',');
-                console.log(newState.detailsGetcollectresult);
                 newState.status = 1;
             }catch(error){}
                 break;        
@@ -51,7 +50,11 @@ export default function detailsReducer(state = {}, action){
             newState.status = 1;
             newState.detailsSizeresult = action.result.data.results[0].size.split(',');
             break;
-
+        case detailsConstants.COMMENT_RQUESTED:
+            newState.status = 1;
+            newState.detailsCommentresult = action.result.data.results;
+            console.log(newState.detailsCommentresult);
+            break;
     }
     return newState;
 }
