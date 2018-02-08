@@ -15,6 +15,8 @@ import payment from '../components/payment/paymentReduct.js'
 import settlement from '../components/settlement/settlementReducer.js'
 
 import searchpage from '../components/searchpage/searchReducer.js'
+
+import bring from '../components/bring_up/bring_upReducer.js'
 export default combineReducers({
     login,
     register,
@@ -25,5 +27,6 @@ export default combineReducers({
     cart,
     settlement,
     searchpage,
-    payment
+    payment,
+    bring
 })
