@@ -1,17 +1,17 @@
 import * as cartConstants from './cartConstants.js'
 
-export function getCartList(){
+export function getCartList(uid){
     return {
         url: '/getcartlist',
-        data: {uid: 14}
+        data: {uid}
     }
 }
 
-export function genOrder(cartids, goodsids, counts){
+export function genOrder(cartids, goodsids, counts ,uid){
     return {
         types: [cartConstants.CAR_RQUESTING, cartConstants.CAR_RQUESTED, cartConstants.CAR_RQUESTERROR],
         url: '/genorder',
         method: 'post',
-        data: {uid: 14, cartids, goodsids, counts}
+        data: {uid , cartids, goodsids, counts}
     }
 }
