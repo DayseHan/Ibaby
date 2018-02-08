@@ -17,15 +17,6 @@ export default class LoadingComponent extends Component{
             
         }
         
-        // if(nextProps == 0){
-        //     this.setState({change: 'block'});
-        // }else if(nextProps == 1){
-        //     setTimeout(()=>{
-        //         this.setState({change: 'none'});
-        //     }, 1200)
-            
-        // }
-        
     }
     show(){
         this.setState({change: 'block'});
