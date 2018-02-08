@@ -2,7 +2,6 @@ import * as zhibuyConstants from './zhibuyConstants'
 
 export function zhibuy(state = {}, action) {
     let newState = JSON.parse(JSON.stringify(state));
-    
     switch (action.type) {
         case zhibuyConstants.ZHIBUY_REQUESTIMG:
             newState.status = 0;

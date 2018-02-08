@@ -49,11 +49,11 @@ class Zhibuy extends Component{
                 // console.log(childWidth[i]);
                 (function(i){
                     var img = childWidth[i].querySelector('img');
-                    // console.log(img);
+                    
                     img.onload = function () {
                         let minIdx = 0;
                         let min = pos[minIdx].top;
-                        // console.log(min)
+                        
                         for (var j = 1; j < pos.length; j++) {
                             if (pos[j].top < min) {
                                 min = pos[j].top;
