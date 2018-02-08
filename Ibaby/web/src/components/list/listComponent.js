@@ -39,6 +39,7 @@ class List extends Component{
     getlist(id,index = 0){
         this.props.getlist(id,index)
     }
+    
     select(index) {
         this.setState({ activeIdx: index });
         let idxId = this.state.gId;

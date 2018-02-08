@@ -3,6 +3,7 @@ var db = require('../db/db')
 module.exports = {
     register: function(_app){
         _app.get('/menulist', function (request, responer) {
+            
             var sql = `
                     select * from category;
                     select 

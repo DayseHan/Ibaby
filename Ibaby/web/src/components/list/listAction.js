@@ -6,7 +6,7 @@ export function getlist(ida,idx){
         url: "/getlist",
         data: { 
             "gId": ida,
-            "idx": idx
+             "idx": idx
         }
     }
 }
