@@ -20,7 +20,8 @@ export function addCart(color,size,count,goodsid,userid,username){
 
 export function getCartcount(data){
     return {
-        url: '/get_details',
+        types: [detailsConstants.GETCARTCOUNT_RQUESTING, detailsConstants.GETCARTCOUNT_RQUESTED, detailsConstants.GETCARTCOUNT_RQUESTERROR],
+        url: '/getcartlist',
         data: data
     }
 }
