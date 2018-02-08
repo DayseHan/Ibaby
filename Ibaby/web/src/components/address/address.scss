@@ -18,6 +18,16 @@
     .form{
          flex: 1;
         overflow-x: hidden;
+        .am-list-line{
+            height:80px;
+            border-bottom:1px solid #ccc;
+            .am-list-content{
+                font-size:24px;
+            }
+            .am-list-extra{
+                font-size:24px;
+            }
+        }
         #last{
             height:240px;
         }
@@ -38,6 +48,22 @@
                 float:left;
                 height:80px;
             }
+        }
+    }
+}
+.am-picker-popup-body{
+    height:500px;
+    .am-picker-popup-header{
+        height:100px;
+        .am-picker-popup-item{
+            font-size:24px;
+        }
+    }
+    .am-picker{
+        .am-picker-col-mask{
+        }
+        .am-picker-col-item  {
+            font-size:42px !important;
         }
     }
 }

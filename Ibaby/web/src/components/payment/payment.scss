@@ -1,0 +1,69 @@
+.payment{
+     font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position:relative;
+    .payhead{
+        height:1.066667rem;
+        background: black;
+        color:#fff;
+        overflow:hidden;
+        line-height:1.066667rem;
+        i{
+            float:left;
+            padding:0 20px;
+        }
+        .pay{
+            float:left;
+        }
+    }
+    .minheight{
+         flex: 1;
+        overflow-x: hidden;
+        .pays{
+            padding-bottom:50px;
+            .payorder{
+                .orderid{
+                    padding-top:30px;
+                    height:50px;
+                    text-align:center;
+                }
+                .mony{
+                    height:100px;
+                    text-align:center;
+                }
+            }
+            .receipt{
+                height:80px;
+                background:#fff;
+                overflow:hidden;
+                line-height:80px;
+                .receipt_l{
+                    float:left;
+                    padding-left:20px;
+                }
+                .wz{
+                    float:right;
+                    padding-right:5%;
+                }
+            }
+        }
+        .paying{
+            width:90%;
+            height:80px;
+            background:#58bc58;
+            color:#fff;
+            border-radius:5px;
+            margin:auto;
+            line-height:80px;
+            text-align:center;
+            font-size:28px;
+        }
+    }
+    .payfoot{
+        color:#ccc;
+        text-align:center;
+        padding-bottom:20px;
+    }
+}

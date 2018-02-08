@@ -44,6 +44,10 @@
                 height:30px;
                 color:red;
                 padding:10px 20px 10px;
+                .price{
+                    float:right;
+                }
+
             }
             .free{
                 padding-top:14px;
@@ -65,9 +69,14 @@
         margin-bottom:1px solid #ccc;
         .site{
             float:left;
-            padding-left:20px;
         }
-        i{
+        i:first-child{
+            float:left;
+            padding:0 20px;
+            font-size:50px;
+            background:#fff;
+        }
+        i:last-child{
             float:right;
             padding-right:20px;
         }
@@ -83,6 +92,26 @@
         .order{
             border-bottom:1px solid #ccc;
             li{
+                .sun{
+                    overflow:hidden;
+                    padding-right:20px;
+                    height:65px;
+                    border-bottom:1px solid #dcc;
+                    line-height:65px;
+                    .tolprice{
+                        float:right;
+                    }
+                    .tolprice:before{
+                        content:"¥";
+                    }
+                    .coun{
+                        padding-right:20px;
+                        float:right;
+                        color:#ccc;
+                    }
+                }
+            }
+            .Orders{
                 height:180px;
                 overflow:hidden;
                 border-bottom:1px solid #ccc;
@@ -156,6 +185,7 @@
                 .orders{
                     float:right;
                     padding-right:5%;
+
                 }
 
             }
@@ -238,3 +268,29 @@
         }
     }
 }
+
+    .am-modal-transparent{
+        width:500px !important;
+        .am-modal-content{
+            padding-top: 30px !important;
+            .am-modal-header{
+                padding: 6px 15px 15px !important;
+                .am-modal-title{
+                    font-size: 38px !important;
+                }
+            }
+            .am-modal-body{
+                padding: 16px 0px 29px !important;
+                font-size: 25px !important;
+            }
+            .am-modal-footer{
+                .am-modal-button-group-normal{
+                    padding: 22px !important;
+                    a{
+                        font-size: 24px !important;
+                        color:red;
+                    }
+                }
+            }
+        }
+    }

@@ -49,13 +49,23 @@ module.exports = {
             })
         })
 
+         _app.post('/statechange',function(_req,_res){
+            var uid =_req.body.uid;
+            var address =_req.body.address;
+            db.update(`update orders  SET status = 1 WHERE userid= ${uid}`,function(res){
+                // db.insert(`INSERT INTO orders(address) VALUES(${address})`,'',function(inserResults){
+                   
+                // })
+            })
+         })
+
         _app.post('/genorder',function(_req,_res){
             var cartids = _req.body.cartids;
             var goodsids =_req.body.goodsids;
             var counts =_req.body.counts;
             var uid =_req.body.uid;
             console.log(counts)
-            arr=[_req.body.uid]
+            var arr=[_req.body.uid]
              // let sql = "INSERT INTO `orders`(userid) values("+uid+")"     
             db.insert(`INSERT INTO orders(userid) VALUES(${uid})`,arr,function(result){
                 sql='';
