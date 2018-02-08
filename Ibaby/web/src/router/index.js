@@ -14,6 +14,7 @@ import bringComponent from '../components/bring_up/bringComponent.js'
 import settlementComponent from '../components/settlement/settlementComponent.js'
 import ListComponent from '../components/list/listComponent'
 import cartComponent from '../components/cart/cartComponent.js'
+import zhibuyComponent from '../components/zhibuy/zhibuyComponent'
 
 const routes = (
     <Route>
@@ -29,6 +30,7 @@ const routes = (
         <Route path="bring" component={bringComponent}/>
         <Route path="cart" component={cartComponent}/>
         <Route path="settlement" component={settlementComponent}/>
+        <Route path="zhibuy" component={zhibuyComponent}/>
     </Route>
 )
 

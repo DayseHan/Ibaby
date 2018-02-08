@@ -12,7 +12,7 @@ import { getlist } from "../components/list/listReducer";
 
 import cart from '../components/cart/cartReducer.js'
 import settlement from '../components/settlement/settlementReducer.js'
-
+import {zhibuy} from '../components/zhibuy/zhibuyReducer.js'
 import searchpage from '../components/searchpage/searchReducer.js'
 export default combineReducers({
     login,
@@ -20,6 +20,7 @@ export default combineReducers({
     classify,
     details,
     home,
+    zhibuy,
     getlist,
     cart,
     settlement,

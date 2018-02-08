@@ -132,10 +132,10 @@ class Classify extends Component{
             <div className="classifylist">
                 <div className="classify-header-top">
                     <PrevBack/>
-                    <div className="classify-seach">
+                    <Link to="/searchpage" className="classify-seach">
                         <i className="iconfont icon-search"></i>
-                        <span>dadasd</span>
-                    </div>
+                        <span>快速搜索</span>
+                    </Link>
                     <div className="classify-scan">
                         <Link to="#" className="iconfont icon-saoyisao"></Link>
                     </div>

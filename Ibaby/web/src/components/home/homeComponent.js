@@ -166,7 +166,7 @@ class HomeComponent extends Component{
                           })
                           }
                         </Carousel>
-                    </div>
+                    </div> 
                     <div className="tabs">
                         <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}} onChange={this.tabschange.bind(this)}>
                             <div className="itemBox">
@@ -200,6 +200,7 @@ class HomeComponent extends Component{
 }
 
 let mapStateToProps = (state) => {
+    console.log(state.home.tabs_result);
     return {
         ajaxStatus: state.home.status,
         bannerResult: state.home.banner_result || [],

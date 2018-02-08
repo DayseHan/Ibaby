@@ -11,6 +11,7 @@ var user = require('./user');
 var car_wfk = require('./car_wfk');
 var details = require('./details');
 var searchproduct = require('./searchpage.js');
+var zhibuy = require('./zhibuy');
 
 app.use(bodyparser.urlencoded({
 	extended: false
@@ -33,7 +34,7 @@ module.exports = {
             }
 
         });  
-
+        zhibuy.register(app);
 		login.register(app);
 		register.register(app);
         home.register(app),
