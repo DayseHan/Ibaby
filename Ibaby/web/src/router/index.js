@@ -15,6 +15,7 @@ import settlementComponent from '../components/settlement/settlementComponent.js
 import ListComponent from '../components/list/listComponent'
 import cartComponent from '../components/cart/cartComponent.js'
 import addressComponent from '../components/address/addressComponent.js'
+import paymentComponent from '../components/payment/paymentComponent.js'
 
 const routes = (
     <Route>
@@ -31,6 +32,7 @@ const routes = (
         <Route path="cart" component={cartComponent}/>
         <Route path="settlement" component={settlementComponent}/>
         <Route path="address" component={addressComponent}/>
+        <Route path="payment" component={paymentComponent}/>
     </Route>
 )
 

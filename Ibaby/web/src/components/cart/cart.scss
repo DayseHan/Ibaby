@@ -88,6 +88,24 @@
             .toplist{
                 height:2.4rem;
             }
+            .sun{
+                overflow:hidden;
+                padding-right:20px;
+                height:65px;
+                border-bottom:1px solid #dcc;
+                line-height:65px;
+                .tolprice{
+                    float:right;
+                }
+                .tolprice:before{
+                    content:"¥";
+                }
+                .coun{
+                    padding-right:20px;
+                    float:right;
+                    color:#ccc;
+                }
+            }
         }
         .lastextens{
             height:0.4rem;
