@@ -21,8 +21,27 @@ export default function detailsReducer(state = {}, action){
             break;
         case detailsConstants.GETCARTCOUNT_RQUESTED:
             newState.status = 1;
-            newState.getcartcountresult = action.result.data.results;
-            console.log(newState.getcartcountresult)
+            try{
+                newState.getcartcountresult = action.result.data.results;
+                console.log(newState.getcartcountresult);
+            }catch(error){}
+            break; 
+        case detailsConstants.ADDCOLLECT_RQUESTED:
+            newState.status = 1;
+            break;
+        case detailsConstants.GETIMGURL_RQUESTED:
+            newState.status = 1;
+            newState.detailsImgurlresult = action.result.data.results[0].groundImg.split(',');
+            break;
+        case detailsConstants.GETCOLOR_RQUESTED:
+            newState.status = 1;
+            newState.detailsColorresult = action.result.data.results[0].color.split(',');
+            break;
+        case detailsConstants.GETSIZE_RQUESTED:
+            newState.status = 1;
+            newState.detailsSizeresult = action.result.data.results[0].size.split(',');
+            break;
+
     }
     return newState;
 }
