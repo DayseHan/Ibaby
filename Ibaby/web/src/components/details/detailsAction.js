@@ -9,12 +9,12 @@ export function getGood(data){
     }
 }
 
-export function addCart(color,size,count,goodsid,userid,username){
+export function addCart(color,size,count,goodsid,userid,username,price){
     return {
         types: [detailsConstants.ADDCART_RQUESTING, detailsConstants.ADDCART_RQUESTED, detailsConstants.ADDCART_RQUESTERROR],
         url: '/add_cart',
         method: 'post',
-        data: {userid:userid,color: color,size:size,count:count,goodsid:goodsid.id,username:username}
+        data: {userid:userid,color: color,size:size,count:count,goodsid:goodsid.id,username:username,price:price}
     }
 }
 

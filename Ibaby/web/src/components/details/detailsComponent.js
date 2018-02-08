@@ -15,14 +15,16 @@ class detailsComponent extends Component{
         this.state.username = JSON.parse(localStorage.getItem('username'))
         this.state.userid = JSON.parse(localStorage.getItem('user_id'))
         console.log(data,this.state.userid)
-        this.props.getCartcount(this.state.userid).then(res =>{console.log(res)
-            let cartCount = 0;
-            var cartcountresult = res.data.results
-            for(let i=0;i<cartcountresult.length;i++){
-                cartCount += cartcountresult[i].count*1
-            }
-            this.setState({cartCount:cartCount})
-        })
+        try{
+            this.props.getCartcount(this.state.userid).then(res =>{console.log(res)
+                let cartCount = 0;
+                var cartcountresult = res.data.results
+                for(let i=0;i<cartcountresult.length;i++){
+                    cartCount += cartcountresult[i].count*1
+                }
+                this.setState({cartCount:cartCount})
+            })
+        }catch(error){}
         this.props.getGood(data).then(res =>{console.log(res)
             this.state.groundImg = res.data.results[0].groundImg.split(',');
             this.state.color = res.data.results[0].color.split(',');
@@ -32,12 +34,15 @@ class detailsComponent extends Component{
     }
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
-        if(this.state.username == ''){
+        if(this.state.username === null){
+            this.showToastlogin()
             hashHistory.push('/login')
-        }else if(this.state.buyColor=='' || this.state.buySize==''){
+        }else if(this.state.buyColor== '' || this.state.buySize== ''){
             this.showToast();
         }else{
-            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username).then(res =>{this.setState({buyColor:'',buySize:'',count:1,selectColor:'颜色',selectSize:'尺寸',indexC:100,indexS:100})}).then(res =>{this.props.getCartcount(this.state.userid).then(res1 =>{console.log(res1)
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username,(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)).then(res =>{
+                    this.setState({buyColor:'',buySize:'',count:1,selectColor:'颜色',selectSize:'尺寸',indexC:100,indexS:100})}).then(res =>{this.props.getCartcount(this.state.userid).then(res1 =>{
+                        console.log(res1)
                         let cartCount = 0;
                         var cartcountresult = res1.data.results
                         for(let i=0;i<cartcountresult.length;i++){
@@ -244,6 +249,9 @@ class detailsComponent extends Component{
     }
     showToast() {
       Toast.info('请添加商品信息☺', 1);
+    }
+    showToastlogin() {
+      Toast.info('请先登录☺', 1);
     }
     state = {
         data: ['1', '2', '3'],

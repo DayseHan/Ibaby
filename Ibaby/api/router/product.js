@@ -23,9 +23,9 @@ module.exports = {
             })
         });
         _app.post('/add_cart',function(_req,_res){
-           var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid,_req.body.username]
+           var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid,_req.body.username,_req.body.price]
            // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
-           db.insert(`INSERT INTO cart(userid,count,color,size,goodsid,username) VALUES(?,?,?,?,?,?)`,arr,function(res){
+           db.insert(`INSERT INTO cart(userid,count,color,size,goodsid,username,price) VALUES(?,?,?,?,?,?,?)`,arr,function(res){
                 _res.send(res);
            })
         })
@@ -58,16 +58,18 @@ module.exports = {
             arr=[_req.body.uid]
              // let sql = "INSERT INTO `orders`(userid) values("+uid+")"     
             db.insert(`INSERT INTO orders(userid) VALUES(${uid})`,arr,function(result){
-                sql1='';
-                sql2='';
+                sql='';
+                count=''
+                for(count of counts.split(',')){
+                }
                 let orderid = result.data.results.insertId;
                 for(let goodsId of goodsids.split(',')){
-                    sql1 += `insert into orderproduct(goodsid,orderid) values(${goodsId},${orderid});`
+                    sql+= `insert into orderproduct(goodsid,orderid,count) values(${goodsId},${orderid},${count});`
                 }
-                for(let count of counts.split(',')){
-                    sql2 += `insert into orderproduct(count) values(${count});`
-                }
-                let sql= sql1+sql2
+
+                
+                console.log(count)
+              
                 console.log(sql)
                 db.insert(sql,'',function(inserResults){
                     console.log(inserResults)
