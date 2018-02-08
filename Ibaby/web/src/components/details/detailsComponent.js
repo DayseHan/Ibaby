@@ -37,7 +37,9 @@ class detailsComponent extends Component{
         }else if(this.state.buyColor=='' || this.state.buySize==''){
             this.showToast();
         }else{
-            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username).then(res =>{this.setState({buyColor:'',buySize:'',count:1,selectColor:'颜色',selectSize:'尺寸',indexC:100,indexS:100})}).then(res =>{this.props.getCartcount(this.state.userid).then(res1 =>{console.log(res1)
+            this.props.addCart(this.state.buyColor,this.state.buySize,this.state.count,this.props.location.query,this.state.userid,this.state.username,(this.props.ajaxDetailsResult.oldPrice*this.props.ajaxDetailsResult.zhekou).toFixed(2)).then(res =>{
+                    this.setState({buyColor:'',buySize:'',count:1,selectColor:'颜色',selectSize:'尺寸',indexC:100,indexS:100})}).then(res =>{this.props.getCartcount(this.state.userid).then(res1 =>{
+                        console.log(res1)
                         let cartCount = 0;
                         var cartcountresult = res1.data.results
                         for(let i=0;i<cartcountresult.length;i++){
