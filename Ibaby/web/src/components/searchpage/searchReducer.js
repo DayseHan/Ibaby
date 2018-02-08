@@ -1,17 +1,17 @@
-import * as ajaxConstants from '../../constants/ajaxConstants'
+import * as searchpageConstants from './searchpageConstants.js'
 
 export default function searchpageReducer(state = {}, action){
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type){
-        case ajaxConstants.AJAX_REQUESTING:
+        case searchpageConstants.SEARCH_RQUESTING:
             newState.status = 0;
             break;
-        case ajaxConstants.AJAX_REQUESTED:
+        case searchpageConstants.SEARCH_RQUESTED:
             newState.status = 1;
             newState.search_result = action.result.data.results;
             // console.log(newState.search_result)
             break;
-        case ajaxConstants.AJAX_REQUESTERROR:
+        case searchpageConstants.SEARCH_RQUESTERROR:
             newState.status = -1;
             break;
     }

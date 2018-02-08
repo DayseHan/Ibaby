@@ -1,5 +1,5 @@
 .searchpage{
-    height:100%;
+    height:100%;display:flex;flex-direction:column;
     .searchpageheader{
         display:flex;justify-content:center;align-items:center;height:1.2rem;background: #fff;border-bottom:0.013333rem solid #ccc;position:relative;
         .icon-shangyiye1{position:absolute;left:0.133333rem;top:0.266667rem;}
@@ -20,15 +20,27 @@
             }
         }
     }
-    .searchcontent{
-        height:100%;background: #fff;padding:0.4rem 0;
-        div{float:left;width:100%;display:flex;justify-content:space-around;
-            .searchinput{
-                height:0.8rem;width:80%;background: #eee;border-radius:0.4rem;position:relative;
-                i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
-                input{background:#eee;border:0 none;margin-left:0.8rem;caret-color:red;display:block;width:70%;height:0.8rem;}
-            }
+    .sousuokuang{width:100%;display:flex;justify-content:space-around;padding:0.4rem 0;background: #fff;
+        .searchinput{
+            height:0.8rem;width:80%;background: #eee;border-radius:0.4rem;position:relative;
+            i{display:inline-block;position:absolute;top:0.106667rem;left:0.133333rem;color:#ccc;}
+            input{background:#eee;border:0 none;margin-left:0.8rem;caret-color:red;display:block;width:70%;height:0.8rem;}
         }
         .sousuo{height:0.8rem;line-height:0.8rem;color:#FF4965;width:10%;text-align:center;}
+    }
+    .searchcontent{
+        flex:1;overflow-x: hidden;background: #fff;
+        .searchlist{
+            display:flex;flex-direction:column;padding:0.266667rem 0.266667rem;
+            .searchItem{
+                flex:1;width:100%;overflow-x:hidden;border-bottom:1px solid #ccc;
+                a{
+                    display:block;height: 80px;padding-right:10%;line-height: 80px;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;color:#000;position:relative;
+                    .icon-xiayiye1{
+                        position:absolute;color:#ccc;right:0;
+                    }
+                }
+            }
+        }
     }
 }

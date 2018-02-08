@@ -1,0 +1,296 @@
+.Settlement{
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background:#fff;
+    position:relative;
+    i{
+        font-size:28px;
+    }
+    header{
+        width:100%;
+        height:80px;
+        line-height:80px;
+        background:#fff;
+        overflow:hidden;
+        font-size:28px;
+        i{
+            text-align:left;
+            float:left;
+            padding-left:20px;
+        }
+        .closing{
+            text-align:center;  
+        }
+    }
+    .orderfooter{
+        border-top:1px solid #ccc;
+        border-bottom:1px solid #ccc;
+        height:80px;
+        overflow:hidden;
+        .paypal{
+            height:80px;
+            width:200px;
+            background:red;
+            color:#fff;
+            line-height:80px;
+            text-align:center;
+            float:right;
+        }
+        .total{
+            float:right;
+            .altotal{
+                height:30px;
+                color:red;
+                padding:10px 20px 10px;
+                .price{
+                    float:right;
+                }
+
+            }
+            .free{
+                padding-top:14px;
+                height:30px;
+                padding-right:20px;
+
+            }
+        }
+    }
+    .midheight{
+        flex: 1;
+        overflow-x: hidden;
+        margin-bottom:0.666667rem;
+    }
+    .Receiving{
+        height:80px;
+        line-height:80px;
+        overflow:hidden;
+        margin-bottom:1px solid #ccc;
+        .site{
+            float:left;
+        }
+        i:first-child{
+            float:left;
+            padding:0 20px;
+            font-size:50px;
+            background:#fff;
+        }
+        i:last-child{
+            float:right;
+            padding-right:20px;
+        }
+    }
+    .orderlist{
+        .orderhead{
+            height:80px;
+            padding-left:20px;
+            line-height: 80px;
+            border-bottom:1px solid #ccc;
+            color:#ccc;
+        }
+        .order{
+            border-bottom:1px solid #ccc;
+            li{
+                .sun{
+                    overflow:hidden;
+                    padding-right:20px;
+                    height:65px;
+                    border-bottom:1px solid #dcc;
+                    line-height:65px;
+                    .tolprice{
+                        float:right;
+                    }
+                    .tolprice:before{
+                        content:"¥";
+                    }
+                    .coun{
+                        padding-right:20px;
+                        float:right;
+                        color:#ccc;
+                    }
+                }
+            }
+            .Orders{
+                height:180px;
+                overflow:hidden;
+                border-bottom:1px solid #ccc;
+                .Img{
+                    float:left;
+                    padding-top:14px;
+                    width:30%;
+                    img{
+                        width:180px;
+                        height:150px;
+                    }
+                }
+                .content{
+                    padding-top:20px;
+                    width:70%;
+                    float:left;
+                    .name{
+                        height:30px;
+                        width:80%;
+                        overflow:hidden;
+                    }
+                    .title{
+                        color:#ccc;
+                        padding-top:20px;
+                    }
+                    .price{
+                        padding-top:18px;
+                        float:left;
+                        width:200px;
+                        .mony{
+                            float:left;
+                        }
+                        overflow:hidden;
+                        .Price{
+                            float:left;
+                        }
+                    }
+                    .count{
+                        
+                        padding-right:5%;
+                        color:#ccc;
+                        float:right;
+                        .qty{
+                            float:right;
+                        }
+                        .Count{
+                            float:right;
+                        }
+                    }
+                }
+            }
+            .ordertop{
+                height:80px;
+                line-height:80px;
+                overflow:hidden;
+                border-bottom:1px solid #ccc;
+                .ran{
+                    float:left;
+                    width:25px;
+                    height:25px;
+                    background:pink;
+                    border-radius:50%;
+                    margin:27px 20px;
+                }
+                .orderid{
+                    float:left;
+                }
+                .ordernumber{
+                    float:left;
+                }
+                .orders{
+                    float:right;
+                    padding-right:5%;
+
+                }
+
+            }
+        }
+    } 
+    .pay{
+        padding-bottom:50px;
+        border-bottom:20px solid #eff;
+        .paytype{
+            height:80px;
+            line-height:80px;
+            padding-left:20px;
+        }
+        .alipay{
+            .clear{
+                overflow:hidden;
+            }
+            .img{
+                width:18%;
+                position:relative;
+                height:100px;
+                float:left;
+            }
+            img{
+                float:left;
+                position:absolute;
+                top:50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                width:65px;
+                height:65px;
+            }
+            .paystyle{
+                float:left;
+                width:62%;
+                height:100px;
+                border-bottom:1px solid #ccc;
+                .zfb{
+                    float:left;
+                    padding-right:10px;
+                    font-size:28px;
+                    padding-top:12px;
+                }
+                .bank{
+                    float:left;
+                    padding-top:16px;
+                    color:#cbb;
+                    font-size:24px;
+                    width:420px;
+                }
+                .recommend{
+                    background:pink;
+                    float:left;
+                    width:70px;
+                    height:40px;
+                    line-height:40px;
+                    text-align:center;
+                    color:red;
+                    border:1px solid red;
+                    border-radius:5px;
+                }
+            }
+            .payright{
+                float:right;
+                position:relative;
+                width:20%;
+                height:100px;
+                border-bottom:1px solid #ccc;
+                .am-checkbox{
+                    position:absolute;
+                    left:50%;
+                    top:30px;
+                }
+                .am-checkbox-inner{
+                    width:28px;
+                    height:28px;
+            
+                }
+            }
+        }
+    }
+}
+
+    .am-modal-transparent{
+        width:500px !important;
+        .am-modal-content{
+            padding-top: 30px !important;
+            .am-modal-header{
+                padding: 6px 15px 15px !important;
+                .am-modal-title{
+                    font-size: 38px !important;
+                }
+            }
+            .am-modal-body{
+                padding: 16px 0px 29px !important;
+                font-size: 25px !important;
+            }
+            .am-modal-footer{
+                .am-modal-button-group-normal{
+                    padding: 22px !important;
+                    a{
+                        font-size: 24px !important;
+                        color:red;
+                    }
+                }
+            }
+        }
+    }

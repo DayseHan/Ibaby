@@ -9,6 +9,14 @@ export function getGood(data){
     }
 }
 
+export function getComment(data){
+    return {
+        types: [detailsConstants.COMMENT_RQUESTING, detailsConstants.COMMENT_RQUESTED, detailsConstants.COMMENT_RQUESTERROR],
+        url: '/get_comment',
+        data: data
+    }
+}
+
 export function getGoodImgurl(data){
     return {
         types: [detailsConstants.GETIMGURL_RQUESTING, detailsConstants.GETIMGURL_RQUESTED, detailsConstants.GETIMGURL_RQUESTERROR],
@@ -63,7 +71,15 @@ export function get_Collect(userid){
     return {
         types: [detailsConstants.GETCOLLECT_RQUESTING, detailsConstants.GETCOLLECT_RQUESTED, detailsConstants.GETCOLLECT_RQUESTERROR],
         url: '/get_collect',
-        method: 'get',
         data: {userid:userid}
+    }
+}
+
+export function cancal_Collect(goodsid,userid){
+    return {
+        types: [detailsConstants.CANCELCOLLECT_RQUESTING, detailsConstants.CANCELCOLLECT_RQUESTED, detailsConstants.CANCELCOLLECT_RQUESTERROR],
+        url: '/cancel_collect',
+        method: 'post',
+        data: {goodsid:goodsid,userid:userid}
     }
 }
