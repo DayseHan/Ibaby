@@ -17,15 +17,15 @@ class MessageComponent extends Component{
                 <h1>消息中心</h1>
              </div>
              <div className="messagenav">
-                <Link to="/">
+                <Link to="/notice">
                     <i className="iconfont icon-icon3"></i>
                     <p>交易物流</p>
                 </Link>
-                <Link to="/">
+                <Link to="/notice">
                     <i className="iconfont icon-pinglun"></i>
                     <p>互动</p>
                 </Link>
-                <Link to="/">
+                <Link to="/notice">
                     <i className="iconfont icon-hongbao"></i>
                     <p>优惠</p>
                 </Link>

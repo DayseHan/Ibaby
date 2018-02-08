@@ -45,7 +45,7 @@ module.exports = {
 			})
 		}),
 		app.post('/unpaid',function(req,res){
-			console.log(2)
+			// console.log(2)
 			db.update(`UPDATE orders SET status = 2 WHERE orderid = ${req.body.order_id}`,function(result){
 				res.send(result);
 			})

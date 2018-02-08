@@ -1,0 +1,13 @@
+.notice{
+    .noticeheader{
+        height:1.2rem;background: #fff;border-bottom:0.013333rem solid #ccc;text-align:center;line-height:1.2rem;position:relative;
+        h1{font-size:0.533333rem;font-weight:normal;}
+        .icon-shangyiye1{position:absolute;left:0.133333rem;top:0;}
+    }
+    .tabs{
+        .am-tabs-tab-bar-wrap{width:100%;}
+        .am-tabs-default-bar-tab{height:1.066667rem;}
+        .am-tabs-default-bar-underline{border:1px #FFA3B1 solid}
+        .am-tabs-content-wrap{text-align:center;color:#ccc;height:6.666667rem;line-height:6.666667rem;}
+    }
+}

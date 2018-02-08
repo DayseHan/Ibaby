@@ -1,10 +1,9 @@
-/* 
-* @Author: Marte
-* @Date:   2018-02-05 13:52:38
-* @Last Modified by:   Marte
-* @Last Modified time: 2018-02-05 13:52:39
-*/
+import * as searchpageConstants from './searchpageConstants.js'
 
-$(document).ready(function(){
-    
-});
+export function searchproduct(_data){
+    return {
+        types:[searchpageConstants.SEARCH_RQUESTING, searchpageConstants.SEARCH_RQUESTED, searchpageConstants.SEARCH_RQUESTERROR],
+        url: '/searchproduct',
+        data:{data:_data},
+    }
+}

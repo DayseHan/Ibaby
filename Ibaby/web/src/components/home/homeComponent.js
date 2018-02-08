@@ -1,5 +1,6 @@
 import HeaderComponent from '../header/headerComponent.js'
 import FooterComponent from '../footer/footerComponent.js'
+import LoadingComponent from '../loading/loadingComponent.js'
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
@@ -10,7 +11,6 @@ import ReactPullLoad,{ STATS } from 'react-pullload'
 import * as actions from './homeAction.js'
 
 import './home.scss'
-
 class HomeComponent extends Component{
     state = {
         slideIndex: 0,
@@ -65,21 +65,43 @@ class HomeComponent extends Component{
             });
         }, 100);
 
-        var _body = document.querySelector('.container');
+        var _container = document.querySelector('.container');
         // console.log(aa.scrollTop);
-        _body.addEventListener('scroll', function () {
+        _container.addEventListener('scroll', function () {
             var obj = document.querySelector('.am-tabs-tab-bar-wrap');
-            // console.log(_body.scrollTop)
+            // console.log(_container.scrollTop)
             // obj.classList.add('fixed');
-            if (_body.scrollTop >= 375) {
+            if (_container.scrollTop >= 375) {
                 obj.style.position = 'fixed';
                 obj.style.zIndex = 9999;
                 obj.style.top = '90px';
-                obj.style.width = '750px'
-            }else if (_body.scrollTop < 375) {
+                // obj.style.width = '750px'
+            }else if (_container.scrollTop < 375) {
                 obj.style.position = '';
             }
+
+            var _top = document.querySelector('.scrolltop');
+            if (_container.scrollTop >= 1000) {
+                _top.style.display = 'block';
+            }else{
+                _top.style.display = 'none';
+            }
+
         })
+    }
+
+    scrollTop(){
+        var _container = document.querySelector('.container');
+        let timer = setInterval(()=>{
+            var scrollTop = _container.scrollTop;
+            // console.log(scrollTop)
+            var speed = Math.ceil(scrollTop/10);
+            scrollTop -= speed;
+            if(speed <=0 || scrollTop === 0){
+                clearInterval(timer);
+            }
+            _container.scrollTo(0,scrollTop);
+        },30)
     }
 
     tabschange(item){
@@ -103,7 +125,9 @@ class HomeComponent extends Component{
         
         return(
             <div id="home">
+                <LoadingComponent change={this.props.ajaxStatus}></LoadingComponent>
                 <HeaderComponent/>
+                <div className="scrolltop" onClick={this.scrollTop.bind(this)}><i className="iconfont icon-fanhuidingbu"></i></div>
                 <ReactPullLoad className="container"
                     downEnough={150}
                     ref="reactpullload"

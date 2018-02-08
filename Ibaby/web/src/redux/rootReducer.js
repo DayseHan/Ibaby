@@ -12,10 +12,12 @@ import unpaid from '../components/unpaid/unpaidReduxcer'
 
 import {classify} from '../components/classify/classifyReducer'
 import home from '../components/home/homeReducer'
-
+import { getlist } from "../components/list/listReducer";
 
 import cart from '../components/cart/cartReducer.js'
 import settlement from '../components/settlement/settlementReducer.js'
+
+import searchpage from '../components/searchpage/searchReducer.js'
 export default combineReducers({
     login,
     register,
@@ -25,6 +27,8 @@ export default combineReducers({
     classify,
     details,
     home,
+    getlist,
     cart,
-    settlement
+    settlement,
+    searchpage,
 })
