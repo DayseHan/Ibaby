@@ -2,6 +2,7 @@ import * as listComstants from './listConstants'
 
 export function getlist(state={},action){
     let newState = JSON.parse(JSON.stringify(state));
+    
     switch (action.type) {
         case listComstants.LIST_REQUESTIMG:
             newState.status = 0;

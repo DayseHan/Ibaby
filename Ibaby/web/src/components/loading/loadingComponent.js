@@ -4,28 +4,36 @@ import './loading.scss'
 
 export default class LoadingComponent extends Component{
     state = {
-        change:'none',
+        _change:'none',
     }
-    componentWillReceiveProps(nextProps){
-        // console.log(nextProps);
-        if(this.props.change == 0){
-            this.setState({change: 'block'});
-        }else if(this.props.change == 1){
 
-            this.setState({change: 'none'});
+    componentDidMount(){
+        console.log(44444);
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log(this.props.change);
+        console.log(nextProps);
+        if(this.props.change == 0){
+            this.setState({_change: 'block'});
+        }else if(this.props.change == 1){
+            setTimeout(()=>{
+                this.setState({_change: 'none'});
+            }, 1350)
             
         }
 
     }
     show(){
-        this.setState({change: 'block'});
+        this.setState({_change: 'block'});
     }
     hide(){
-        this.setState({change: 'none'});
+        this.setState({_change: 'none'});
     }
     render(){
+        console.log(this.props.change); 
         return (
-            <div className="loading" style={{display:this.state.change}}>
+            <div className="loading" style={{display:this.state._change}}>
                 <Icon type="loading" />
                 <span>{this.props.text}</span>
             </div>

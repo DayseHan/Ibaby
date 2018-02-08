@@ -61,14 +61,14 @@ class RegisterComponent extends Component{
             this.props.reg(this.refs.phone.value,this.refs.pwd.value).then(res=>{
                 console.log(res);
                 if(res.state){
-                    this.setState({user_id:res.data.results.insertId});
-                    localStorage.setItem('username', JSON.stringify(this.state.phone));
-                    localStorage.setItem('user_id', JSON.stringify(this.state.user_id));
-                    
-                    setTimeout(function(){
+                    this.setState({user_id:res.data.results.insertId},()=>{
+                        localStorage.setItem('username', JSON.stringify(this.state.phone));
+                        localStorage.setItem('user_id', JSON.stringify(this.state.user_id));
+                    });
+                    setTimeout(()=>{
                         this.successToast('恭喜你！注册成功。')
                         hashHistory.push({pathname: '/user'})      
-                    }, 2200)
+                    }, 1800)
                 }
             });
         }else{
@@ -77,7 +77,7 @@ class RegisterComponent extends Component{
     }
     getCode(){
         // console.log(this.refs.phone.value,parseInt(Math.random()*9000 + 1000));
-        this.refs.loading.show();
+        // this.refs.loading.show();
         var code = parseInt(Math.random()*9000 + 1000);
         // console.log(this.state._code,code);
         setTimeout(()=>{
@@ -95,16 +95,16 @@ class RegisterComponent extends Component{
             });
 
             this.successToast('验证码已发至您的手机请注意查收！')
-        },1200)
+        },1500)
 
     }
     getCode2(){
-        this.refs.loading.show();
+        // this.refs.loading.show();
         var code = parseInt(Math.random()*9000 + 1000);
         setTimeout(()=>{
             this.setState({_code: code});
             this.refs.yzm_btn.innerText = code;
-            this.refs.loading.hide();
+            // this.refs.loading.hide();
             this.successToast('发送成功！')
         },1200)
     }
@@ -120,7 +120,7 @@ class RegisterComponent extends Component{
 
         return (
             <div className="register">
-                    <LoadingComponent ref="loading" action={shown}></LoadingComponent>
+                <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
                 
                 <div className="reg" style={{display:this.state._login2}}>
                     <BackComponent text={this.state.title}></BackComponent>

@@ -1,5 +1,8 @@
+import * as registerConstants from './registerConstants.js'
+
 export function check_phone(phone){
     return {
+        types: [registerConstants.REGISTER_REQUESTING, registerConstants.REGISTER_REQUESTED, registerConstants.REGISTER_REQUESTERROR],
         url:'check_phone',
         method:'post',
         data:{
@@ -24,6 +27,7 @@ export function getCode(phone,code){
 
 export function reg(phone,pwd){
     return {
+        types: [registerConstants.REGISTER_REQUESTING, registerConstants.REGISTER_REQUESTED, registerConstants.REGISTER_REQUESTERROR],
         url:'reg',
         method:'post',
         data:{

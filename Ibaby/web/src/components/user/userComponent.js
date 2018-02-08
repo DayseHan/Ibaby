@@ -21,7 +21,7 @@ class UserComponent extends Component{
         user_id:'',
         text:''
     }
-    componentDidMount(){
+    componentWillMount(){
         var phone = JSON.parse(localStorage.getItem('username'));
         var user_id = JSON.parse(localStorage.getItem('user_id'));
         if(phone&&user_id){
@@ -73,13 +73,13 @@ class UserComponent extends Component{
                         </i>
                 </div>
                 <main className="main_user">
-                    <LoadingComponent ref="loading" text={this.state.text}></LoadingComponent>
+                    <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
                     <div className="user1" style={{display:this.state._user1}}>
                         
                         <div className="main1">
-                            <div className="btn" style={{display:this.state._login}}>
+                            <div className="btn btn1" style={{display:this.state._login}}>
                                 <Link to="/login"><button>立即登录</button></Link>
-                                <Link to="/register"><button>新人注册</button></Link>
+                                <Link to="/login"><button>立即登录</button></Link>
                             </div>
                              <div className="btn quit" style={{display:this.state._quit}}>
                                 <img src="./src/assets/images/user.jpg"/>
@@ -88,7 +88,11 @@ class UserComponent extends Component{
                             </div>
                             <ul>
                                 <li><i className="iconfont icon-baby"></i>早教宝</li>
-                                <li><i className="iconfont icon-shoucang"></i>收藏</li>
+                                <li>
+                                <Link to="/collect">
+                                    <i className="iconfont icon-shoucang"></i>收藏
+                                </Link>
+                                </li>
                                 <li><i className="iconfont icon-zuji"></i>足迹</li>
                             </ul>
                         </div>
@@ -103,7 +107,9 @@ class UserComponent extends Component{
 
                                 <ul>
                                     <li>
-                                        <i className="iconfont icon-wallet_icon"></i>
+                                        <Link to="/unpaid">
+                                            <i className="iconfont icon-wallet_icon"></i>
+                                            </Link>
                                     </li>
                                     <li>
                                         <i className="iconfont icon-daichengtuan"></i>
@@ -120,7 +126,7 @@ class UserComponent extends Component{
                                 </ul>
 
                                 <ul>
-                                    <li>待付款</li>
+                                <li><Link to="/unpaid">待付款</Link></li>
                                     <li>待成团</li>
                                     <li>待收货</li>
                                     <li>评价返现</li>
@@ -240,8 +246,8 @@ class UserComponent extends Component{
 
 let mapStateToProps = (state) =>{
     return {
-        ajaxStatus:state.register.status,
-        ajaxResult:state.register.result || []
+        // ajaxStatus:state.user.status,
+        // ajaxResult:state.user.result || []
     }
 }
 
