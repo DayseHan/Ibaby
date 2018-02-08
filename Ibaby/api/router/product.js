@@ -23,9 +23,9 @@ module.exports = {
             })
         });
         _app.post('/add_cart',function(_req,_res){
-           var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid]
+           var arr =[_req.body.userid,_req.body.count,_req.body.color,_req.body.size,_req.body.goodsid,_req.body.username]
            // var sql =`INSERT INTO cart(uerid,proid) VALUES(${uid},${_req.body.proid})`
-           db.insert(`INSERT INTO cart(username,count,color,size,goodsid) VALUES(?,?,?,?,?)`,arr,function(res){
+           db.insert(`INSERT INTO cart(userid,count,color,size,goodsid,username) VALUES(?,?,?,?,?,?)`,arr,function(res){
                 _res.send(res);
            })
         })
@@ -52,17 +52,22 @@ module.exports = {
         _app.post('/genorder',function(_req,_res){
             var cartids = _req.body.cartids;
             var goodsids =_req.body.goodsids;
+            var counts =_req.body.counts;
             var uid =_req.body.uid;
-            console.log(cartids)
+            console.log(counts)
             arr=[_req.body.uid]
              // let sql = "INSERT INTO `orders`(userid) values("+uid+")"     
             db.insert(`INSERT INTO orders(userid) VALUES(${uid})`,arr,function(result){
-                sql='';
+                sql1='';
+                sql2='';
                 let orderid = result.data.results.insertId;
-                console.log(orderid)
                 for(let goodsId of goodsids.split(',')){
-                    sql += `insert into orderproduct(goodsid,orderid) values(${goodsId},${orderid});`
+                    sql1 += `insert into orderproduct(goodsid,orderid) values(${goodsId},${orderid});`
                 }
+                for(let count of counts.split(',')){
+                    sql2 += `insert into orderproduct(count) values(${count});`
+                }
+                let sql= sql1+sql2
                 console.log(sql)
                 db.insert(sql,'',function(inserResults){
                     console.log(inserResults)

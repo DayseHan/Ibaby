@@ -7,11 +7,11 @@ export function getCartList(){
     }
 }
 
-export function genOrder(cartids, goodsids){
+export function genOrder(cartids, goodsids, counts){
     return {
         types: [cartConstants.CAR_RQUESTING, cartConstants.CAR_RQUESTED, cartConstants.CAR_RQUESTERROR],
         url: '/genorder',
         method: 'post',
-        data: {uid: 14, cartids, goodsids}
+        data: {uid: 14, cartids, goodsids, counts}
     }
 }

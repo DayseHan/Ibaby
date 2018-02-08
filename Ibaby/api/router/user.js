@@ -12,6 +12,11 @@ module.exports = {
 			db.insert(`INSERT INTO user(phone,password) VALUES(?,?)`,arr,function(result){
                 res.send(result);
             })
+		}),
+		app.post('/login',function(req,res){
+			db.select2(`select * from user where phone=${req.body.phone} and password=${req.body.pwd}`,function(result){
+				res.send(result);
+			})
 		})
 	}
 }

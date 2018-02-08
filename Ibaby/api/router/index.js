@@ -10,6 +10,7 @@ var product = require('./product');
 var user = require('./user');
 var car_wfk = require('./car_wfk');
 var details = require('./details');
+var searchproduct = require('./searchpage.js');
 
 app.use(bodyparser.urlencoded({
 	extended: false
@@ -42,6 +43,7 @@ module.exports = {
         list.register(app);
         product.register(app);
         details.register(app);
+        searchproduct.register(app);
         app.listen(_port,function(){
                 console.log("server:连接成功!");
         })

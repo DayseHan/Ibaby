@@ -13,7 +13,7 @@ class FooterComponent extends Component{
                         <i className="iconfont icon-shouye"></i>
                         <p>首页</p>
                     </Link>
-                    <Link to="/buy" activeClassName="active">
+                    <Link to="/classify" activeClassName="active">
                         <i className="iconfont icon-56"></i>
                         <p>值得买</p>
                     </Link>

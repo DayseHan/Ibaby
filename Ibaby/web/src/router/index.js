@@ -14,11 +14,12 @@ import bringComponent from '../components/bring_up/bringComponent.js'
 import settlementComponent from '../components/settlement/settlementComponent.js'
 import ListComponent from '../components/list/listComponent'
 import cartComponent from '../components/cart/cartComponent.js'
+import addressComponent from '../components/address/addressComponent.js'
 
 const routes = (
     <Route>
         <Route path="/" component={HomeComponent}/>
-        <Route path="details" component={detailsComponent}/>
+        <Route path="details(/:id)" component={detailsComponent}/>
         <Route path="login" component={LoginComponent}/>
         <Route path="register" component={RegisterComponent} />
         <Route path="user" component={UserComponent} /> 
@@ -29,6 +30,7 @@ const routes = (
         <Route path="bring" component={bringComponent}/>
         <Route path="cart" component={cartComponent}/>
         <Route path="settlement" component={settlementComponent}/>
+        <Route path="address" component={addressComponent}/>
     </Route>
 )
 
