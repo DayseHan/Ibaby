@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import './scrollTop.scss'
+import './scrollTopljt.scss'
 
 class ScrollTopComponent extends Component{
     componentDidMount(){

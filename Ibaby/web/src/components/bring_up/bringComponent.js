@@ -5,7 +5,6 @@ import HeaderComponent from '../header/headerComponent.js'
 import FootComponent from '../footer/footerComponent.js'
 import './bring.scss'
 import { Tabs, WhiteSpace, Badge } from 'antd-mobile';
-import ScrollTopComponent from '../scrollTop/scrollTopComponent.js'
 
 const tabs = [
       { title: <Badge text={'3'}>精华</Badge> },
@@ -21,7 +20,6 @@ class bringComponent extends Component{
         <div className="bring_box">
             <HeaderComponent/> 
             <main className="container">
-              <ScrollTopComponent/> 
                  <Tabs tabs={tabs}
                   initialPage={0}
                   tabBarActiveTextColor="#FF405D"
