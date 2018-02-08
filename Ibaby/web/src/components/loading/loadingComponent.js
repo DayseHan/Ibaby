@@ -11,12 +11,11 @@ export default class LoadingComponent extends Component{
         if(this.props.change == 0){
             this.setState({change: 'block'});
         }else if(this.props.change == 1){
-            setTimeout(()=>{
-                this.setState({change: 'none'});
-            }, 1200)
+
+            this.setState({change: 'none'});
             
         }
-        
+
     }
     show(){
         this.setState({change: 'block'});
