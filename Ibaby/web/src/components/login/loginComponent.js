@@ -30,9 +30,10 @@ class LoginComponent extends Component{
     }
     
     login(){
-        this.refs.loading.show();
+        // this.refs.loading.show();
         if(this.state.phone == ''){
-            return;
+            this.offline('请先获取验证码！');
+            // return;
         }
         else if(!phone_reg.test(this.state.phone)){  
             this.offline('手机号码有误！');
@@ -40,7 +41,7 @@ class LoginComponent extends Component{
             localStorage.setItem('username', JSON.stringify(this.state.phone));
             localStorage.setItem('user_id', JSON.stringify(this.state.user_id));
             setTimeout(()=>{
-                this.refs.loading.hide();
+                // this.refs.loading.hide();
                 this.successToast('登录成功。')
             }, 1100)
             setTimeout(()=>{
@@ -48,10 +49,13 @@ class LoginComponent extends Component{
                 
             }, 2400)
              
+        }else{
+            this.offline('验证码错误！');
         }
+        // this.refs.loading.hide();
     }
     login2(){
-        this.refs.loading.show();
+        // this.refs.loading.show();
         if(this.state.phone == ''){
             return;
         }
@@ -69,7 +73,7 @@ class LoginComponent extends Component{
                     localStorage.setItem('username', JSON.stringify(res.data.results[0].phone));
                     localStorage.setItem('user_id', JSON.stringify(res.data.results[0].user_id));
                     setTimeout(()=>{
-                        this.refs.loading.hide();
+                        // this.refs.loading.hide();
                         this.successToast('登录成功。')
                     }, 1200)
                     setTimeout(()=>{
@@ -81,12 +85,12 @@ class LoginComponent extends Component{
         }
     }
     getCode(){
-        
+        console.log('getCode')
         var _code = parseInt(Math.random()*900000 + 100000);
         console.log(this.refs.phone.value,_code);
-        this.refs.loading.show();
+        // this.refs.loading.show();
         setTimeout(()=>{
-            this.refs.loading.hide();
+            // this.refs.loading.hide();
             this.successToast('验证码已发至您的手机请注意查收！')
         }, 1000)
         this.setState({code: _code},()=>{
@@ -111,21 +115,19 @@ class LoginComponent extends Component{
             this.offline('手机号码有误！');
         } 
         else {  
-            this.refs.loading.show();
+            // this.refs.loading.show();
             this.setState({phone: _phone},()=>{
-                // console.log(this.state.phone);
                 this.props.check_phone(this.state.phone).then(res=>{
-                    // console.log(res);
                     if(res.data.results.length<1){
                         this.refs.phone.value='';
                         this.refs.phone2.value='';
                         this.offline('该手机号码未注册，请先注册！');
 
-                        this.refs.loading.hide();
+                        // this.refs.loading.hide();
                     }else{
                         this.setState({user_id:res.data.results[0].user_id});
                         if(_blean){
-                            this.refs.loading.hide();
+                            // this.refs.loading.hide();
                             return
                         }
                         this.getCode();
@@ -145,10 +147,9 @@ class LoginComponent extends Component{
     }
     
     render(){
-
         return (
             <div className="login">
-                <LoadingComponent ref="loading" text={'请稍等...'}></LoadingComponent>
+                <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
                 <div className="login1" style={{display:this.state._login1}}>
                     <BackComponent></BackComponent>
                     <div className="main">

@@ -1,16 +1,16 @@
-import * as ajaxConstants from '../../constants/ajaxConstants';
+import * as loginConstants from './loginConstants.js';
 export default function(state = {},action){
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type){
-        case ajaxConstants.AJAX_REQUESTING:
+        case loginConstants.LOGIN_REQUESTING:
             newState.status = 0;
             break;
-        case ajaxConstants.AJAX_REQUESTED:
+        case loginConstants.LOGIN_REQUESTED:
             newState.status = 1;
             // console.log(action.result);
-            newState.result = action.result.data.results;
+            newState.result = action.result.data;
             break;
-        case ajaxConstants.AJAX_REQUESTERROR:
+        case loginConstants.LOGIN_REQUESTERROR:
             newState.status = -1;
             break;
     }

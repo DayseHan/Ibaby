@@ -7,6 +7,8 @@ import detailsComponent from '../components/details/detailsComponent.js'
 import LoginComponent from '../components/login/LoginComponent'
 import RegisterComponent from '../components/register/registerComponent'
 import UserComponent from '../components/user/userComponent'
+import CollectComponent from '../components/collect/collectComponent'
+import UnpaidComponent from '../components/unpaid/unpaidComponent'
 import ClassifyComponent from '../components/classify/classifyComponent'
 import MessageComponent from '../components/message/messageComponent.js'
 import SearchpageComponent from '../components/searchpage/searchpageComponent.js'
@@ -28,6 +30,8 @@ const routes = (
         <Route path="login" component={LoginComponent}/>
         <Route path="register" component={RegisterComponent} />
         <Route path="user" component={UserComponent} /> 
+        <Route path="collect" component={CollectComponent} /> 
+        <Route path="unpaid" component={UnpaidComponent} /> 
         <Route path="classify" component={ClassifyComponent} /> 
         <Route path='list/:id' component={ListComponent}/>
         <Route path="message" component={MessageComponent} />

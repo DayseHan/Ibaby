@@ -1,5 +1,8 @@
+import * as loginConstants from './loginConstants.js'
+
 export function check_phone(phone){
     return {
+        types: [loginConstants.LOGIN_REQUESTING, loginConstants.LOGIN_REQUESTED, loginConstants.LOGIN_REQUESTERROR],
         url:'check_phone',
         method:'post',
         data:{
@@ -10,6 +13,7 @@ export function check_phone(phone){
 
 export function login(phone,pwd){
     return {
+        types: [loginConstants.LOGIN_REQUESTING, loginConstants.LOGIN_REQUESTED, loginConstants.LOGIN_REQUESTERROR],
         url:'login',
         method:'post',
         data:{

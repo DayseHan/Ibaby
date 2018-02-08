@@ -1,16 +1,16 @@
-import * as ajaxConstants from '../../constants/ajaxConstants';
+import * as registerConstants from './registerConstants.js';
 export default function(state = {},action){
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type){
-        case ajaxConstants.AJAX_REQUESTING:
+        case registerConstants.REGISTER_REQUESTING:
             newState.status = 0;
             break;
-        case ajaxConstants.AJAX_REQUESTED:
+        case registerConstants.REGISTER_REQUESTED:
             newState.status = 1;
-            console.log(action.result);
-            newState.result = action.result.data.results;
+            // console.log(action.result);
+            newState.result = action.result.data;
             break;
-        case ajaxConstants.AJAX_REQUESTERROR:
+        case registerConstants.REGISTER_REQUESTERROR:
             newState.status = -1;
             break;
     }
