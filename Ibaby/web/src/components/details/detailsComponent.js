@@ -32,7 +32,7 @@ class detailsComponent extends Component{
     }
     addCart(proItem){
         console.log(this.state.buyColor,this.state.buySize,this.state.count,this.state.username)
-        if(this.state.username == ''){
+        if(this.state.username === null){
             hashHistory.push('/login')
         }else if(this.state.buyColor=='' || this.state.buySize==''){
             this.showToast();

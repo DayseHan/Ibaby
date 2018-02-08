@@ -1,10 +1,3 @@
-/* 
-* @Author: Marte
-* @Date:   2018-02-05 13:52:10
-* @Last Modified by:   Marte
-* @Last Modified time: 2018-02-05 13:52:13
-*/
-
-$(document).ready(function(){
-    
-});
+export const SEARCH_RQUESTING = 'SEARCH_RQUESTING'
+export const SEARCH_RQUESTED = 'SEARCH_RQUESTED'
+export const SEARCH_RQUESTERROR = 'SEARCH_RQUESTERROR'
