@@ -1,13 +1,16 @@
+import * as ajaxConstants from '../../constants/ajaxConstants'
+import * as settlementConstants from './settlementConstants.js'
 export function getdate(){
     return {
         url: 'getdate',
-        data: {uid: 1}
+        data: {uid: 14}
     }
 }
 
-export function getpay(addtime){
+export function getpay(orderid){
     return {
+        types:[settlementConstants.ORDER_RQUESTING, settlementConstants.ORDER_RQUESTED, settlementConstants.ORDER_RQUESTERROR],
         url: 'getpay',
-        data: {uid: 1,addtime}
+        data: {uid: 14,orderid}
     }
 }

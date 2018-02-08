@@ -8,16 +8,25 @@ import {hashHistory} from 'react-router'
 
 let cartids = [];
 let goodsids = [];
-let value =1
+let counts =[];
+let value =1;
+
+
+
 const AgreeItem = Checkbox.AgreeItem;
 class CartComponent extends Component {
     componentWillMount(){
         this.props.getCartList();
     }
+    state={
+        total:0,
+        qty:0
+    }
     genOrder(){
-        this.props.genOrder(cartids.join(','), goodsids.join(',')).then((res) => {
+        this.props.genOrder(cartids.join(','), goodsids.join(','),counts.join(',')).then((res) => {
             this.props.getCartList();
         })
+        hashHistory.push('/settlement')
     }
     edit(){
         this.refs.edit.style.display="none";
@@ -34,26 +43,36 @@ class CartComponent extends Component {
     alls(){
 
     }
-    goBack(){
-        hashHistory.go(-1);
-    }
-    selectItem(indexid, goodsid, event){
+ 
+    selectItem(indexid, goodsid, count, price, event){
         if(event.target.checked){
             if(cartids.indexOf(indexid) < 0){
                 cartids.push(indexid)
             }
             if(goodsids.indexOf(goodsid) < 0){
                 goodsids.push(goodsid)
-            }            
+            }
+            if(counts.indexOf(count) < 0){
+                counts.push(count)
+            }
+            this.setState({total:this.state.total+=count*price})
+            this.setState({qty:this.state.qty+=count})
+            console.log(this.state.qty)
         } else {
             if(cartids.indexOf(indexid) > -1){
                 cartids.splice(cartids.indexOf(indexid), 1)
             }
             if(goodsids.indexOf(goodsid) > - 1){
                 goodsids.splice(goodsids.indexOf(goodsid), 1)
-            }                
+            }
+            if(counts.indexOf(count) > - 1){
+                counts.splice(counts.indexOf(count), 1)
+            }
+             this.setState({total:this.state.total-=count*price})
+            this.setState({qty:this.state.qty-=count})
+            console.log(this.state.qty)               
         }
-        console.log(cartids, goodsids);
+        console.log(cartids, goodsids,counts,);
     }
     
     render(){
@@ -61,9 +80,6 @@ class CartComponent extends Component {
             <div className="car">
                 <div className="head">
                     <NavBar mode="light"
-                     leftContent={[
-                        <i className="iconfont icon-shangyiye1"key="18" onClick={this.goBack.bind(this)}></i>
-                    ]}
                     rightContent={[
                         <div className="edit" key="10"ref="edit"onClick={this.edit.bind(this)}>编辑</div>,
                         <div className="complete" key="11"ref="complete" onClick={this.complete.bind(this)}>完成</div>
@@ -82,15 +98,15 @@ class CartComponent extends Component {
                             return (
                                 <li key={idx}>
                                     <div className="toplist">
-                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid)}>
+                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.price)}>
                                         </AgreeItem>
                                         <img src={item.imgurl} />
                                         <div className="content"id="content">
                                             <div className="goodsName">{item.name}</div>
                                             <div className="introduce">{item.branch}</div>
                                             <div className ="compute">
-                                                <div className="price">¥{item.Price}</div>
-                                                <div className ='counts'>x<div className ='count'>1</div></div>
+                                                <div className="price">¥{item.price}</div>
+                                                <div className ='counts'>x<div className ='count'>{item.count}</div></div>
                                             </div>
                                         </div>
                                         <div className="carcount">
@@ -115,8 +131,8 @@ class CartComponent extends Component {
                         </AgreeItem>
                         ]}
                     rightContent={[
-                        <div className="total"key="13" >总计:¥<span className="totalprice" ></span></div>,
-                        <div className=" closing" key="14" onClick={this.genOrder.bind(this)}>结算</div>   
+                        <div className="total"key="13" >总计:¥<span className="totalprice">{this.state.total}</span></div>,
+                        <div className=" closing" key="14" onClick={this.genOrder.bind(this)}>结算({this.state.qty})</div>   
                     ]}>
                     </NavBar>
                 </div>
@@ -130,7 +146,6 @@ let mapStateToProps = (state) => {
     console.log(state)
     return {
         cartList:state.cart.result || []
-
     }
 }
 

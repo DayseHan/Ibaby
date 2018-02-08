@@ -39,6 +39,7 @@
   "author": "DK.Lan",
   "license": "ISC",
   "dependencies": {
+    "antd": "^3.2.0",
     "antd-mobile": "^2.1.5",
     "axios": "^0.17.1",
     "events": "^1.1.1",
