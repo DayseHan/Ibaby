@@ -8,9 +8,10 @@ export default function bringReducer(state = {}, action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            newState.status = 1;
-            newState.result = action.result.data.results;
-            console.log(newState.result)
+            try{
+                newState.status = 1;
+                newState.result = action.result.data.results;
+            }catch(error){}
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || prolistConstants.ADDCART_RQUESTERROR):
             newState.status = -1;

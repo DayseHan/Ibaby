@@ -9,9 +9,12 @@ export default function(state = {}, action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            newState.status = 1;
-            newState.result = action.result.data.results;
+             try{
+                newState.status = 1;
+                newState.result = action.result.data.results;
+            }catch(error){}
             break;
+        
         case ajaxConstants.AJAX_REQUESTERROR || settlementConstants.ORDER_RQUESTERROR:
             newState.status = -1;
             break;

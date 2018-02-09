@@ -29,6 +29,9 @@
         border-bottom:1px solid #ccc;
         height:80px;
         overflow:hidden;
+        span{
+            font-size:28px;
+        }
         .paypal{
             height:80px;
             width:200px;
@@ -92,6 +95,16 @@
         .order{
             border-bottom:1px solid #ccc;
             li{
+                .ordershow{
+                    height:65px;
+                    line-height:65px;
+                    overflow:hidden;
+                    .selete{
+                        float:left;
+                        padding-left:20px;
+                        padding-right:5%;
+                    }
+                }
                 .sun{
                     overflow:hidden;
                     padding-right:20px;
@@ -237,6 +250,7 @@
                     width:420px;
                 }
                 .recommend{
+                    margin-top:10px;
                     background:pink;
                     float:left;
                     width:70px;

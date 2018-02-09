@@ -7,10 +7,3 @@ export function getdate(uid){
     }
 }
 
-export function getpay(orderid,uid){
-    return {
-        types:[settlementConstants.ORDER_RQUESTING, settlementConstants.ORDER_RQUESTED, settlementConstants.ORDER_RQUESTERROR],
-        url: 'getpay',
-        data: {uid,orderid}
-    }
-}
