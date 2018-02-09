@@ -1,6 +1,6 @@
 import HeaderComponent from '../header/headerComponent.js'
 import FooterComponent from '../footer/footerComponent.js'
-import LoadingComponent from '../loading/loadingComponent.js'
+// import LoadingComponent from '../loading/loadingComponent.js'
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
@@ -131,7 +131,11 @@ class HomeComponent extends Component{
         
         return(
             <div id="home">
+<<<<<<< HEAD
                 {html}
+=======
+                
+>>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
                 <HeaderComponent/>
                 <div className="scrolltop" onClick={this.scrollTop.bind(this)}><i className="iconfont icon-fanhuidingbu"></i></div>
                 <ReactPullLoad className="container"
@@ -148,6 +152,7 @@ class HomeComponent extends Component{
                             selectedIndex={0}
                         >
                         {
+                                // console.log("dsadad",this.props.bannerResult)
                             this.props.bannerResult.map((item, idx) => {
                             var path = {
                                 pathname:'/details',
@@ -209,7 +214,11 @@ class HomeComponent extends Component{
 }
 
 let mapStateToProps = (state) => {
+<<<<<<< HEAD
     console.log(state.home.tabs_result);
+=======
+    console.log(state);
+>>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
     return {
         ajaxStatus: state.home.status,
         bannerResult: state.home.banner_result || [],

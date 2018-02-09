@@ -127,8 +127,10 @@ module.exports = {
                     inner join orderproduct u on u.orderid = c.orderid
                     inner join goodslist g on u.goodsid =g.id
                 where 
+
                     c.userid = ${uid} && status = 0
-                `;
+
+                ;
              db.select(sql,function(result){
                 console.log(result)
                 _res.send(result)

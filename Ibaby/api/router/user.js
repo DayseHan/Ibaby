@@ -24,8 +24,11 @@ module.exports = {
 				if(result.data.results[0].collects !='0,'){
 				console.log();
 
+
 					// var usercollects = result.data.results[0].collects.substring(0,result.data.results[0].collects.length-1)
 					var usercollects = result.data.results[0].collects.slice(0,-1);
+
+					
 					console.log(`select * from goodslist where id in (${usercollects})`)
 					db.select2(`select * from goodslist where id in (${usercollects})`,function(result2){
 						console.log(result2);
