@@ -8,8 +8,10 @@ export default function detailsReducer(state = {}, action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            newState.status = 1;
-            newState.detailsresult = action.result.data.results[0];
+            try{
+                newState.status = 1;
+                newState.detailsresult = action.result.data.results[0];
+            }catch(error){}
             break;
         case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
             newState.status = -1;
@@ -51,9 +53,10 @@ export default function detailsReducer(state = {}, action){
             newState.detailsSizeresult = action.result.data.results[0].size.split(',');
             break;
         case detailsConstants.COMMENT_RQUESTED:
+            try{
             newState.status = 1;
             newState.detailsCommentresult = action.result.data.results;
-            console.log(newState.detailsCommentresult);
+            }catch(error){}
             break;
     }
     return newState;
