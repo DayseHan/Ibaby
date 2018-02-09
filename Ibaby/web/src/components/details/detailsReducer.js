@@ -8,9 +8,12 @@ export default function detailsReducer(state = {}, action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            newState.status = 1;
-            newState.detailsresult = action.result.data.results[0];
+            try{
+                newState.status = 1;
+                newState.detailsresult = action.result.data.results[0];
+            }catch(error){ }
             break;
+       
         case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
             newState.status = -1;
             newState.detailsresult = action.result.data;

@@ -19,16 +19,20 @@ module.exports = {
 			})
 		}),
 		app.get('/collects',function(req,res){
-			db.select2(`select * from user where user_id=${req.query.user_id}`,function(result){console.log(result.data.results);
-				console.log(result.data.results[0].collects !='');
-				if(result.data.results[0].collects !=''){
-					db.select2(`select * from goodslist where id in (${result.data.results[0].collects})`,function(result2){
-						// console.log(result2);
+			db.select2(`select * from user where user_id=${req.query.user_id}`,function(result){
+				// console.log(result.data.results);
+				if(result.data.results[0].collects !='0,'){
+				console.log();
+
+					var usercollects = result.data.results[0].collects.substring(0,result.data.results[0].collects.length-1)
+					console.log(`select * from goodslist where id in (${usercollects})`)
+					db.select2(`select * from goodslist where id in (${usercollects})`,function(result2){
+						console.log(result2);
 						res.send(result2);
 					})
 				}else{
 					db.select2(`select * from goodslist where id = ''`,function(result2){
-						// console.log(result2);
+						console.log("else");
 						res.send(result2);
 					})
 				}

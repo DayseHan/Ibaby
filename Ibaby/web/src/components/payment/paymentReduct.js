@@ -7,9 +7,10 @@ export default function payment(state = {},action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            newState.status = 1;
-            console.log(action.result);
-            newState.result = action.result.data.results;
+            try{
+                newState.status = 1;
+                newState.result = action.result.data.results;
+            }catch(error){}
             break;
         case ajaxConstants.AJAX_REQUESTERROR:
             newState.status = -1;
