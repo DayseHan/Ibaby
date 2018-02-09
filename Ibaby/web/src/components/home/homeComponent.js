@@ -142,6 +142,7 @@ class HomeComponent extends Component{
                             selectedIndex={0}
                         >
                         {
+                                // console.log("dsadad",this.props.bannerResult)
                             this.props.bannerResult.map((item, idx) => {
                             var path = {
                                 pathname:'/details',
@@ -202,7 +203,7 @@ class HomeComponent extends Component{
 }
 
 let mapStateToProps = (state) => {
-    console.log(state.home.tabs_result);
+    console.log(state);
     return {
         ajaxStatus: state.home.status,
         bannerResult: state.home.banner_result || [],
