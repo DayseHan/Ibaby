@@ -46,7 +46,7 @@ class CartComponent extends Component {
 
     }
  
-    selectItem(indexid, goodsid, count, price, event){
+    selectItem(indexid, goodsid, count, oldPrice, event){
         if(event.target.checked){
             if(cartids.indexOf(indexid) < 0){
                 cartids.push(indexid)
@@ -57,7 +57,7 @@ class CartComponent extends Component {
             if(counts.indexOf(count) < 0){
                 counts.push(count)
             }
-            this.setState({total:this.state.total+=count*price})
+            this.setState({total:this.state.total+=count*oldPrice})
             this.setState({qty:this.state.qty+=count})
             console.log(this.state.qty)
         } else {
@@ -70,7 +70,7 @@ class CartComponent extends Component {
             if(counts.indexOf(count) > - 1){
                 counts.splice(counts.indexOf(count), 1)
             }
-             this.setState({total:this.state.total-=count*price})
+             this.setState({total:this.state.total-=count*oldPrice})
             this.setState({qty:this.state.qty-=count})
             console.log(this.state.qty)               
         }
@@ -100,14 +100,14 @@ class CartComponent extends Component {
                             return (
                                 <li key={idx}>
                                     <div className="toplist">
-                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.price)}>
+                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.oldPrice)}>
                                         </AgreeItem>
                                         <img src={item.imgurl} />
                                         <div className="content"id="content">
                                             <div className="goodsName">{item.name}</div>
                                             <div className="introduce">{item.branch}</div>
                                             <div className ="compute">
-                                                <div className="price">¥{item.price}</div>
+                                                <div className="price">¥{item.oldPrice}</div>
                                                 <div className ='counts'>x<div className ='count'>{item.count}</div></div>
                                             </div>
                                         </div>
@@ -121,7 +121,7 @@ class CartComponent extends Component {
                                         </div>
                                     </div>
                                     <div className="sun">
-                                        <div className="tolprice">{item.price*item.count}
+                                        <div className="tolprice">{item.oldPrice*item.count}
                                         </div>
                                         <div className="coun">小计:</div>
                                     </div>

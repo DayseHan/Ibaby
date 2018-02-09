@@ -7,7 +7,7 @@ export default function payment(state = {},action){
             newState.status = 0;
             break;
         case ajaxConstants.AJAX_REQUESTED:
-            try{
+             try{
                 newState.status = 1;
                 newState.result = action.result.data.results;
             }catch(error){}

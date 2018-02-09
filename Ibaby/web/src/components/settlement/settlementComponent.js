@@ -10,6 +10,7 @@ const prompt = Modal.prompt;
 const alert = Modal.alert;
 var add =''
 
+
 const showAlert = () => {
     if(!add){
         const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
@@ -50,10 +51,7 @@ const showAlert = () => {
     orders(orderid){
         var uid=localStorage.getItem('user_id')
        console.log(orderid);
-       this.props.getpay(orderid,uid).then((res) => {
-            this.props.getdate().then(res=>{
-            });
-        }) 
+       
     }
     render(){
         return (
@@ -132,23 +130,23 @@ const showAlert = () => {
                         <div className="order">
                         <div className="ordertop">
                         <div className="ran"></div>
-                        <div className="orderid">订单号：</div>
-                         {
-                            this.props.settlement.map((item, idx) => {
-                            return (
-                                <div key={idx}>
-                                    <div className="ordernumber">{Date.parse(item.add_time)}</div> 
-                                    <div className="orders"onClick={this.orders.bind(this,item.orderid)}>查看订单
-                                    </div>
-                                </div>
-                                )
-                            })
-                        }
+                        <div className="orderid">订单详情：</div>
+                       
                         </div>
                          {
-                            this.props.Order.map((item, idx) => {
-                            return (
+                            this.props.settlement.map((item, idx) => {
+                            {
+                                this.state.total+=item.oldPrice*item.count,
+                                
+                                localStorage.setItem('total', this.state.total)
+
+                            }
+                            return (    
                                 <li key={idx} >
+                                    <div className="ordershow">
+                                    <div className="selete">订单号：</div>
+                                    <div className="ordernumber">{Date.parse(item.add_time)}</div> 
+                                    </div>
                                     <div className="Orders">
                                     <div className="Img">
                                         <img src={item.imgurl}/>
@@ -156,12 +154,12 @@ const showAlert = () => {
                                     <div className="content">
                                     <div className="name">{item.name}</div>
                                     <div className="title">{item.color}</div>
-                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.newPrice}</div></div>
+                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.oldPrice}</div></div>
                                     <div className="count"> <div className="Count">{item.count}</div><div className="qty">x</div></div>
                                     </div>
                                     </div>
                                     <div className="sun">
-                                        <div className="tolprice">{item.newPrice*item.count}
+                                        <div className="tolprice">{item.oldPrice*item.count}
                                         </div>
                                         <div className="coun">小计:</div>
                                     </div>
@@ -188,9 +186,9 @@ const showAlert = () => {
     }
 }
 let mapStateToProps = (state) => {
+    console.log(state)
     return {
-        settlement:state.settlement.result || [],
-        Order:state.settlement.order_result || []
+        settlement:state.settlement.result || []
     }
 }
 
