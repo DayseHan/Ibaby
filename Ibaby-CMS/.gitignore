@@ -1,0 +1,4 @@
+#过滤压缩包
+*.zip
+/node_modules
+node_modules/

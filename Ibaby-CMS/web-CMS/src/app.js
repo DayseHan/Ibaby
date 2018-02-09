@@ -1,18 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Router, hashHistory} from 'react-router'
-import {Provider} from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import configStore from './redux/configStore';
+import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
+import router from './router/index'
 
-import store from './redux/configStore'
-import routes from './router'
-
-import axios from 'axios'
-
-import 'antd/dist/antd.css'
+const store = configStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={hashHistory} routes={routes}/>
+        <Router history={hashHistory} routes={router}/>
     </Provider>,
     document.getElementById('app')
 )

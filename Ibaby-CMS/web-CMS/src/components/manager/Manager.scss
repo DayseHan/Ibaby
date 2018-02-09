@@ -1,0 +1,26 @@
+.tb {
+  margin: 20px;
+  th, td {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    padding: 16px 8px;
+    border-bottom: 0.5px solid #ccc;
+    border-right: 0.5px solid #ccc;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-top: 0.5px solid #ccc;
+    border-left: 0.5px solid #ccc;
+    margin-left: 50%;
+    transform: translate(-50%,0);
+    thead{
+      background-color: #F7F7F7;
+    }
+  }
+  .a_edit {
+    margin-right: 20px;
+  }
+}
+
