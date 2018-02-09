@@ -2,9 +2,14 @@ import React,{Component} from 'react'
 import {Link} from 'react-router'
 import { Carousel, Tabs } from 'antd-mobile'
 import { connect } from 'react-redux'
+import Masonry from 'react-masonry-component'
 import * as actions from './zhibuyAction'
 import FooterComponent from '../footer/footerComponent.js'
 import './zhibuy.scss'
+
+const masonryOptions = {
+    transitionDuration: 0
+};
 
 class Zhibuy extends Component{
     componentWillMount(){
@@ -19,56 +24,8 @@ class Zhibuy extends Component{
             if(res.state) this.dealWaterRes()
         })
     }
-    componentWillReceiveProps(){
-        
-    }
     dealWaterRes(){
-        // console.log(document);
-        // console.log()
-        // this.refs.waterfallMain.addEventListener('DOMContentLoaded', function () {
-            let mainWidth = this.refs.waterfall;
-            // console.log(mainWidth);
-            // Get child elements all Width
-            let childWidth = mainWidth.children;
-            let imgWidth = childWidth[0].offsetWidth;
-            // 列容纳个数
-            let colNum = Math.floor((window.innerWidth-4) / imgWidth);
-            // console.log(colNum)
-            let gap = Math.floor((window.innerWidth - 4) % imgWidth / (colNum + 1));
-            
-            let pos = [];
-            for (let i = 0; i < colNum; i++) {
-                pos.push({
-                    left: (i + 1) * gap + i * imgWidth,
-                    top: gap
-                });
-            }
-            
-            // 获取所有子元素
-            for (var i = 0; i < childWidth.length; i++) {
-                // console.log(childWidth[i]);
-                (function(i){
-                    var img = childWidth[i].querySelector('img');
-                    
-                    img.onload = function () {
-                        let minIdx = 0;
-                        let min = pos[minIdx].top;
-                        
-                        for (var j = 1; j < pos.length; j++) {
-                            if (pos[j].top < min) {
-                                min = pos[j].top;
-                                minIdx = j;
-                            }
-                        }
-                        // console.log(childWidth[i])
-                        // childWidth[i].style.left = pos[minIdx].left + 'px';
-                        // childWidth[i].style.top = pos[minIdx].top + 'px';
-                        // pos[minIdx].top += childWidth[i].offsetHeight + gap;
-                        // console.log(childWidth[i], childWidth[j])
-                    }
-                })(i)
-            }
-        // }.bind(this));
+        
     }
     render(){
         const titleTab = [
@@ -96,7 +53,9 @@ class Zhibuy extends Component{
                 <div className="zhibuy-main">
                     <Tabs tabs={titleTab} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{ fontSize: '25px' }} onChange={this.tabBarChange.bind(this)}>
                         <div className="zhibuy-waterfall">
-                            <ul ref="waterfall">
+                            <Masonry
+                                className={'my-gallery-class'} elementType={'ul'} options={masonryOptions} disableImagesLoaded={false} updateOnEachImageLoad={false}
+                            >
                                 {   
                                     // console.log("da",this.props.zhiBuyResult)
                                     this.props.zhiBuyResult.map((item, index) => {
@@ -116,7 +75,7 @@ class Zhibuy extends Component{
                                         )
                                     })
                                 }
-                            </ul>
+                            </Masonry>
                         </div>
                     </Tabs>
                 </div>
