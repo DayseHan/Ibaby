@@ -1,6 +1,6 @@
 Ibaby-App || Ibaby-CMS --- 爱贝多
 ======
-![Ibaby[爱贝多]](https://github.com/DayseHan/raw/dev/Ibaby/web/src/assets/images/qweq.fw.png)
+![Ibaby[爱贝多](https://github.com/DayseHan/Ibaby/raw/dev/Ibaby/web/src/assets/images/qweq.fw.png)
 
 ## Build Setup
 
