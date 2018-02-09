@@ -5,6 +5,7 @@ Ibaby-App || Ibaby-CMS --- 爱贝多
 ## Build Setup
 
 ``` bash
+
 # install dependencies
 npm install
 
