@@ -6,25 +6,27 @@ import { NavBar,Checkbox} from 'antd-mobile';
 const AgreeItem = Checkbox.AgreeItem;
 import {hashHistory} from 'react-router'
 import { Modal, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
+import LoadingComponent from '../loading/loadingComponent.js'
 const prompt = Modal.prompt;
 const alert = Modal.alert;
 var add =''
 
-const showAlert = () => {
-    if(!add){
-        const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
-            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
-            { text: '去添加', onPress: () => hashHistory.push('/address') },
-          ]);
-          setTimeout(() => {
-            // 可以调用close方法以在外部close
-            console.log('auto close');
-            alertInstance.close();
-          }, 500000);
-    }else{
-        hashHistory.push('/payment');
-    }
-}
+
+// showAlert(){
+//     if(!add){
+//         const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
+//             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+//             { text: '去添加', onPress: () => hashHistory.push('/address') },
+//           ]);
+//           setTimeout(() => {
+//             // 可以调用close方法以在外部close
+//             console.log('auto close');
+//             alertInstance.close();
+//           }, 500000);
+//     }else{
+//         hashHistory.push('/payment');
+//     }
+// }
  class settlementComponent extends Component{
     state={
         total:0,
@@ -37,20 +39,45 @@ const showAlert = () => {
     getBack(){
         hashHistory.go(-1);   
     }
+    showlert(){
+        if(!add){
+                this.failToast() 
+            // const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
+            //     { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+            //     { text: '去添加', onPress: () => hashHistory.push('/address') },
+            //   ]);
+              // setTimeout(() => {
+              //   // 可以调用close方法以在外部close
+              //   console.log('auto close');
+              //   alertInstance.close();
+              //     }, 500000);
+            }else{
+                this.setState({total:0})
+                hashHistory.push('/payment');
+            }
+    }
+    failToast() {
+      Toast.fail('请先去添加地址', 1);
+    }
     componentWillMount(){
-           this.props.getdate()
+        var uid=localStorage.getItem('user_id')
+           this.props.getdate(uid)
            console.log(this.props)
            add=this.state.address
            if(this.state.address){
              this.setState({showadd:''})
            }
+
+    }
+    componentDidMount() {
+        setTimeout(() => {
+          Toast.hide();
+        }, 3000);
     }
     orders(orderid){
+        var uid=localStorage.getItem('user_id')
        console.log(orderid);
-       this.props.getpay(orderid).then((res) => {
-            this.props.getdate().then(res=>{
-            });
-        }) 
+       
     }
     render(){
         return (
@@ -129,23 +156,23 @@ const showAlert = () => {
                         <div className="order">
                         <div className="ordertop">
                         <div className="ran"></div>
-                        <div className="orderid">订单号：</div>
-                         {
-                            this.props.settlement.map((item, idx) => {
-                            return (
-                                <div key={idx}>
-                                    <div className="ordernumber">{Date.parse(item.add_time)}</div> 
-                                    <div className="orders"onClick={this.orders.bind(this,item.orderid)}>查看订单
-                                    </div>
-                                </div>
-                                )
-                            })
-                        }
+                        <div className="orderid">订单详情：</div>
+                       
                         </div>
                          {
-                            this.props.Order.map((item, idx) => {
-                            return (
+                            this.props.settlement.map((item, idx) => {
+                            {
+                                this.state.total+=item.oldPrice*item.count,
+                                
+                                localStorage.setItem('total', this.state.total)
+                                console.log(item)
+                            }
+                            return (    
                                 <li key={idx} >
+                                    <div className="ordershow">
+                                    <div className="selete">订单号：</div>
+                                    <div className="ordernumber">{Date.parse(item.add_time)}</div> 
+                                    </div>
                                     <div className="Orders">
                                     <div className="Img">
                                         <img src={item.imgurl}/>
@@ -153,12 +180,12 @@ const showAlert = () => {
                                     <div className="content">
                                     <div className="name">{item.name}</div>
                                     <div className="title">{item.color}</div>
-                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.newPrice}</div></div>
+                                    <div className="price"><div className="mony">￥</div><div className="Price">{item.oldPrice}</div></div>
                                     <div className="count"> <div className="Count">{item.count}</div><div className="qty">x</div></div>
                                     </div>
                                     </div>
                                     <div className="sun">
-                                        <div className="tolprice">{item.newPrice*item.count}
+                                        <div className="tolprice">{item.oldPrice*item.count}
                                         </div>
                                         <div className="coun">小计:</div>
                                     </div>
@@ -170,9 +197,9 @@ const showAlert = () => {
                     </div>
                 </div> 
                 <div className="orderfooter">
-                    <Button className="paypal"onClick={showAlert}>
+                    <div className="paypal" onClick={this.showlert.bind(this)}>
                         支付订单
-                    </Button>
+                    </div>
                     <div className="total">
                         <div className="altotal">总计:¥
                             {this.state.total}
@@ -185,9 +212,10 @@ const showAlert = () => {
     }
 }
 let mapStateToProps = (state) => {
+    console.log(state)
     return {
-        settlement:state.settlement.result || [],
-        Order:state.settlement.order_result || []
+        ajaxStatus:state.settlement.status,
+        settlement:state.settlement.result || []
     }
 }
 

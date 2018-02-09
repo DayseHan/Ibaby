@@ -4,7 +4,7 @@ import './loading.scss'
 
 export default class LoadingComponent extends Component{
     state = {
-        _change:'none',
+        _change:'block',
     }
 
     componentDidMount(){

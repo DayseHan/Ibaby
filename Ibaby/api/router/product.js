@@ -53,10 +53,10 @@ module.exports = {
          _app.post('/statechange',function(_req,_res){
             var uid =_req.body.uid;
             var address =_req.body.address;
-            db.update(`update orders  SET status = 1 WHERE userid= ${uid}`,function(res){
-                // db.insert(`INSERT INTO orders(address) VALUES(${address})`,'',function(inserResults){
-                   
-                // })
+            var arr =[_req.body.address]
+            console.log(typeof(address))
+            db.update(`update orders  SET status = 1 ,address = '${address}' WHERE userid= ${uid}`,function(res){
+                  _res.send(res)
             })
          })
 
@@ -117,14 +117,18 @@ module.exports = {
 
         _app.get('/getdate',function(_req,_res){
             let uid=_req.query.uid;
-            var sql = `
-            select
-               *
-            from 
-                orders 
-            where 
-                orders.userid = ${uid}
-            `
+            let sql =`
+                select
+                    c.*,
+                    u.*,
+                    g.*
+                from
+                    orders c
+                    inner join orderproduct u on u.orderid = c.orderid
+                    inner join goodslist g on u.goodsid =g.id
+                where 
+                    c.userid = ${uid} && status = 0
+                `;
              db.select(sql,function(result){
                 console.log(result)
                 _res.send(result)

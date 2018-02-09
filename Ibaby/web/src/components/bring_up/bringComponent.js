@@ -5,7 +5,6 @@ import HeaderComponent from '../header/headerComponent.js'
 import FootComponent from '../footer/footerComponent.js'
 import './bring.scss'
 import { Tabs, WhiteSpace, Badge } from 'antd-mobile';
-import ScrollTopComponent from '../scrollTop/scrollTopComponent.js'
 
 const tabs = [
       { title: <Badge text={'3'}>精华</Badge> },
@@ -21,7 +20,6 @@ class bringComponent extends Component{
         <div className="bring_box">
             <HeaderComponent/> 
             <main className="container">
-              <ScrollTopComponent/> 
                  <Tabs tabs={tabs}
                   initialPage={0}
                   tabBarActiveTextColor="#FF405D"
@@ -30,11 +28,11 @@ class bringComponent extends Component{
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '', backgroundColor: '#fff' }} >
                     <ul className="mainbring_comment_main">
-                      {this.props.ajaxResult.map((item,idx) =>{
+                      {this.props.bringResult.map((item,idx) =>{
                           return(<li key={idx}>
                               <h3>
                                   <span>
-                                      <img src={item.imgurl} alt="" />
+                                      <img src={item.imgurlsbring} alt="" />
                                   </span>
                                   <i>{item.userid}</i>
                               </h3>
@@ -48,11 +46,11 @@ class bringComponent extends Component{
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '', backgroundColor: '#fff' }}>
                     <ul className="mainbring_comment_main mainbring_comment_main_second">
-                      {this.props.ajaxResult.map((item,idx) =>{
+                      {this.props.bringResult.map((item,idx) =>{
                           return(<li key={idx}>
                               <h3>
                                   <span>
-                                      <img src={item.imgurl} alt="" />
+                                      <img src={item.imgurlsbring} alt="" />
                                   </span>
                                   <i>{item.userid}</i>
                               </h3>
@@ -71,11 +69,11 @@ class bringComponent extends Component{
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '', backgroundColor: '#fff' }}>
                     <ul className="mainbring_comment_main mainbring_comment_four">
-                      {this.props.ajaxResult.map((item,idx) =>{
+                      {this.props.bringResult.map((item,idx) =>{
                         return(<li key={idx}>
                             <h3>
                                 <span>
-                                    <img src={item.imgurl} alt="" />
+                                    <img src={item.imgurlsbring} alt="" />
                                 </span>
                                 <i>{item.userid}</i>
                             </h3>
@@ -95,10 +93,10 @@ class bringComponent extends Component{
 
 } 
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state) => {console.log(state)
     return {
         ajaxStatus: state.bring.status,
-        ajaxResult: state.bring.result || []
+        bringResult: state.bring.bringresult || []
     }
 }
 

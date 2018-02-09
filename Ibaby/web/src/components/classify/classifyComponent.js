@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Tabs, WhiteSpace } from 'antd-mobile';
 import './classify.scss'
 import PrevBack from '../back/backComponent'
-
+import LoadingComponent from '../loading/loadingComponent.js'
 
 const tabs = [
     { title: '分类' },
@@ -127,15 +127,21 @@ class Classify extends Component{
         // 字母排序
         let sortRes = this.wordSort(brandRes);
         // console.log("hha",sortRes);
-        
+        let html;
+        if(this.props.listState==0){
+            html=<LoadingComponent/>;
+        }else{
+            html='';
+        }
         return (
             <div className="classifylist">
+                {html}
                 <div className="classify-header-top">
                     <PrevBack/>
-                    <div className="classify-seach">
+                    <Link to="/searchpage" className="classify-seach">
                         <i className="iconfont icon-search"></i>
-                        <span>dadasd</span>
-                    </div>
+                        <span>快速搜索</span>
+                    </Link>
                     <div className="classify-scan">
                         <Link to="#" className="iconfont icon-saoyisao"></Link>
                     </div>

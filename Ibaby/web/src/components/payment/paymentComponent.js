@@ -5,25 +5,33 @@ import * as actions from './paymentAction.js'
 import {hashHistory} from 'react-router'
 import { Toast, WhiteSpace, WingBlank, Button } from 'antd-mobile';
 
+
 var address=''
  class paymentComponent extends Component {
      state={
-        address:localStorage.getItem('address')
+        address:localStorage.getItem('address'),
+        total:localStorage.getItem('total')
     }
     getBack(){
         Toast.offline('支付失败');
         hashHistory.go(-1);
     }
     paynow(){
-        Toast.loading('支付中...',1, () => {
-             Toast.success('支付成功')
+        Toast.loading('支付成功正在为您跳转页面...',1, () => {
             hashHistory.push('/user')
-        });    
+        });
+        setTimeout(() => {
+          Toast.hide();
+        }, 3000);    
     }
+
     componentWillMount(){
+        var uid=localStorage.getItem('user_id')
+       
         address=this.state.address
-        this.props.statechange(address)
+        this.props.statechange(address,uid)
         console.log(this.state.address)
+
     }
     render(){
         return(
@@ -36,8 +44,8 @@ var address=''
                 <div className="minheight">
                     <div className="pays">
                         <div className="payorder">
-                            <div className="orderid">贝贝网订单号</div>
-                            <div className="mony"></div>
+                            <div className="orderid">贝贝网订单号:  58770564400</div>
+                            <div className="mony">{this.state.total}</div>
                         </div>
                         <div className="receipt">
                             <div className="receipt_l">收款方</div>

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --progress --colors",
-    "start": "webpack-dev-server --open --devtool eval --progress --port 3002  --colors --content-base ./"
+    "start": "webpack-dev-server --open --devtool eval --progress --port 3002 --host 10.3.136.12 --colors --content-base ./"
   },
   "devDependencies": {
     "antd-mobile-demo-data": "^0.2.0",
@@ -26,6 +26,7 @@
     "rc-form": "^2.1.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-masonry-component": "^6.0.2",
     "react-pullload": "^1.1.0",
     "react-redux": "^5.0.5",
     "react-router": "^3.0.2",
@@ -44,7 +45,6 @@
   "dependencies": {
     "antd": "^3.2.0",
     "antd-mobile": "^2.1.5",
-    "antd-mobile-demo-data": "^0.2.0",
     "axios": "^0.17.1",
     "events": "^1.1.1",
     "flux": "^3.1.2",

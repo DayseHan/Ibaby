@@ -122,10 +122,16 @@ class HomeComponent extends Component{
             { title: '居家' },
             { title: '美食' },
         ];
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent/>;
+        }else{
+            html='';
+        }
         
         return(
             <div id="home">
-                <LoadingComponent change={this.props.ajaxStatus}></LoadingComponent>
+                {html}
                 <HeaderComponent/>
                 <div className="scrolltop" onClick={this.scrollTop.bind(this)}><i className="iconfont icon-fanhuidingbu"></i></div>
                 <ReactPullLoad className="container"
@@ -168,11 +174,12 @@ class HomeComponent extends Component{
                           })
                           }
                         </Carousel>
-                    </div>
+                    </div> 
                     <div className="tabs">
                         <Tabs tabs={tabs} tabBarActiveTextColor="#FFA3B1" tabBarTextStyle={{fontSize:'30px'}} onChange={this.tabschange.bind(this)}>
                             <div className="itemBox">
-                                {this.props.tabsResult.map((item, idx)=>{
+                                {
+                                    this.props.tabsResult.map((item, idx)=>{
                                     var path = {
                                         pathname:'/details',
                                         query:{id:item.id},
@@ -202,6 +209,7 @@ class HomeComponent extends Component{
 }
 
 let mapStateToProps = (state) => {
+    console.log(state.home.tabs_result);
     return {
         ajaxStatus: state.home.status,
         bannerResult: state.home.banner_result || [],

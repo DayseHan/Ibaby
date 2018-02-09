@@ -5,6 +5,7 @@ import { NavBar,Checkbox} from 'antd-mobile';
 import * as actions from './cartAction'
 import FooterComponent from '../footer/footerComponent.js'
 import {hashHistory} from 'react-router'
+import LoadingComponent from '../loading/loadingComponent.js'
 
 let cartids = [];
 let goodsids = [];
@@ -16,35 +17,38 @@ let value =1;
 const AgreeItem = Checkbox.AgreeItem;
 class CartComponent extends Component {
     componentWillMount(){
-        this.props.getCartList();
+        var uid=localStorage.getItem('user_id')
+        this.props.getCartList(uid)
+        console.log(localStorage.getItem('user_id'))
+        if(uid===null){
+            hashHistory.push('/login')
+        }
     }
     state={
         total:0,
-        qty:0
+        qty:0,
+        cartlist:[]
     }
     genOrder(){
-        this.props.genOrder(cartids.join(','), goodsids.join(','),counts.join(',')).then((res) => {
-            this.props.getCartList();
+         var uid=localStorage.getItem('user_id')
+        this.props.genOrder(cartids.join(','), goodsids.join(','),counts.join(','),uid).then((res) => {
+            this.props.getCartList(uid);
         })
         hashHistory.push('/settlement')
     }
     edit(){
         this.refs.edit.style.display="none";
-        // document.getElementById('contents').style.display='none';
-        // document.getElementById('carcount').style.display='block';
         this.refs.complete.style.display="block"
     }
     complete(){
         this.refs.complete.style.display="none";
-        // document.getElementById('contents').style.display='block';
-        // document.getElementById('carcount').style.display='none';
         this.refs.edit.style.display="block"
     }
     alls(){
 
     }
  
-    selectItem(indexid, goodsid, count, price, event){
+    selectItem(indexid, goodsid, count, oldPrice, event){
         if(event.target.checked){
             if(cartids.indexOf(indexid) < 0){
                 cartids.push(indexid)
@@ -55,7 +59,7 @@ class CartComponent extends Component {
             if(counts.indexOf(count) < 0){
                 counts.push(count)
             }
-            this.setState({total:this.state.total+=count*price})
+            this.setState({total:this.state.total+=count*oldPrice})
             this.setState({qty:this.state.qty+=count})
             console.log(this.state.qty)
         } else {
@@ -68,7 +72,7 @@ class CartComponent extends Component {
             if(counts.indexOf(count) > - 1){
                 counts.splice(counts.indexOf(count), 1)
             }
-             this.setState({total:this.state.total-=count*price})
+             this.setState({total:this.state.total-=count*oldPrice})
             this.setState({qty:this.state.qty-=count})
             console.log(this.state.qty)               
         }
@@ -76,6 +80,12 @@ class CartComponent extends Component {
     }
     
     render(){
+        let html;
+        if(this.props.listState==0){
+            html=<LoadingComponent/>;
+        }else{
+            html='';
+        }
         return (
             <div className="car">
                 <div className="head">
@@ -98,14 +108,14 @@ class CartComponent extends Component {
                             return (
                                 <li key={idx}>
                                     <div className="toplist">
-                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.price)}>
+                                        <AgreeItem data-seed="logId" onClick={this.selectItem.bind(this, item.indexid, item.goodsid, item.count, item.oldPrice)}>
                                         </AgreeItem>
                                         <img src={item.imgurl} />
                                         <div className="content"id="content">
                                             <div className="goodsName">{item.name}</div>
                                             <div className="introduce">{item.branch}</div>
                                             <div className ="compute">
-                                                <div className="price">¥{item.price}</div>
+                                                <div className="price">¥{item.oldPrice}</div>
                                                 <div className ='counts'>x<div className ='count'>{item.count}</div></div>
                                             </div>
                                         </div>
@@ -119,7 +129,7 @@ class CartComponent extends Component {
                                         </div>
                                     </div>
                                     <div className="sun">
-                                        <div className="tolprice">{item.price*item.count}
+                                        <div className="tolprice">{item.oldPrice*item.count}
                                         </div>
                                         <div className="coun">小计:</div>
                                     </div>
@@ -150,7 +160,8 @@ class CartComponent extends Component {
 let mapStateToProps = (state) => {
     console.log(state)
     return {
-        cartList:state.cart.result || []
+        listState:state.cart.status,
+        cartList:state.cart.cart_result || []
     }
 }
 

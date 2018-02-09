@@ -39,18 +39,18 @@ class UserComponent extends Component{
     }
 
     show_toggle2(l1,l2){
-        this.refs.loading.show();
+        // this.refs.loading.show();
         this.setState({
             _login:l1,
             _quit:l2,
         },()=>{
             if(l1 == "none"){
-                this.refs.loading.hide();
+                // this.refs.loading.hide();
                 hashHistory.push("/login");
             }else{
                 localStorage.clear();
                 setTimeout(()=>{
-                    this.refs.loading.hide();
+                    // this.refs.loading.hide();
                 }, 1050)
             }
 
@@ -73,13 +73,13 @@ class UserComponent extends Component{
                         </i>
                 </div>
                 <main className="main_user">
-                    <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
+                  
                     <div className="user1" style={{display:this.state._user1}}>
                         
                         <div className="main1">
                             <div className="btn btn1" style={{display:this.state._login}}>
                                 <Link to="/login"><button>立即登录</button></Link>
-                                <Link to="/login"><button>立即登录</button></Link>
+                                <Link to="/register"><button>前往注册</button></Link>
                             </div>
                              <div className="btn quit" style={{display:this.state._quit}}>
                                 <img src="./src/assets/images/user.jpg"/>

@@ -30,7 +30,7 @@ class CollectComponent extends Component{
         }
         this.props.collect(user_id).then((res)=>{
             setTimeout(()=>{
-                this.refs.loading.hide();
+                // this.refs.loading.hide();
             }, 1300)
             
             if(res.data.results.length<1){
@@ -89,10 +89,16 @@ class CollectComponent extends Component{
         {
             console.log(this.props.ajaxStatus)
         }
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent/>;
+        }else{
+            html='';
+        }
         return (
 
             <div className="collect">
-                <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
+                {html}
                 <BackComponent text={this.state.text}/>
                 <div className="kong" style={{display:this.state.show}}>
                     亲，你的收藏列表空空如也！

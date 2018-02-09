@@ -80,23 +80,21 @@ class RegisterComponent extends Component{
         // this.refs.loading.show();
         var code = parseInt(Math.random()*9000 + 1000);
         // console.log(this.state._code,code);
-        setTimeout(()=>{
-            this.refs.loading.hide();
-            this.setState({_code: code});
-            console.log(this.state._code,code);
+            // this.refs.loading.hide();
+            this.setState({_code: code},()=>{
+                this.props.getCode(this.refs.phone.value,this.state._code).then(res=>{
+                    if(res){
+                        this.successToast('验证码已发至您的手机请注意查收！')
+                    }
+                    console.log(res);
+                    console.log("发送成功");
+                    
+                });
 
-            this.props.getCode(this.refs.phone.value,this.state._code).then(res=>{
-                if(res){
-                    this.successToast('验证码已发至您的手机请注意查收！')
-                }
-                console.log(res);
-                console.log("发送成功");
-                
+                this.successToast('验证码已发至您的手机请注意查收！')
             });
-
-            this.successToast('验证码已发至您的手机请注意查收！')
-        },1500)
-
+            console.log(this.state._code,code);
+            
     }
     getCode2(){
         // this.refs.loading.show();
@@ -112,16 +110,16 @@ class RegisterComponent extends Component{
 
     render(){
 
-        if(this.props.ajaxStatus == 0){
-            var shown = true;
-        }else if(this.props.ajaxStatus == 1){
-            var shown = false;
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent ref="loading"></LoadingComponent>;
+        }else{
+            html='';
         }
 
         return (
             <div className="register">
-                <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
-                
+                {html}
                 <div className="reg" style={{display:this.state._login2}}>
                     <BackComponent text={this.state.title}></BackComponent>
                     <div className="main">
@@ -139,7 +137,7 @@ class RegisterComponent extends Component{
 
                          <span className="ipt">
                             <i className="iconfont icon-suo"></i>
-                            <input type="text" placeholder="请输入6-16位密码" ref="pwd"/>
+                            <input type="password" placeholder="请输入6-16位密码" ref="pwd"/>
                         </span>
                             
                         <input type="button" value="立即注册" onClick={this.reg.bind(this)}/><br/>

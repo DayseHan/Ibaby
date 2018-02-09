@@ -3,6 +3,7 @@ import * as tabsConstants from './homeConstants.js'
 
 export function banner(){
     return {
+        types:[tabsConstants.BANNER_RQUESTING, tabsConstants.BANNER_RQUESTED, tabsConstants.BANNER_RQUESTERROR],
         url: '/banner'
     }
 }

@@ -4,14 +4,14 @@ import * as detailsConstants from '../../components/details/detailsConstarts.js'
 export default function detailsReducer(state = {}, action){
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type){
-        case (ajaxConstants.AJAX_REQUESTING || detailsConstants.ADDCART_RQUESTING ):
+        case (detailsConstants.DETAILS_RQUESTING || detailsConstants.ADDCART_RQUESTING ):
             newState.status = 0;
             break;
-        case ajaxConstants.AJAX_REQUESTED:
+        case detailsConstants.DETAILS_RQUESTED:
             newState.status = 1;
             newState.detailsresult = action.result.data.results[0];
-            break;
-        case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
+            break;  
+        case (detailsConstants.DETAILS_RQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
             newState.status = -1;
             newState.detailsresult = action.result.data;
             break;
@@ -51,9 +51,10 @@ export default function detailsReducer(state = {}, action){
             newState.detailsSizeresult = action.result.data.results[0].size.split(',');
             break;
         case detailsConstants.COMMENT_RQUESTED:
+            try{
             newState.status = 1;
             newState.detailsCommentresult = action.result.data.results;
-            console.log(newState.detailsCommentresult);
+            }catch(error){}
             break;
     }
     return newState;

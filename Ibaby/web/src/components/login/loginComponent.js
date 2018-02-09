@@ -103,7 +103,7 @@ class LoginComponent extends Component{
             });
         });
     }
-    check_phone(_blean){
+    check_phone(_blean,a){
         console.log('check')
         // var phone = document.querySelector('.phone').value
         // console.log(this.state.phone,this.refs.phone.value)
@@ -126,10 +126,13 @@ class LoginComponent extends Component{
                         // this.refs.loading.hide();
                     }else{
                         this.setState({user_id:res.data.results[0].user_id});
-                        if(_blean){
+                        console.log("_blean"+_blean);
+                        console.log("a"+a);
+                        if(_blean==true){
                             // this.refs.loading.hide();
-                            return
+                            return;
                         }
+                        console.log("getCode");
                         this.getCode();
                     }
                     // this.refs.loading.hide();
@@ -147,9 +150,17 @@ class LoginComponent extends Component{
     }
     
     render(){
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent ref="loading"></LoadingComponent>;
+        }else{
+            html='';
+        }
+
         return (
             <div className="login">
-                <LoadingComponent ref="loading" change={this.props.ajaxStatus}></LoadingComponent>
+                {html}
+                <img src="./src/assets/images/qweq.fw.png" className="logo" style={{display:this.state._login1}}/>
                 <div className="login1" style={{display:this.state._login1}}>
                     <BackComponent></BackComponent>
                     <div className="main">
@@ -201,7 +212,7 @@ class LoginComponent extends Component{
                         </span>
                         <span className="ipt">
                             <i className="iconfont icon-suo"></i>
-                            <input type="text" className="yzm" placeholder="请输入6-16位密码" ref="pwd2"/>
+                            <input type="password" className="yzm" placeholder="请输入6-16位密码" ref="pwd2"/>
                         </span>
                             
                         <input type="button" value="立即登录" onClick={this.login2.bind(this)}/><br/>

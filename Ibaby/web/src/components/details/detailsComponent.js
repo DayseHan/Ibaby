@@ -329,8 +329,15 @@ class detailsComponent extends Component{
             }, 3000);
         }
     render(){
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent/>;
+        }else{
+            html='';
+        }
         return (
             <div className="detailsbigBox">
+                {html}
                 <header className="head">
                     <i className="iconfont icon-shangyiye1" onClick={this.goBack.bind(this)}></i>
                     <div className="headcenter">
@@ -435,7 +442,7 @@ class detailsComponent extends Component{
                                 <li key={idx}>
                                     <h3>
                                         <span>
-                                            <img src={item.imgurl} alt="" />
+                                            <img src={item.imgurlsbring} alt="" />
                                         </span>
                                         <i>{item.userid}</i>
                                     </h3>
@@ -492,7 +499,7 @@ class detailsComponent extends Component{
                 <footer className="foot">
                     <div><i className="iconfont icon-dianpu"></i><span>店铺</span></div>
                     <div><i className="iconfont icon-iconrx"></i><span>客服</span></div>
-                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">{this.state.username === null ? this.state.ajaxgetcartcountresult :this.props.ajaxgetcartcountresult}</i><span>购物车</span></div>
+                    <div onClick={this.jumptoCart.bind(this)}><i className="iconfont icon-gouwuche"></i><i className="cartnumber">{this.state.username === null ? this.state.ajaxgetcartcountresult : this.props.ajaxgetcartcountresult}</i><span>购物车</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>立即购买</span></div>
                     <div onClick={this.addtoCart.bind(this)}><span>加入购物车</span></div>
                 </footer>

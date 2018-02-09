@@ -1,3 +1,6 @@
-.scrolltop{
-        width:1.066667rem;height:1.066667rem;border-radius:50%;text-align:center;line-height:1.066667rem;background:pink;opacity:0.8;position:absolute;bottom:3.333333rem;right:0.666667rem;z-index:9999;display:none;
-   }
+.scrollTop{
+    position: fixed;bottom:100px;right:20px;z-index:99;width:80px;height:80px;border-radius:5px;background: rgba(150, 149, 149, 0.356);text-align:center;line-height:80px;
+    span{
+        font-size: 45px;color: rgba(182, 169, 169, 0.753);
+    }
+}

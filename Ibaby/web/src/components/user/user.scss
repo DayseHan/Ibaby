@@ -1,5 +1,6 @@
 *{box-sizing:border-box;}
 .user{background-color: #F2F3F5;height:100%;display:flex;flex-direction:column;
+    .loading{background:rgba(0,0,0,0.2);}
     .top{display:flex;height: 1.2rem;line-height: 1.2rem;
             justify-content: space-between;padding: 0 0.373333rem;width: 100%;
             font-size: 0.586667rem;background-color: #FFF;

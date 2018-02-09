@@ -13,6 +13,7 @@ module.exports = {
         _app.post('/add_collect',function(_req,_res){
             var userid = _req.body.userid;
             var goodsid = _req.body.goodsid;
+            console.log(`update user set collects=concat(collects,'${goodsid},') where user_id = ${userid}`)
             db.update(`update user set collects=concat(collects,'${goodsid},') where user_id = ${userid}`,function(res){
                 _res.send(res);
             })
@@ -30,5 +31,23 @@ module.exports = {
                 _res.send(res);
             })
         });
+        _app.get('/getcartslist',function(_req,_res){
+            let uid =_req.query.uid;
+            let sql =`
+                select
+                    c.*,
+                    u.phone,
+                    g.*
+                from
+                    cart c
+                    inner join user u on c.userid = u.user_id
+                    inner join goodslist g on c.goodsid =g.id
+                where 
+                    c.userid = ${uid}
+                `;
+            db.select(sql,function(res){
+                _res.send(res)
+            })
+        })
     }
 }

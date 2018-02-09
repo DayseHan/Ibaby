@@ -4,6 +4,7 @@ import * as detailsConstants from './detailsConstarts.js'
 
 export function getGood(data){
     return {
+        types: [detailsConstants.DETAILS_RQUESTING, detailsConstants.DETAILS_RQUESTED, detailsConstants.DETAILS_RQUESTERROR],
         url: '/get_details',
         data: data
     }
@@ -53,7 +54,7 @@ export function addCart(color,size,count,goodsid,userid,username,price){
 export function getCartcount(data){
     return {
         types: [detailsConstants.GETCARTCOUNT_RQUESTING, detailsConstants.GETCARTCOUNT_RQUESTED, detailsConstants.GETCARTCOUNT_RQUESTERROR],
-        url: '/getcartlist',
+        url: '/getcartslist',
         data: {uid:data}
     }
 }
