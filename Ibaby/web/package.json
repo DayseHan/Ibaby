@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --progress --colors",
-    "start": "webpack-dev-server --open --devtool eval --progress --port 3002 --host 10.3.136.12 --colors --content-base ./"
+    "start": "webpack-dev-server --open --devtool eval --progress --port 3002 --host 10.3.136.8 --colors --content-base ./"
   },
   "devDependencies": {
     "antd-mobile-demo-data": "^0.2.0",

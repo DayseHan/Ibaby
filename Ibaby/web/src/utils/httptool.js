@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 
-axios.defaults.baseURL = 'http://10.3.136.12:88';
+axios.defaults.baseURL = 'http://172.27.35.1:88';
 
 export default {
     // get

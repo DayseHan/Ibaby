@@ -91,7 +91,7 @@ class detailsComponent extends Component{
          hashHistory.push('/cart')
      }
     closethecart(){
-        this.animate(this.refs.details_sizeColor,{bottom:-971});
+        this.animate(this.refs.details_sizeColor,{bottom:-1500});
         this.refs.overlay.style.display = 'none';
     }
     countDown(){
