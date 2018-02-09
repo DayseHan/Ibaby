@@ -18,11 +18,7 @@ const AgreeItem = Checkbox.AgreeItem;
 class CartComponent extends Component {
     componentWillMount(){
         var uid=localStorage.getItem('user_id')
-<<<<<<< HEAD
         this.props.getCartList(uid)
-=======
-        this.props.getCartList(uid);
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
         console.log(localStorage.getItem('user_id'))
         if(uid===null){
             hashHistory.push('/login')

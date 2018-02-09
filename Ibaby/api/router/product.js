@@ -128,7 +128,7 @@ module.exports = {
                     inner join goodslist g on u.goodsid =g.id
                 where 
 
-                    c.userid = ${uid} && status = 0
+                    c.userid = ${uid} && status = 0`
 
                 ;
              db.select(sql,function(result){

@@ -7,18 +7,10 @@ export default function bringReducer(state = {}, action){
         case (bringConstants.BRING_REQUESTING || bringConstants.ADDCART_RQUESTING):
             newState.status = 0;
             break;
-<<<<<<< HEAD
         case bringConstants.BRING_REQUESTED:
             newState.status = 1;
             newState.bringresult = action.result.data.results;
             console.log(newState.bringresult)
-=======
-        case ajaxConstants.AJAX_REQUESTED:
-            try{
-                newState.status = 1;
-                newState.result = action.result.data.results;
-            }catch(error){}
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
             break;
         case (bringConstants.BRING_REQUESTERROR || bringConstants.ADDCART_RQUESTERROR):
             newState.status = -1;

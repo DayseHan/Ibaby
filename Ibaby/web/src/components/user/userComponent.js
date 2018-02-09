@@ -5,6 +5,7 @@ import BackComponent from '../back/backComponent'
 import LoadingComponent from '../loading/loadingComponent'
 import FooterComponent from '../footer/footerComponent'
 import {Route,Link,hashHistory} from 'react-router'
+import {Toast} from 'antd-mobile';
 
 
 import './user.scss';
@@ -37,6 +38,12 @@ class UserComponent extends Component{
         })
         
     }
+    successToast(message) {
+        Toast.success(message, 2);
+    }
+    offline(message) {
+        Toast.offline(message,2);
+    }
 
     show_toggle2(l1,l2){
         // this.refs.loading.show();
@@ -49,9 +56,10 @@ class UserComponent extends Component{
                 hashHistory.push("/login");
             }else{
                 localStorage.clear();
-                setTimeout(()=>{
+                this.successToast('退出成功！')
+                // setTimeout(()=>{
                     // this.refs.loading.hide();
-                }, 1050)
+                // }, 1050)
             }
 
         })
@@ -64,8 +72,15 @@ class UserComponent extends Component{
     }
 
     render(){
+        let html;
+        if(this.props.ajaxStatus==0){
+            html=<LoadingComponent ref="loading"></LoadingComponent>;
+        }else{
+            html='';
+        }
         return (
-            <div className="user">       
+            <div className="user">     
+                {html}
                 <div className="top">
                         <i className="iconfont icon-pinglun1"></i>
                         <p>{JSON.parse(localStorage.getItem('username'))}</p>

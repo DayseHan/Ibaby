@@ -7,10 +7,6 @@ export default class LoadingComponent extends Component{
         _change:'block',
     }
 
-    componentDidMount(){
-        console.log(44444);
-    }
-
     componentWillReceiveProps(nextProps){
         console.log(this.props.change);
         console.log(nextProps);
@@ -31,7 +27,6 @@ export default class LoadingComponent extends Component{
         this.setState({_change: 'none'});
     }
     render(){
-        console.log(this.props.change); 
         return (
             <div className="loading" style={{display:this.state._change}}>
                 <Icon type="loading" />

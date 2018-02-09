@@ -12,7 +12,6 @@ const alert = Modal.alert;
 var add =''
 
 
-<<<<<<< HEAD
 // showAlert(){
 //     if(!add){
 //         const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
@@ -28,23 +27,6 @@ var add =''
 //         hashHistory.push('/payment');
 //     }
 // }
-=======
-const showAlert = () => {
-    if(!add){
-        const alertInstance = alert('提醒', '未填写收货地址信息，请先去添加地址', [
-            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
-            { text: '去添加', onPress: () => hashHistory.push('/address') },
-          ]);
-          setTimeout(() => {
-            // 可以调用close方法以在外部close
-            console.log('auto close');
-            alertInstance.close();
-          }, 500000);
-    }else{
-        hashHistory.push('/payment');
-    }
-}
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
  class settlementComponent extends Component{
     state={
         total:0,
@@ -85,15 +67,11 @@ const showAlert = () => {
            if(this.state.address){
              this.setState({showadd:''})
            }
-
-<<<<<<< HEAD
     }
     componentDidMount() {
         setTimeout(() => {
           Toast.hide();
         }, 3000);
-=======
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
     }
     orders(orderid){
         var uid=localStorage.getItem('user_id')
@@ -186,11 +164,7 @@ const showAlert = () => {
                                 this.state.total+=item.oldPrice*item.count,
                                 
                                 localStorage.setItem('total', this.state.total)
-<<<<<<< HEAD
                                 console.log(item)
-=======
-
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
                             }
                             return (    
                                 <li key={idx} >
@@ -239,10 +213,7 @@ const showAlert = () => {
 let mapStateToProps = (state) => {
     console.log(state)
     return {
-<<<<<<< HEAD
         ajaxStatus:state.settlement.status,
-=======
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
         settlement:state.settlement.result || []
     }
 }

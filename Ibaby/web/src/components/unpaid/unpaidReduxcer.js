@@ -17,6 +17,5 @@ export default function(state = {},action){
             newState.status = 1;
             break;
     }
-    console.log(newState.status)
     return newState;
 }

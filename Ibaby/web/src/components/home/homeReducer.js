@@ -10,10 +10,6 @@ export default function homeReducer(state = {}, action){
         case tabsConstants.BANNER_RQUESTED:
             newState.status = 1;
             newState.banner_result = action.result.data.results;
-<<<<<<< HEAD
-=======
-            // console.log(newState.result)
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
             break;
         case (tabsConstants.BANNER_REQUESTERROR || tabsConstants.TABS_RQUESTERROR):
             newState.status = -1;

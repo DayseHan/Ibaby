@@ -5,11 +5,7 @@ import PrevBack from '../back/backComponent'
 import {connect} from 'react-redux'
 import * as actions from './listAction'
 import ScrollBtn from '../scrollTop/scrollTop'
-<<<<<<< HEAD
 import LoadingComponent from '../loading/loadingComponent.js'
-=======
-
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
 class List extends Component{
     state = {
         selectList:[
@@ -62,10 +58,7 @@ class List extends Component{
         }
         return(
             <div className="listPage">
-<<<<<<< HEAD
                 {html}
-=======
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
                 <div className="list-header-top">
                     <div className="list-header">
                         <PrevBack/>

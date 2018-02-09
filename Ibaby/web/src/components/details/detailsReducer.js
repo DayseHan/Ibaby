@@ -7,21 +7,11 @@ export default function detailsReducer(state = {}, action){
         case (detailsConstants.DETAILS_RQUESTING || detailsConstants.ADDCART_RQUESTING ):
             newState.status = 0;
             break;
-<<<<<<< HEAD
         case detailsConstants.DETAILS_RQUESTED:
             newState.status = 1;
             newState.detailsresult = action.result.data.results[0];
             break;  
         case (detailsConstants.DETAILS_RQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
-=======
-        case ajaxConstants.AJAX_REQUESTED:
-            try{
-                newState.status = 1;
-                newState.detailsresult = action.result.data.results[0];
-            }catch(error){}
-            break;  
-        case (ajaxConstants.AJAX_REQUESTERROR || detailsConstants.ADDCART_RQUESTERROR || detailsConstants.GETCARTCOUNT_RQUESTERROR || detailsConstants.ADDCOLLECT_RQUESTERROR || detailsConstants.GETCOLOR_RQUESTERROR || detailsConstants.GETSIZE_RQUESTERROR || detailsConstants.GETIMGURL_RQUESTERROR):
->>>>>>> c470e37b6ed7eb5f31e4436a44ac04b65854f1e9
             newState.status = -1;
             newState.detailsresult = action.result.data;
             break;

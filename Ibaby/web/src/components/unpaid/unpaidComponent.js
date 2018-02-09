@@ -30,10 +30,10 @@ class UnpaidComponent extends Component{
         var user_id = JSON.parse(localStorage.getItem('user_id'));
         if(phone&&user_id){
             this.props.get_unpaid(user_id).then(res=>{
-                console.log(res);
+                // console.log(res);
                 if(res.data.results.length>0){
                     this.setState({order_id:res.data.results[0].orderid},()=>{
-                        console.log(this.state.order_id);
+                        // console.log(this.state.order_id);
                     })
                 }else{
                     this.setState({show:'block'})
@@ -74,9 +74,7 @@ class UnpaidComponent extends Component{
     render(){
 
         var arr = [];
-        {
-            console.log(this.props.ajaxStatus)
-        }
+        
         return (
             <div className="unpaid">
                 
