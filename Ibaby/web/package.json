@@ -44,12 +44,11 @@
   "dependencies": {
     "antd": "^3.2.0",
     "antd-mobile": "^2.1.5",
-    "antd-mobile-demo-data": "^0.2.0",
     "axios": "^0.17.1",
     "events": "^1.1.1",
     "flux": "^3.1.2",
-    "rc-form": "^2.1.7",
     "react-lazyload": "^2.3.0",
+    "react-masonry-component": "^6.0.2",
     "react-pullload": "^1.1.0"
   }
 }
